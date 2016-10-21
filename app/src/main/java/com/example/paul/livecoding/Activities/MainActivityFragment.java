@@ -1,10 +1,12 @@
-package com.example.paul.livecoding;
+package com.example.paul.livecoding.Activities;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.paul.livecoding.R;
 
 /**
  * A placeholder fragment containing a simple view.
