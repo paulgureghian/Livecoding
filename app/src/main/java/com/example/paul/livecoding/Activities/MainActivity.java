@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Activities;
+package com.example.paul.livecoding.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

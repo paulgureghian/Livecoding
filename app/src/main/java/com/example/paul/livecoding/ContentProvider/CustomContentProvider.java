@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.ContentProvider;
+package com.example.paul.livecoding.contentprovider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

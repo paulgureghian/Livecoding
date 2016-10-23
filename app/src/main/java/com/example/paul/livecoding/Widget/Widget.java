@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Widget;
+package com.example.paul.livecoding.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -6,7 +6,6 @@ import android.content.Context;
 import android.widget.RemoteViews;
 
 import com.example.paul.livecoding.R;
-
 
 public class Widget extends AppWidgetProvider {
 
