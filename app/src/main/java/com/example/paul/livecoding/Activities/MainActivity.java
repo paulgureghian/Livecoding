@@ -1,5 +1,6 @@
 package com.example.paul.livecoding.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,8 @@ import android.view.MenuItem;
 import com.example.paul.livecoding.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
