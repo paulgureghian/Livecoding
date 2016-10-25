@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.activities;
+package com.example.paul.livecoding.activivities_fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

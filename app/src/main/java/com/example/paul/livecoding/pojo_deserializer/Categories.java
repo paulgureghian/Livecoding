@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.pojo;
+package com.example.paul.livecoding.pojo_deserializer;
 
 public class Categories {
 

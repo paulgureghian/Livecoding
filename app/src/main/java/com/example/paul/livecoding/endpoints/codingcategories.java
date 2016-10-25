@@ -1,15 +1,14 @@
 package com.example.paul.livecoding.endpoints;
 
-import com.example.paul.livecoding.pojo.Categories;
+import com.example.paul.livecoding.pojo_deserializer.Categories;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public interface CodingCategories {
 
-    @GET("/api/CodingCategories")
+    @GET("/api/codingcategories/")
     Call<List<Categories>> getData();
 }
