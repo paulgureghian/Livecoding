@@ -8,13 +8,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface codingcategories {
+public interface CodingCategories {
 
-    @GET ("/api/codingcategories")
-    Call <List<Categories>> getData;
-
-
-
-
-
+    @GET("/api/CodingCategories")
+    Call<List<Categories>> getData();
 }

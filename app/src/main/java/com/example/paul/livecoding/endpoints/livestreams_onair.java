@@ -6,5 +6,5 @@ import retrofit2.http.Query;
 
 
 
-public interface livestreams_onair {
+public interface LiveStreams_OnAir {
 }
