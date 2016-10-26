@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="appwidget_text">Livecoding</string>
     <string name="add_widget">Add widget</string>
+    <string name="no_connection_made">No connection made</string>
+    <string name="failed">Failed</string>
+
 </resources>
