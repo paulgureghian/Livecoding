@@ -1,5 +1,8 @@
 package com.example.paul.livecoding.pojo_deserializer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Categories {
 
     String url;

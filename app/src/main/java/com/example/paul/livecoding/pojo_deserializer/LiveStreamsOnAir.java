@@ -1,98 +1,193 @@
-
 package com.example.paul.livecoding.pojo_deserializer;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class LiveStreamsOnAir {
 
-    @SerializedName("count")
+    @SerializedName("url")
     @Expose
-    private Integer count;
-    @SerializedName("next")
+    private String url;
+    @SerializedName("user")
     @Expose
-    private Object next;
-    @SerializedName("previous")
+    private String user;
+    @SerializedName("user__slug")
     @Expose
-    private Object previous;
-    @SerializedName("results")
+    private String userSlug;
+    @SerializedName("title")
     @Expose
-    private List<Result> results = new ArrayList<Result>();
+    private String title;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("coding_category")
+    @Expose
+    private String codingCategory;
+    @SerializedName("difficulty")
+    @Expose
+    private String difficulty;
+    @SerializedName("language")
+    @Expose
+    private String language;
+    @SerializedName("tags")
+    @Expose
+    private String tags;
+    @SerializedName("is_live")
+    @Expose
+    private Boolean isLive;
+    @SerializedName("viewers_live")
+    @Expose
+    private Integer viewersLive;
+    @SerializedName("viewing_urls")
+    @Expose
+    private List<String> viewingUrls = new ArrayList<String>();
+    @SerializedName("thumbnail_url")
+    @Expose
+    private String thumbnailUrl;
+    @SerializedName("embed_url")
+    @Expose
+    private String embedUrl;
 
-    /**
-     * 
-     * @return
-     *     The count
-     */
-    public Integer getCount() {
-        return count;
+    public String getUrl() {
+        return url;
     }
 
-    /**
-     * 
-     * @param count
-     *     The count
-     */
-    public void setCount(Integer count) {
-        this.count = count;
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    /**
-     * 
-     * @return
-     *     The next
-     */
-    public Object getNext() {
-        return next;
+
+    public String getUser() {
+        return user;
     }
 
-    /**
-     * 
-     * @param next
-     *     The next
-     */
-    public void setNext(Object next) {
-        this.next = next;
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    /**
-     * 
-     * @return
-     *     The previous
-     */
-    public Object getPrevious() {
-        return previous;
+
+    public String getUserSlug() {
+        return userSlug;
     }
 
-    /**
-     * 
-     * @param previous
-     *     The previous
-     */
-    public void setPrevious(Object previous) {
-        this.previous = previous;
+
+    public void setUserSlug(String userSlug) {
+        this.userSlug = userSlug;
     }
 
-    /**
-     * 
-     * @return
-     *     The results
-     */
-    public List<Result> getResults() {
-        return results;
+
+    public String getTitle() {
+        return title;
     }
 
-    /**
-     * 
-     * @param results
-     *     The results
-     */
-    public void setResults(List<Result> results) {
-        this.results = results;
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public String getCodingCategory() {
+        return codingCategory;
+    }
+
+
+    public void setCodingCategory(String codingCategory) {
+        this.codingCategory = codingCategory;
+    }
+
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+
+    public String getLanguage() {
+        return language;
+    }
+
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+
+    public String getTags() {
+        return tags;
+    }
+
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+
+    public Boolean getIsLive() {
+        return isLive;
+    }
+
+
+    public void setIsLive(Boolean isLive) {
+        this.isLive = isLive;
+    }
+
+
+    public Integer getViewersLive() {
+        return viewersLive;
+    }
+
+
+    public void setViewersLive(Integer viewersLive) {
+        this.viewersLive = viewersLive;
+    }
+
+
+    public List<String> getViewingUrls() {
+        return viewingUrls;
+    }
+
+
+    public void setViewingUrls(List<String> viewingUrls) {
+        this.viewingUrls = viewingUrls;
+    }
+
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+
+    public String getEmbedUrl() {
+        return embedUrl;
+    }
+
+
+    public void setEmbedUrl(String embedUrl) {
+        this.embedUrl = embedUrl;
     }
 
 }
