@@ -32,8 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
 
     List<LiveStreamsOnAir> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {
-    }.getType();
+    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {}.getType();
 
     Context context;
 
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         Gson gson = new GsonBuilder()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.livecoding.tv/v1/")
+                .baseUrl("https://www.livecoding.tv/v1")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
                         listType, new LiveStreamsOnAirDeserializer()).create()))
                 .build();
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         }
         if (code == 200) {
 
-            Toast.makeText(this, "Connection made", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, context.getResources().getString(R.string.connection_made), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, context.getResources().getString(R.string.no_connection_made) + String.valueOf(code),
                     Toast.LENGTH_LONG).show();

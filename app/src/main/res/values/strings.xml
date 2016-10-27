@@ -5,5 +5,5 @@
     <string name="add_widget">Add widget</string>
     <string name="no_connection_made">No connection made</string>
     <string name="failed">Failed</string>
-
+    <string name="connection_made">Connection made</string>
 </resources>
