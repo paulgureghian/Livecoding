@@ -30,5 +30,6 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.github.aliabozaid.oauth2library:OAuth2Library:0.0.3'
     testCompile 'junit:junit:4.12'
 }

@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface LiveStreams_OnAir {
 
-    @GET("/api/livestreams/onair/?format=json")
+    @GET("/v1/api/livestreams/onair/?format=json")
     Call<List<LiveStreamsOnAir>> getData();
 }

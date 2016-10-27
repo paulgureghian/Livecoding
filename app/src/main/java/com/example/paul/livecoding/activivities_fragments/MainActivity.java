@@ -46,11 +46,10 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
-
         Gson gson = new GsonBuilder()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.livecoding.tv/v1")
+                .baseUrl("https://www.livecoding.tv")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
                         listType, new LiveStreamsOnAirDeserializer()).create()))
                 .build();
