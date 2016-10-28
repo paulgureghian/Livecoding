@@ -12,6 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.abozaid.oauth2library.Controller.Controller;
+import com.abozaid.oauth2library.Model.Credential;
+import com.abozaid.oauth2library.OAuthToken;
 import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.endpoints.LiveStreams_OnAir;
 import com.example.paul.livecoding.pojo_deserializer.LiveStreamsOnAir;
@@ -29,10 +32,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
 
+    OAuthToken oAuthToken = new OAuthToken("https://www.livecoding.tv", "kBadIfKZYpgLTowhMreDXJ5ckyGz7t8BxUdIJ2XC", "yfhYWhsXkjct9R2bfHYVMGcdEQWNT7Plc99MYx98ejlJpc90Mj2hky3ADOPWeyTZz43KrjGrkQLEPUawkZnsmFfxm8RZQzqVZuQ4SxtdISBrDAqbjt1OWuv60LEBDL7R", this);
+    Credential credential = oAuthToken.getAccessTokenWithID("default");
+
     List<LiveStreamsOnAir> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {}.getType();
+    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {
+    }.getType();
 
     Context context;
 
@@ -45,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
 
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
+        AuthenticateUsingOAuth();
 
         Gson gson = new GsonBuilder()
                 .create();
@@ -104,12 +115,34 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         } else {
             Toast.makeText(this, context.getResources().getString(R.string.no_connection_made) + String.valueOf(code),
                     Toast.LENGTH_LONG).show();
-
-        }
-        }
-
-        @Override
-        public void onFailure (Call < List < LiveStreamsOnAir >> call, Throwable t){
-            Toast.makeText(this, context.getResources().getString(R.string.failed) , Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    public void onFailure(Call<List<LiveStreamsOnAir>> call, Throwable t) {
+        Toast.makeText(this, context.getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
+    }
+
+    public void AuthenticateUsingOAuth() {
+        if (credential == null || credential.getAccess_token() == null) {
+            oAuthToken.authenticateUsingOAuth("v1/api/oauth", "5592b3be0cf2921ec587d5)",
+                    "935eadc6-cd58-4743-8f14-5f7af391c992", "read write", "password",
+                    new Controller.MethodsCallback<Credential>() {
+                        @Override
+                        public void failure(Throwable throwable) {
+
+                        }
+
+                        @Override
+                        public void success(Credential credential) {
+
+                        }
+
+                        @Override
+                        public void responseBody(Call call) {
+
+                        }
+                    });
+        }
+    }
+}
