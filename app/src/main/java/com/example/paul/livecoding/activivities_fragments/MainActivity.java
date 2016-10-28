@@ -36,8 +36,12 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
 
-    OAuthToken oAuthToken = new OAuthToken("https://www.livecoding.tv", "kBadIfKZYpgLTowhMreDXJ5ckyGz7t8BxUdIJ2XC", "yfhYWhsXkjct9R2bfHYVMGcdEQWNT7Plc99MYx98ejlJpc90Mj2hky3ADOPWeyTZz43KrjGrkQLEPUawkZnsmFfxm8RZQzqVZuQ4SxtdISBrDAqbjt1OWuv60LEBDL7R", this);
-    Credential credential = oAuthToken.getAccessTokenWithID("default");
+    private static final String TAG = "Failure";
+    private static final String TAG1 = "Success";
+    private static final String TAG2 = "ResponseBody";
+
+    OAuthToken oAuthToken;
+    Credential credential;
 
     List<LiveStreamsOnAir> items;
     Type listType = new TypeToken<List<LiveStreamsOnAir>>() {
@@ -47,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        oAuthToken = new OAuthToken("https://www.livecoding.tv", "kBadIfKZYpgLTowhMreDXJ5ckyGz7t8BxUdIJ2XC",
+                "yfhYWhsXkjct9R2bfHYVMGcdEQWNT7Plc99MYx98ejlJpc90Mj2hky3ADOPWeyTZz43KrjGrkQLEPUawkZnsmFfxm8RZQzqVZuQ4SxtdISBrDAqbjt1OWuv60LEBDL7R", MainActivity.this);
+        credential = oAuthToken.getAccessTokenWithID("default");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -131,16 +139,24 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
                         @Override
                         public void failure(Throwable throwable) {
 
+                            Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "failed");
+
                         }
 
                         @Override
                         public void success(Credential credential) {
 
+                            if (credential != null) {
+                                oAuthToken.saveTokenWithID(credential, "default");
+                                Toast.makeText(MainActivity.this, credential.getAccess_token(), Toast.LENGTH_SHORT).show();
+                                Log.e(TAG1, "success");
+                            }
                         }
 
                         @Override
-                        public void responseBody(Call call) {
-
+                        public void responseBody(Call<Credential> call) {
+                            Log.e(TAG2, "responsebody");
                         }
                     });
         }
