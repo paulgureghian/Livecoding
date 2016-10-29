@@ -36,6 +36,10 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
 
+    private final String clientId;
+    private final String clientSecret;
+    private final String redirectUri;
+
     private static final String TAG = "Failure";
     private static final String TAG1 = "Success";
     private static final String TAG2 = "ResponseBody";
@@ -44,14 +48,18 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
     Credential credential;
 
     List<LiveStreamsOnAir> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {
-    }.getType();
+    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {}.getType();
 
     Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        oAuthToken = new OAuthToken("https://www.livecoding.tv", "kBadIfKZYpgLTowhMreDXJ5ckyGz7t8BxUdIJ2XC",
+
+        clientId = "kBadIfKZYpgLTowhMreDXJ5ckyGz7t8BxUdIJ2XC";
+
+
+
+        oAuthToken = new OAuthToken("https://www.livecoding.tv", ,
                 "yfhYWhsXkjct9R2bfHYVMGcdEQWNT7Plc99MYx98ejlJpc90Mj2hky3ADOPWeyTZz43KrjGrkQLEPUawkZnsmFfxm8RZQzqVZuQ4SxtdISBrDAqbjt1OWuv60LEBDL7R", MainActivity.this);
         credential = oAuthToken.getAccessTokenWithID("default");
 
@@ -68,13 +76,13 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         Gson gson = new GsonBuilder()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.livecoding.tv")
+                .baseUrl("https://www.livecoding.tv/o/authorize/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
                         listType, new LiveStreamsOnAirDeserializer()).create()))
                 .build();
         LiveStreams_OnAir liveStreams_onAir = retrofit.create(LiveStreams_OnAir.class);
         Call<List<LiveStreamsOnAir>> call = liveStreams_onAir.getData();
-        call.enqueue(this);
+//        call.enqueue(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -133,20 +141,17 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
 
     public void AuthenticateUsingOAuth() {
         if (credential == null || credential.getAccess_token() == null) {
-            oAuthToken.authenticateUsingOAuth("v1/api/oauth", "5592b3be0cf2921ec587d5)",
+            oAuthToken.authenticateUsingOAuth("v1/api/oauth/", "5592b3be0cf2921ec587d5)",
                     "935eadc6-cd58-4743-8f14-5f7af391c992", "read write", "password",
                     new Controller.MethodsCallback<Credential>() {
                         @Override
                         public void failure(Throwable throwable) {
-
                             Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "failed");
-
                         }
 
                         @Override
                         public void success(Credential credential) {
-
                             if (credential != null) {
                                 oAuthToken.saveTokenWithID(credential, "default");
                                 Toast.makeText(MainActivity.this, credential.getAccess_token(), Toast.LENGTH_SHORT).show();
