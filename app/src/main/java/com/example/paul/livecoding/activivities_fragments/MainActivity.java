@@ -36,20 +36,23 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
 
-    private final String clientId = "kBadIfKZYpgLTowhMreDXJ5ckyGz7t8BxUdIJ2XC";
-    private final String clientSecret = "yfhYWhsXkjct9R2bfHYVMGcdEQWNT7Plc99MYx98ejlJpc90Mj2hky3ADOPWeyTZz43KrjGrkQLEPUawkZnsmFfxm8RZQzqVZuQ4SxtdISBrDAqbjt1OWuv60LEBDL7R";
-    private final String redirectUri = "http://localhost/externalapp";
-    private final String authServer = "https://www.livecoding.tv/o/authorize";
+
+
+
+
+
+
+    List<LiveStreamsOnAir> items;
+    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {}.getType();
+
 
     private static final String TAG = "Failure";
     private static final String TAG1 = "Success";
     private static final String TAG2 = "ResponseBody";
 
-    OAuthToken oAuthToken;
-    Credential credential;
 
-    List<LiveStreamsOnAir> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {}.getType();
+
+
 
     Context context;
 
@@ -57,9 +60,6 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        oAuthToken = new OAuthToken(authServer + clientId + clientSecret + redirectUri);
-
-        credential = oAuthToken.getAccessTokenWithID("default");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
-        AuthenticateUsingOAuth();
+
 
         Gson gson = new GsonBuilder()
                 .create();
@@ -137,35 +137,10 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         Toast.makeText(this, context.getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
     }
 
-    public void AuthenticateUsingOAuth() {
-        if (credential == null || credential.getAccess_token() == null) {
 
-
-            oAuthToken.authenticateUsingOAuth("v1/api/oauth", "read write", "password"
-                    new Controller.MethodsCallback<Credential>() {
+                }
 
 
 
-                        @Override
-                        public void failure(Throwable throwable) {
-                            Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.e(TAG, "failed");
-                        }
 
-                        @Override
-                        public void success(Credential credential) {
-                            if (credential != null) {
-                                oAuthToken.saveTokenWithID(credential, "default");
-                                Toast.makeText(MainActivity.this, credential.getAccess_token(), Toast.LENGTH_SHORT).show();
-                                Log.e(TAG1, "success");
-                            }
-                        }
 
-                        @Override
-                        public void responseBody(Call<Credential> call) {
-                            Log.e(TAG2, "responsebody");
-                        }
-                    });
-        }
-    }
-}
