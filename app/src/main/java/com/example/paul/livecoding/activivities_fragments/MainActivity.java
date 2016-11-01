@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
                 Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
 
-                Toolbar toolbar = (Toolbar) findViewById(toolbar);
+                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setDisplayUseLogoEnabled(true);
                 getSupportActionBar().setIcon(R.mipmap.ic_launcher);
