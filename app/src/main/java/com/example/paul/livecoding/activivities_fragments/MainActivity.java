@@ -51,11 +51,12 @@ import static com.example.paul.livecoding.R.id.toolbar;
 
 public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
 
+    private static String RANDOM_STATE = "random_state_string";
     private static String CLIENT_ID = "kBadIfKZYpgLTowhMreDXJ5ckyGz7t8BxUdIJ2XC";
     private static String CLIENT_SECRET = "yfhYWhsXkjct9R2bfHYVMGcdEQWNT7Plc99MYx98ejlJpc90Mj2hky3ADOPWeyTZz43KrjGrkQLEPUawkZnsmFfxm8RZQzqVZuQ4SxtdISBrDAqbjt1OWuv60LEBDL7R";
     private static String REDIRECT_URI = "http://localhost/externalapp";
     private static String GRANT_TYPE = "implicit";
-    private static String OAUTH_TOKEN_URL = "https://www.livecoding.tv/o/auhorize?";
+    private static String OAUTH_TOKEN_URL = "https://www.livecoding.tv/o/auhorize/?client_id=" + CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
     WebView web;
     Button auth;
@@ -63,12 +64,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
     TextView Access;
 
     List<LiveStreamsOnAir> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {
-    }.getType();
-
-    private static final String TAG = "Failure";
-    private static final String TAG1 = "Success";
-    private static final String TAG2 = "ResponseBody";
+    Type listType = new TypeToken<List<LiveStreamsOnAir>>() {}.getType();
 
     Context context;
 
@@ -77,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
         pref = getSharedPreferences("AppPref", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
                 auth_dialog.setContentView(R.layout.auth_dialog);
                 web = (WebView) auth_dialog.findViewById(R.id.webv);
                 web.getSettings().setJavaScriptEnabled(true);
-                web.loadUrl(OAUTH_TOKEN_URL + "?redirect_uri=" + REDIRECT_URI + "&response_type=code&client_id" + CLIENT_ID);
+                web.loadUrl(OAUTH_TOKEN_URL + "?redirect_uri=" + REDIRECT_URI + "&response_type=token&client_id" + CLIENT_ID);
                 web.setWebViewClient(new WebViewClient() {
 
                     boolean authComplete = false;
@@ -184,10 +185,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
                 Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
                 pDialog.dismiss();
 
-                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-                setSupportActionBar(toolbar);
-                getSupportActionBar().setDisplayUseLogoEnabled(true);
-                getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
 
                 Gson gson = new GsonBuilder()
                         .create();

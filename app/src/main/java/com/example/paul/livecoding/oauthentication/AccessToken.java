@@ -2,8 +2,7 @@ package com.example.paul.livecoding.oauthentication;
 
 import android.util.Log;
 
-import com.abozaid.oauth2library.Controller.Controller;
-import com.abozaid.oauth2library.Controller.Controller.GetAccessToken;
+
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -46,7 +45,7 @@ public class AccessToken {
             httpClient = new DefaultHttpClient();
             httpPost = new HttpPost(address);
 
-            params.add(new BasicNameValuePair("code", token));
+            params.add(new BasicNameValuePair("token", token));
             params.add(new BasicNameValuePair("client_id", client_id));
             params.add(new BasicNameValuePair("client_secret", client_secret));
             params.add(new BasicNameValuePair("redirect-uri", redirect_uri));
