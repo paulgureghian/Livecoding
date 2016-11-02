@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
     private static String CLIENT_SECRET = "yfhYWhsXkjct9R2bfHYVMGcdEQWNT7Plc99MYx98ejlJpc90Mj2hky3ADOPWeyTZz43KrjGrkQLEPUawkZnsmFfxm8RZQzqVZuQ4SxtdISBrDAqbjt1OWuv60LEBDL7R";
     private static String REDIRECT_URI = "http://localhost/externalapp";
     private static String GRANT_TYPE = "implicit";
-    private static String OAUTH_TOKEN_URL = "https://www.livecoding.tv/o/auhorize/?client_id=" + CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
+    private static String OAUTH_TOKEN_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
     WebView web;
     Button auth;
