@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
 
             @Override
             public void onClick(View view) {
+
+                Log.e("URL", OAUTH_TOKEN_URL + "?redirect_uri=" + REDIRECT_URI + "&response_type=token&client_id" + CLIENT_ID);
                 auth_dialog = new Dialog(MainActivity.this);
                 auth_dialog.setContentView(R.layout.auth_dialog);
                 web = (WebView) auth_dialog.findViewById(R.id.webv);
