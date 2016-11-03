@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        this.setTitle(getResources().getString(R.string.live_sessions));
 
         Gson gson = new GsonBuilder()
                 .create();

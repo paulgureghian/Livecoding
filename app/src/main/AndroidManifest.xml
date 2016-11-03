@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -15,11 +14,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activivities_fragments.MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
 
         <provider
@@ -46,12 +44,10 @@
 
         <activity
             android:name=".activivities_fragments.LoginActivity"
-            android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 

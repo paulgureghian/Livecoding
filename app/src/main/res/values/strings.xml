@@ -7,7 +7,7 @@
     <string name="failed">Failed</string>
     <string name="connection_made">Connection made</string>
     <string name="title_activity_login">Login</string>
-
+    <string name="live_sessions">Live Sessions</string>
     <string name="login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

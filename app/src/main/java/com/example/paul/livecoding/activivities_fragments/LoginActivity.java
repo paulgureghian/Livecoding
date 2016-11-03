@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-
+        this.setTitle(getResources().getString(R.string.title_activity_login));
 
         pref = getSharedPreferences("AppPref", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
