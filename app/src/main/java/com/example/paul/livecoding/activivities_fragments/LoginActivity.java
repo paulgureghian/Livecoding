@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     private static String GRANT_TYPE = "implicit";
     private static String OAUTH_TOKEN_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
+    public static String access_token = null;
     WebView web;
     Button auth;
     SharedPreferences pref;
@@ -187,4 +188,74 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    @Override
+    public boolean overideUrlLoading(WebView view, String url) {
+
+        access_token = getAccessToken(url);
+        if (access_token != null) {
+
+            Intent liveStreamsIntent = new Intent(LoginActivity.this,
+                    MainActivity.class);
+            startActivity(liveStreamsIntent);
+
+        } else {
+            Toast.makeText(LoginActivity.this, "User needs to login", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+
+        web.loadUrl(OAUTH_TOKEN_URL);
+    }
+
+    private String getAccessToken(String OAUTH_TOKEN_URL) {
+
+        String token = null;
+        int tokenIndex = OAUTH_TOKEN_URL.indexOf("access_token");
+
+        if (tokenIndex != -1) {
+            tokenIndex = OAUTH_TOKEN_URL.substring(tokenIndex, OAUTH_TOKEN_URL.indexOf("&", tokenIndex));
+        }
+        return token;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
