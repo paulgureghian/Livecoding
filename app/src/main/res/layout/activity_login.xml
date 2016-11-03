@@ -23,4 +23,28 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="OAuth2 WebView"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/auth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:text="Sign in" />
+
+    <TextView
+        android:id="@+id/Access"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoLink="all"
+        android:textIsSelectable="true"
+        android:textSize="12sp" />
+
 </android.support.design.widget.CoordinatorLayout>

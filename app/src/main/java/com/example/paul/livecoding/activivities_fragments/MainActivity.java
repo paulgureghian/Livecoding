@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
                     @Override
                     public void onPageStarted(WebView view1, String url, Bitmap favicon) {
                         super.onPageStarted(view1, url, favicon);
+                        Log.e("page_started_url" , url);
                     }
 
                     String authCode;
