@@ -6,9 +6,9 @@
     <string name="no_connection_made">No connection made</string>
     <string name="failed">Failed</string>
     <string name="connection_made">Connection made</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Login</string>
 
-    <!-- Strings related to login -->
+    <string name="login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
