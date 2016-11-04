@@ -1,41 +1,22 @@
 package com.example.paul.livecoding.activivities_fragments;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.endpoints.LiveStreams_OnAir;
-import com.example.paul.livecoding.oauthentication.AccessToken;
 import com.example.paul.livecoding.pojo_deserializer.LiveStreamsOnAir;
 import com.example.paul.livecoding.pojo_deserializer.LiveStreamsOnAirDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -45,9 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static com.example.paul.livecoding.R.id.toolbar;
 
 public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
 
