@@ -66,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 webView = (WebView) findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
-                webView.loadUrl(OAUTH_URL);
                 webView.setWebViewClient(new WebViewClient() {
 
                     boolean authComplete = false;
