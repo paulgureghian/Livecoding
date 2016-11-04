@@ -55,50 +55,57 @@ public class LoginActivity extends AppCompatActivity {
         pref = getSharedPreferences("AppPref", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
         auth = (Button) findViewById(R.id.auth);
-        Dialog auth_dialog;
+        auth.setOnClickListener(new View.OnClickListener() {
 
-        webView = (WebView) findViewById(R.id.webv);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient() {
+            Dialog auth_dialog;
 
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            public void onClick(View arg0) {
+                auth_dialog = new Dialog(LoginActivity.this);
+                auth_dialog.setContentView(R.layout.auth_dialog);
 
-                access_token = getAccessToken(url);
-                if (access_token != null) {
+                webView = (WebView) findViewById(R.id.webv);
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.loadUrl(OAUTH_URL);
+                webView.setWebViewClient(new WebViewClient() {
 
-                    Intent liveStreamsIntent = new Intent(LoginActivity.this,
-                            MainActivity.class);
-                    startActivity(liveStreamsIntent);
+                    boolean authComplete = false;
+                    Intent resultIntent = new Intent();
 
-                } else {
-                    Toast.makeText(LoginActivity.this, "User needs to login", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                        access_token = getAccessToken(url);
+                        if (access_token != null) {
+
+                            Intent liveStreamsIntent = new Intent(LoginActivity.this,
+                                    MainActivity.class);
+                            startActivity(liveStreamsIntent);
+
+                        } else {
+                            Toast.makeText(LoginActivity.this, "User needs to login", Toast.LENGTH_SHORT).show();
+                        }
+                        return false;
+                    }
+                });
+
+                webView.loadUrl(OAUTH_URL);
+            }
+
+            private String getAccessToken(String OAUTH_URL) {
+
+                String token = null;
+                int tokenIndex = OAUTH_URL.indexOf("access_token");
+
+                if (tokenIndex != -1) {
+                    tokenIndex = OAUTH_URL.indexOf("=", tokenIndex) + 1;
+                    token = OAUTH_URL.substring(tokenIndex, OAUTH_URL.indexOf("&", tokenIndex));
                 }
-                return false;
+                return token;
             }
         });
-
-        webView.loadUrl(OAUTH_URL);
-    }
-
-    private String getAccessToken(String OAUTH_URL) {
-
-        String token = null;
-        int tokenIndex = OAUTH_URL.indexOf("access_token");
-
-        if (tokenIndex != -1) {
-            tokenIndex = OAUTH_URL.indexOf("=", tokenIndex) + 1;
-            token = OAUTH_URL.substring(tokenIndex, OAUTH_URL.indexOf("&", tokenIndex));
-        }
-        return token;
-
     }
 }
-
-
-
-
-
 
 
 
