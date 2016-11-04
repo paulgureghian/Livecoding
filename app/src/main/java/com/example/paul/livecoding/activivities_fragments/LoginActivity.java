@@ -50,6 +50,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.example.paul.livecoding.R.id.Access;
+import static com.example.paul.livecoding.R.id.auth;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -98,128 +100,129 @@ public class LoginActivity extends AppCompatActivity {
                     Intent resultIntent = new Intent();
 
                     @Override
-                    public void onPageStarted(WebView view1, String url, Bitmap favicon) {
-                        super.onPageStarted(view1, url, favicon);
-                        Log.e("page_started_url", url);
-                    }
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-                    String authCode;
+                        access_token = getAccessToken(url);
+                        if (access_token != null) {
 
-                    @Override
-                    public void onPageFinished(WebView view1, String url) {
-                        super.onPageFinished(view1, url);
+                            Intent liveStreamsIntent = new Intent(LoginActivity.this,
+                                    MainActivity.class);
+                            startActivity(liveStreamsIntent);
 
-                        if (url.contains("?code=") && authComplete != true) {
-                            Uri uri = Uri.parse(url);
-                            authCode = uri.getQueryParameter("code");
-                            Log.i("", "CODE: " + authCode);
-                            authComplete = true;
-                            resultIntent.putExtra("code", authCode);
-                            LoginActivity.this.setResult(Activity.RESULT_OK, resultIntent);
-                            setResult(Activity.RESULT_CANCELED, resultIntent);
-
-                            SharedPreferences.Editor edit = pref.edit();
-                            edit.putString("Code", authCode);
-                            edit.commit();
-                            auth_dialog.dismiss();
-                            new TokenGet().execute();
-                            Toast.makeText(getApplicationContext(), "Authorization code is: " + authCode, Toast.LENGTH_SHORT).show();
-                        } else if (url.contains("error_acccess_denied")) {
-                            Log.i("", "ACCESS_DENIED_HERE");
-                            resultIntent.putExtra("code", authCode);
-                            authComplete = true;
-                            setResult(Activity.RESULT_CANCELED, resultIntent);
-                            Toast.makeText(getApplicationContext(), "error occured", Toast.LENGTH_SHORT).show();
-
-                            auth_dialog.dismiss();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "User needs to login", Toast.LENGTH_SHORT).show();
                         }
+
+                        return false;
                     }
+
                 });
-                auth_dialog.show();
-                auth_dialog.setTitle("Authorize Livecoding");
-                auth_dialog.setCancelable(true);
+                web.loadUrl(OAUTH_TOKEN_URL);
+
+            }
+
+            private String getAccessToken(String OAUTH_TOKEN_URL) {
+
+                String token = null;
+                int tokenIndex = OAUTH_TOKEN_URL.indexOf("access_token");
+
+                if (tokenIndex != -1) {
+                    token = OAUTH_TOKEN_URL.substring(tokenIndex, OAUTH_TOKEN_URL.indexOf("&", tokenIndex));
+                }
+                return token;
+            }
+
+            @Override
+            public void onPageStarted(WebView view1, String url, Bitmap favicon) {
+                super.onPageStarted(view1, url, favicon);
+                Log.e("page_started_url", url);
+            }
+
+            String authCode;
+
+            @Override
+            public void onPageFinished(WebView view1, String url) {
+                super.onPageFinished(view1, url);
+
+                if (url.contains("?code=") && authComplete != true) {
+                    Uri uri = Uri.parse(url);
+                    authCode = uri.getQueryParameter("code");
+                    Log.i("", "CODE: " + authCode);
+                    authComplete = true;
+                    resultIntent.putExtra("code", authCode);
+                    LoginActivity.this.setResult(Activity.RESULT_OK, resultIntent);
+                    setResult(Activity.RESULT_CANCELED, resultIntent);
+
+                    SharedPreferences.Editor edit = pref.edit();
+                    edit.putString("Code", authCode);
+                    edit.commit();
+                    auth_dialog.dismiss();
+                    new TokenGet().execute();
+                    Toast.makeText(getApplicationContext(), "Authorization code is: " + authCode, Toast.LENGTH_SHORT).show();
+                } else if (url.contains("error_acccess_denied")) {
+                    Log.i("", "ACCESS_DENIED_HERE");
+                    resultIntent.putExtra("code", authCode);
+                    authComplete = true;
+                    setResult(Activity.RESULT_CANCELED, resultIntent);
+                    Toast.makeText(getApplicationContext(), "error occured", Toast.LENGTH_SHORT).show();
+
+                    auth_dialog.dismiss();
+                }
             }
         });
+        auth_dialog.show();
+        auth_dialog.setTitle("Authorize Livecoding");
+        auth_dialog.setCancelable(true);
     }
-
-    private class TokenGet extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        String Code;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(LoginActivity.this);
-            pDialog.setMessage("Contacting Livecoding...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            Code = pref.getString("Code", "");
-            pDialog.show();
+});
         }
 
-        @Override
-        protected JSONObject doInBackground(String... args) {
-
-            AccessToken jParser = new AccessToken();
-            JSONObject json = jParser.gettoken(OAUTH_TOKEN_URL, Code, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, GRANT_TYPE);
-            return json;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-            if (json != null) {
-                try {
-                    String tok = json.getString("access_token");
-                    String expire = json.getString("expires_in");
-                    String refresh = json.getString("refresh_token");
-
-                    Log.d("Token Access", tok);
-                    Log.d("Expire", expire);
-                    Log.d("Refresh", refresh);
-                    auth.setText("Authenticated");
-                    Access.setText("Access Token:" + tok + "nExpires:" + expire + "nRefresh Token:" + refresh);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
-                pDialog.dismiss();
-            }
-        }
-    }
-
+private class TokenGet extends AsyncTask<String, String, JSONObject> {
+    private ProgressDialog pDialog;
+    String Code;
 
     @Override
-    public boolean overideUrlLoading(WebView view, String url) {
-
-        access_token = getAccessToken(url);
-        if (access_token != null) {
-
-            Intent liveStreamsIntent = new Intent(LoginActivity.this,
-                    MainActivity.class);
-            startActivity(liveStreamsIntent);
-
-        } else {
-            Toast.makeText(LoginActivity.this, "User needs to login", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-
-        web.loadUrl(OAUTH_TOKEN_URL);
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pDialog = new ProgressDialog(LoginActivity.this);
+        pDialog.setMessage("Contacting Livecoding...");
+        pDialog.setIndeterminate(false);
+        pDialog.setCancelable(true);
+        Code = pref.getString("Code", "");
+        pDialog.show();
     }
 
-    private String getAccessToken(String OAUTH_TOKEN_URL) {
+    @Override
+    protected JSONObject doInBackground(String... args) {
 
-        String token = null;
-        int tokenIndex = OAUTH_TOKEN_URL.indexOf("access_token");
+        AccessToken jParser = new AccessToken();
+        JSONObject json = jParser.gettoken(OAUTH_TOKEN_URL, Code, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, GRANT_TYPE);
+        return json;
+    }
 
-        if (tokenIndex != -1) {
-            tokenIndex = OAUTH_TOKEN_URL.substring(tokenIndex, OAUTH_TOKEN_URL.indexOf("&", tokenIndex));
+    @Override
+    protected void onPostExecute(JSONObject json) {
+        pDialog.dismiss();
+        if (json != null) {
+            try {
+                String tok = json.getString("access_token");
+                String expire = json.getString("expires_in");
+                String refresh = json.getString("refresh_token");
+
+                Log.d("Token Access", tok);
+                Log.d("Expire", expire);
+                Log.d("Refresh", refresh);
+                auth.setText("Authenticated");
+                Access.setText("Access Token:" + tok + "nExpires:" + expire + "nRefresh Token:" + refresh);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+            pDialog.dismiss();
         }
-        return token;
     }
 }
-
 
 
 
