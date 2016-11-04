@@ -64,8 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                 auth_dialog = new Dialog(LoginActivity.this);
                 auth_dialog.setContentView(R.layout.auth_dialog);
 
-                webView = (WebView) findViewById(R.id.webv);
+                webView = (WebView) auth_dialog.findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
+                webView.loadUrl(OAUTH_URL);
                 webView.setWebViewClient(new WebViewClient() {
 
                     boolean authComplete = false;
