@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private WebView webView;
     public static String access_token = null;
-    private static String RANDOM_STATE = " random_state_string";
+    private static String RANDOM_STATE = "state = random_state_string";
     private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
     Button auth;
@@ -62,17 +62,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
 
-
                 auth_dialog = new Dialog(LoginActivity.this);
                 auth_dialog.setContentView(R.layout.auth_dialog);
                 auth_dialog.show();
+                auth_dialog.setCancelable(true);
 
 
                 webView = (WebView) auth_dialog.findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.loadUrl(OAUTH_URL);
                 webView.setWebViewClient(new WebViewClient() {
-
 
                     boolean authComplete = false;
                     Intent resultIntent = new Intent();
@@ -93,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
                         return false;
                     }
                 });
-
 
                 webView.loadUrl(OAUTH_URL);
             }
