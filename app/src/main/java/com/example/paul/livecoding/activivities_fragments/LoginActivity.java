@@ -61,13 +61,18 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
+
+
                 auth_dialog = new Dialog(LoginActivity.this);
                 auth_dialog.setContentView(R.layout.auth_dialog);
+                auth_dialog.show();
+
 
                 webView = (WebView) auth_dialog.findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.loadUrl(OAUTH_URL);
                 webView.setWebViewClient(new WebViewClient() {
+
 
                     boolean authComplete = false;
                     Intent resultIntent = new Intent();
@@ -88,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                         return false;
                     }
                 });
+
 
                 webView.loadUrl(OAUTH_URL);
             }
