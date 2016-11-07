@@ -33,7 +33,7 @@ import static com.example.paul.livecoding.R.id.auth;
 public class LoginActivity extends AppCompatActivity {
 
     private WebView webView;
-    public static String access_token;
+    public static String access_token = "";
     private static String RANDOM_STATE = "state=random_state_string";
     private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
@@ -79,12 +79,10 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-
                         access_token = getAccessToken(url);
-                        Log.e("access_token", access_token);
 
                         if (access_token != null) {
-
+                            Log.e("access_token", access_token);
                             Intent liveStreamsIntent = new Intent(LoginActivity.this,
                                     MainActivity.class);
                             startActivity(liveStreamsIntent);
