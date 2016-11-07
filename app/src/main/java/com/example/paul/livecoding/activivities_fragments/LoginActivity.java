@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private WebView webView;
     public static String access_token = null;
-    private static String RANDOM_STATE = "state = random_state_string";
+    private static String RANDOM_STATE = "state=random_state_string";
     private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
     Button auth;
@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
+
         pref = getSharedPreferences("AppPref", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
         auth = (Button) findViewById(R.id.auth);
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 auth_dialog.show();
                 auth_dialog.setCancelable(true);
 
-
+                Log.e("oauthurl", OAUTH_URL);
                 webView = (WebView) auth_dialog.findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.loadUrl(OAUTH_URL);
@@ -79,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
+                        Log.e("access token", access_token);
                         access_token = getAccessToken(url);
                         if (access_token != null) {
 
