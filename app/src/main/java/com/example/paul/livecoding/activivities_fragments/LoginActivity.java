@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("stored_token", access_token);
                             editor.commit();
                             String stored_token = pref.getString("stored_token", access_token);
-                            Log.e("stored_token_", access_token);
+                            Log.e("stored_token_", stored_token);
 
 
 
