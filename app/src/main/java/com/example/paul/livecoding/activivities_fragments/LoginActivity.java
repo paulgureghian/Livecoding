@@ -32,7 +32,7 @@ import static com.example.paul.livecoding.R.id.auth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String  ACCESS_TOKEN = "Access_Token";
+
     private WebView webView;
     public static String access_token = "";
     private static String RANDOM_STATE = "state=random_state_string";
@@ -53,14 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
-        pref= getSharedPreferences(ACCESS_TOKEN, MODE_PRIVATE);
+        pref= getSharedPreferences(access_token, MODE_PRIVATE);
         pref = getSharedPreferences("AppPref", MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(ACCESS_TOKEN, "access_token");
-        editor.commit();
-        String access_token_stored = pref.getString(ACCESS_TOKEN, "access_token");
-        Log.e("access_token_stored", ACCESS_TOKEN);
 
         Access = (TextView) findViewById(R.id.Access);
         auth = (Button) findViewById(R.id.auth);
@@ -92,6 +87,16 @@ public class LoginActivity extends AppCompatActivity {
                         access_token = getAccessToken(url);
 
                         if (access_token != null) {
+
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("stored_token", access_token);
+                            editor.commit();
+                            String stored_token = pref.getString("stored_token", access_token);
+                            Log.e("stored_token_", access_token);
+
+
+
+
                             Log.e("access_token", access_token);
 
                             Intent liveStreamsIntent = new Intent(LoginActivity.this,
