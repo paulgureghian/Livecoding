@@ -1,9 +1,6 @@
-package com.example.paul.livecoding.pojo_deserializer;
+package com.example.paul.livecoding.POJOs;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Categories {
+public class CodingCategories {
 
     String url;
     String name;

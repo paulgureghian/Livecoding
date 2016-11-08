@@ -1,6 +1,4 @@
-package com.example.paul.livecoding.endpoints;
-
-import com.example.paul.livecoding.pojo_deserializer.LiveStreamsOnAir;
+package com.example.paul.livecoding.Endpoints;
 
 import java.util.List;
 
@@ -10,5 +8,5 @@ import retrofit2.http.GET;
 public interface LiveStreams_OnAir {
 
     @GET("v1/api/livestreams/onair/?format=json")
-    Call<List<LiveStreamsOnAir>> getData();
+    Call<List<com.example.paul.livecoding.POJOs.LiveStreams_OnAir>> getData();
 }

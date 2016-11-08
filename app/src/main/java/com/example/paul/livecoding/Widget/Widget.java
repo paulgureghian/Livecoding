@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.widget;
+package com.example.paul.livecoding.Widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

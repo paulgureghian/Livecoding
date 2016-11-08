@@ -1,11 +1,11 @@
-package com.example.paul.livecoding.contentprovider;
+package com.example.paul.livecoding.ContentProvider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-public class CustomContentProvider extends ContentProvider {
+public class CustomContentProvider extends android.content.ContentProvider {
     public CustomContentProvider() {
     }
 

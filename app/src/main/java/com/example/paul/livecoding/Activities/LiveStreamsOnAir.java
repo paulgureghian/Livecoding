@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.activivities_fragments;
+package com.example.paul.livecoding.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,9 +11,7 @@ import android.widget.Toast;
 
 
 import com.example.paul.livecoding.R;
-import com.example.paul.livecoding.endpoints.LiveStreams_OnAir;
-import com.example.paul.livecoding.pojo_deserializer.LiveStreamsOnAir;
-import com.example.paul.livecoding.pojo_deserializer.LiveStreamsOnAirDeserializer;
+import com.example.paul.livecoding.POJOs.LiveStreams_OnAir;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -27,10 +25,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements Callback<List<LiveStreamsOnAir>> {
+public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List<LiveStreams_OnAir>> {
 
-    List<LiveStreamsOnAir> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAir>>() { }.getType();
+    List<LiveStreams_OnAir> items;
+    Type listType = new TypeToken<List<LiveStreams_OnAir>>() { }.getType();
 
     Context context;
 
@@ -38,23 +36,23 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_livestreams);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-        this.setTitle(getResources().getString(R.string.live_sessions));
+        this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
         Gson gson = new GsonBuilder()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.livecoding.tv/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
-                        listType, new LiveStreamsOnAirDeserializer()).create()))
+                        listType, new com.example.paul.livecoding.Deserializers.LiveStreamsOnAir()).create()))
                 .build();
-        LiveStreams_OnAir liveStreams_onAir = retrofit.create(LiveStreams_OnAir.class);
-        Call<List<LiveStreamsOnAir>> call = liveStreams_onAir.getData();
+        com.example.paul.livecoding.Endpoints.LiveStreams_OnAir liveStreams_onAir = retrofit.create(com.example.paul.livecoding.Endpoints.LiveStreams_OnAir.class);
+        Call<List<LiveStreams_OnAir>> call = liveStreams_onAir.getData();
 //        call.enqueue(this);
     }
 
@@ -79,15 +77,15 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
 
     @Override
     public void onResponse
-            (Call<List<LiveStreamsOnAir>> call, Response<List<LiveStreamsOnAir>> response) {
+            (Call<List<LiveStreams_OnAir>> call, Response<List<LiveStreams_OnAir>> response) {
 
         items = response.body();
         int code = response.code();
-        List<LiveStreamsOnAir> items = response.body();
+        List<LiveStreams_OnAir> items = response.body();
 
         Log.d("res", response.raw().toString());
 
-        for (LiveStreamsOnAir item : items) {
+        for (LiveStreams_OnAir item : items) {
             Log.i("item", item.getUser());
         }
         if (code == 200) {
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Liv
     }
 
     @Override
-    public void onFailure(Call<List<LiveStreamsOnAir>> call, Throwable t) {
+    public void onFailure(Call<List<LiveStreams_OnAir>> call, Throwable t) {
         Toast.makeText(this, context.getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
     }
 }

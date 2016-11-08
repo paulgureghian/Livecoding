@@ -16,17 +16,17 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activivities_fragments.MainActivity"
+            android:name=".Activities.LiveStreamsOnAir"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <provider
-            android:name=".contentprovider.CustomContentProvider"
+            android:name=".ContentProvider.CustomContentProvider"
             android:authorities="com.example.paul.livecoding"
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name=".widget.Widget">
+        <receiver android:name=".Widget.Widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -37,13 +37,13 @@
         </receiver>
 
         <service
-            android:name=".widget.WidgetService"
+            android:name=".Widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         android:enabled="true"
         android:exported="true"
 
         <activity
-            android:name=".activivities_fragments.LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>

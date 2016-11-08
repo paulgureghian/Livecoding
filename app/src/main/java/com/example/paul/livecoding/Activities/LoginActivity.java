@@ -1,15 +1,9 @@
-package com.example.paul.livecoding.activivities_fragments;
+package com.example.paul.livecoding.Activities;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
-
-import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,14 +18,7 @@ import android.widget.Toast;
 import com.example.paul.livecoding.BuildConfig;
 import com.example.paul.livecoding.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static com.example.paul.livecoding.R.id.Access;
-import static com.example.paul.livecoding.R.id.auth;
-
 public class LoginActivity extends AppCompatActivity {
-
 
     private WebView webView;
     public static String access_token = "";
@@ -53,9 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
-        pref= getSharedPreferences(access_token, MODE_PRIVATE);
+        pref = getSharedPreferences(access_token, MODE_PRIVATE);
         pref = getSharedPreferences("AppPref", MODE_PRIVATE);
-
 
         Access = (TextView) findViewById(R.id.Access);
         auth = (Button) findViewById(R.id.auth);
@@ -92,15 +78,11 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("stored_token", access_token);
                             editor.commit();
                             String stored_token = pref.getString("stored_token", access_token);
-                            Log.e("stored_token_", stored_token);
-
-
-
-
+                            Log.e("stored_token", stored_token);
                             Log.e("access_token", access_token);
 
                             Intent liveStreamsIntent = new Intent(LoginActivity.this,
-                                    MainActivity.class);
+                                    LiveStreamsOnAir.class);
                             startActivity(liveStreamsIntent);
 
                         } else {

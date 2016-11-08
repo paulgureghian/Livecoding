@@ -7,7 +7,7 @@
     android:background="@color/colorAccent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.example.paul.livecoding.activivities_fragments.MainActivity">
+    tools:context="com.example.paul.livecoding.Activities.LiveStreamsOnAir">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

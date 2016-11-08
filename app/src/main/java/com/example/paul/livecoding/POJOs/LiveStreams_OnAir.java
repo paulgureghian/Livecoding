@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.pojo_deserializer;
+package com.example.paul.livecoding.POJOs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LiveStreamsOnAir {
+public class LiveStreams_OnAir {
 
     @SerializedName("url")
     @Expose
