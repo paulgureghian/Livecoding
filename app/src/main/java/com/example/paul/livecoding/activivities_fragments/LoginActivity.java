@@ -32,6 +32,7 @@ import static com.example.paul.livecoding.R.id.auth;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String  ACCESS_TOKEN = "Access_Token";
     private WebView webView;
     public static String access_token = "";
     private static String RANDOM_STATE = "state=random_state_string";
@@ -52,7 +53,15 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
+        pref= getSharedPreferences(ACCESS_TOKEN, MODE_PRIVATE);
         pref = getSharedPreferences("AppPref", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(ACCESS_TOKEN, "access_token");
+        editor.commit();
+        String access_token_stored = pref.getString(ACCESS_TOKEN, "access_token");
+        Log.e("access_token_stored", ACCESS_TOKEN);
+
         Access = (TextView) findViewById(R.id.Access);
         auth = (Button) findViewById(R.id.auth);
         auth.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +76,11 @@ public class LoginActivity extends AppCompatActivity {
                 auth_dialog.show();
                 auth_dialog.setCancelable(true);
 
-                Log.e("oauthurl", OAUTH_URL);
                 webView = (WebView) auth_dialog.findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.loadUrl(OAUTH_URL);
+                Log.e("oauthurl", OAUTH_URL);
+
                 webView.setWebViewClient(new WebViewClient() {
 
                     boolean authComplete = false;
@@ -83,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (access_token != null) {
                             Log.e("access_token", access_token);
+
                             Intent liveStreamsIntent = new Intent(LoginActivity.this,
                                     MainActivity.class);
                             startActivity(liveStreamsIntent);
