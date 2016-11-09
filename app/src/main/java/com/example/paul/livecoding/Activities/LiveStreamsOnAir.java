@@ -31,8 +31,7 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
     String access_token;
     SharedPreferences pref;
     List<LiveStreams_OnAir> items;
-    Type listType = new TypeToken<List<LiveStreams_OnAir>>() {
-    }.getType();
+    Type listType = new TypeToken<List<LiveStreams_OnAir>>() {}.getType();
 
     Context context;
 
@@ -60,12 +59,12 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
         com.example.paul.livecoding.Endpoints.LiveStreams_OnAir liveStreams_onAir = retrofit.create(com.example.paul.livecoding.Endpoints.LiveStreams_OnAir.class);
 
         access_token = pref.getString("stored_token", access_token);
-         Log.e("livestreams_accesstoken", access_token);
+        Log.e("livestreams_accesstoken", access_token);
 
-    //    Call<List<LiveStreams_OnAir>> call = com.example.paul.livecoding.Endpoints.LiveStreams_OnAir.getData(access_token);
+        Call<List<LiveStreams_OnAir>> call = liveStreams_onAir.getData(access_token);
 
 
-//    call.enqueue(this);
+    call.enqueue(this);
     }
 
     @Override
