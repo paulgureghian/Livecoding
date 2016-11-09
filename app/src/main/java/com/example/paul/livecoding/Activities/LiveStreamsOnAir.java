@@ -1,6 +1,7 @@
 package com.example.paul.livecoding.Activities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List<LiveStreams_OnAir>> {
 
+    String access_token;
+    SharedPreferences preferences;
     List<LiveStreams_OnAir> items;
     Type listType = new TypeToken<List<LiveStreams_OnAir>>() { }.getType();
 
@@ -44,6 +47,10 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
+
+        preferences = getSharedPreferences(access_token, MODE_PRIVATE);
+
+
         Gson gson = new GsonBuilder()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -52,7 +59,14 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
                         listType, new com.example.paul.livecoding.Deserializers.LiveStreamsOnAir()).create()))
                 .build();
         com.example.paul.livecoding.Endpoints.LiveStreams_OnAir liveStreams_onAir = retrofit.create(com.example.paul.livecoding.Endpoints.LiveStreams_OnAir.class);
-        Call<List<LiveStreams_OnAir>> call = liveStreams_onAir.getData();
+
+
+
+
+
+
+
+        Call<List<LiveStreams_OnAir>> call = call.getData(access_token);
 
 
 //    call.enqueue(this);
