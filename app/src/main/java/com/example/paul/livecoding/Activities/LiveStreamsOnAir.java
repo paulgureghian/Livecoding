@@ -29,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List<LiveStreams_OnAir>> {
 
     String access_token;
-    SharedPreferences preferences;
+    SharedPreferences pref;
     List<LiveStreams_OnAir> items;
     Type listType = new TypeToken<List<LiveStreams_OnAir>>() {
     }.getType();
@@ -48,7 +48,7 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
-        preferences = getSharedPreferences(access_token, MODE_PRIVATE);
+        pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
         Gson gson = new GsonBuilder()
                 .create();
@@ -59,7 +59,7 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
                 .build();
         com.example.paul.livecoding.Endpoints.LiveStreams_OnAir liveStreams_onAir = retrofit.create(com.example.paul.livecoding.Endpoints.LiveStreams_OnAir.class);
 
-        access_token = preferences.getString("stored_token", access_token);
+        access_token = pref.getString("stored_token", access_token);
          Log.e("livestreams_accesstoken", access_token);
 
     //    Call<List<LiveStreams_OnAir>> call = com.example.paul.livecoding.Endpoints.LiveStreams_OnAir.getData(access_token);

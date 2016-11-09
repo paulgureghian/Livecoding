@@ -40,8 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
-        pref = getSharedPreferences(access_token, MODE_PRIVATE);
-        pref = getSharedPreferences("AppPref", MODE_PRIVATE);
+        pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
         Access = (TextView) findViewById(R.id.Access);
         auth = (Button) findViewById(R.id.auth);
