@@ -75,10 +75,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (access_token != null) {
 
                             SharedPreferences.Editor editor = pref.edit();
-                            editor.putString("stored_token", access_token);
+                            editor.putString("access_token", access_token);
                             editor.commit();
-                            String stored_token = pref.getString("stored_token", access_token);
-                            Log.e("stored_token", stored_token);
+
                             Log.e("access_token", access_token);
 
                             Intent liveStreamsIntent = new Intent(LoginActivity.this,

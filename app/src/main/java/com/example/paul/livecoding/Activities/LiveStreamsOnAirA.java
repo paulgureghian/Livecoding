@@ -53,10 +53,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
 
         pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
+      //  HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        //logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        //OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        //httpClient.addInterceptor(logging);
 
 
 
@@ -70,7 +70,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
                 .build();
         LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
 
-        access_token = pref.getString("stored_token", access_token);
+        access_token = pref.getString("access_token", access_token);
         Log.e("livestreams_accesstoken", access_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
