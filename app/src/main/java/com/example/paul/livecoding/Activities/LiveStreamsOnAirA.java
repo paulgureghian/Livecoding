@@ -18,7 +18,7 @@ import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.OkHttpClient;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -55,7 +55,11 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        OkHttpClient.
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+
+
 
         Gson gson = new GsonBuilder()
                 .create();
