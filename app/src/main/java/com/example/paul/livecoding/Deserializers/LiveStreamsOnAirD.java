@@ -1,6 +1,6 @@
 package com.example.paul.livecoding.Deserializers;
 
-import com.example.paul.livecoding.POJOs.LiveStreams_OnAir;
+import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -10,10 +10,10 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class LiveStreamsOnAir implements JsonDeserializer<List<LiveStreams_OnAir>> {
+public class LiveStreamsOnAirD implements JsonDeserializer<List<LiveStreamsOnAirP>> {
 
     @Override
-    public List<LiveStreams_OnAir> deserialize(JsonElement json, Type listType, JsonDeserializationContext context) throws JsonParseException {
+    public List<LiveStreamsOnAirP> deserialize(JsonElement json, Type listType, JsonDeserializationContext context) throws JsonParseException {
 
         return new Gson().fromJson(
 

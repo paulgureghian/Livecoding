@@ -11,8 +11,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import com.example.paul.livecoding.Deserializers.LiveStreamsOnAirD;
+import com.example.paul.livecoding.Endpoints.LiveStreamsOnAirE;
 import com.example.paul.livecoding.R;
-import com.example.paul.livecoding.POJOs.LiveStreams_OnAir;
+import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -26,12 +28,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List<LiveStreams_OnAir>> {
+public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<List<LiveStreamsOnAirP>> {
 
     String access_token;
     SharedPreferences pref;
-    List<LiveStreams_OnAir> items;
-    Type listType = new TypeToken<List<LiveStreams_OnAir>>() {}.getType();
+    List<LiveStreamsOnAirP> items;
+    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
 
     Context context;
 
@@ -54,14 +56,14 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.livecoding.tv/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
-                        listType, new com.example.paul.livecoding.Deserializers.LiveStreamsOnAir()).create()))
+                        listType, new LiveStreamsOnAirD()).create()))
                 .build();
-        com.example.paul.livecoding.Endpoints.LiveStreams_OnAir liveStreams_onAir = retrofit.create(com.example.paul.livecoding.Endpoints.LiveStreams_OnAir.class);
+        LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
 
         access_token = pref.getString("stored_token", access_token);
         Log.e("livestreams_accesstoken", access_token);
 
-        Call<List<LiveStreams_OnAir>> call = liveStreams_onAir.getData(access_token);
+        Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
 
 
     call.enqueue(this);
@@ -88,15 +90,15 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
 
     @Override
     public void onResponse
-            (Call<List<LiveStreams_OnAir>> call, Response<List<LiveStreams_OnAir>> response) {
+            (Call<List<LiveStreamsOnAirP>> call, Response<List<LiveStreamsOnAirP>> response) {
 
         items = response.body();
         int code = response.code();
-        List<LiveStreams_OnAir> items = response.body();
+        List<LiveStreamsOnAirP> items = response.body();
 
         Log.d("res", response.raw().toString());
 
-        for (LiveStreams_OnAir item : items) {
+        for (LiveStreamsOnAirP item : items) {
             Log.i("item", item.getUser());
         }
         if (code == 200) {
@@ -109,7 +111,7 @@ public class LiveStreamsOnAir extends AppCompatActivity implements Callback<List
     }
 
     @Override
-    public void onFailure(Call<List<LiveStreams_OnAir>> call, Throwable t) {
+    public void onFailure(Call<List<LiveStreamsOnAirP>> call, Throwable t) {
         Toast.makeText(this, context.getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
     }
 }

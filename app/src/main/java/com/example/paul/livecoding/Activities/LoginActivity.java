@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("access_token", access_token);
 
                             Intent liveStreamsIntent = new Intent(LoginActivity.this,
-                                    LiveStreamsOnAir.class);
+                                    LiveStreamsOnAirA.class);
                             startActivity(liveStreamsIntent);
 
                         } else {

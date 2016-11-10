@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Activities.LiveStreamsOnAir"
+            android:name=".Activities.LiveStreamsOnAirA"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

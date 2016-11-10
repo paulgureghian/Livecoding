@@ -1,13 +1,15 @@
 package com.example.paul.livecoding.Endpoints;
 
+import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 
-public interface LiveStreams_OnAir {
+public interface LiveStreamsOnAirE {
 
     @GET("v1/api/livestreams/onair/?format=json")
-    Call<List<com.example.paul.livecoding.POJOs.LiveStreams_OnAir>> getData(@Header());
+    Call<List<LiveStreamsOnAirP>> getData(@Header("Access-Token") String access_token);
 }
