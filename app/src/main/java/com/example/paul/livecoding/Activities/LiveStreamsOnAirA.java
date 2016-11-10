@@ -18,10 +18,12 @@ import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +53,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
 
         pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        OkHttpClient.
+
         Gson gson = new GsonBuilder()
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -64,9 +70,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         Log.e("livestreams_accesstoken", access_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
-
-
-    call.enqueue(this);
+        call.enqueue(this);
     }
 
     @Override
@@ -96,10 +100,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         int code = response.code();
         List<LiveStreamsOnAirP> items = response.body();
 
-        Log.d("res", response.raw().toString());
+        Log.e("res", response.raw().toString());
 
         for (LiveStreamsOnAirP item : items) {
-            Log.i("item", item.getUser());
+            Log.e("item", item.getUser());
         }
         if (code == 200) {
 

@@ -10,6 +10,9 @@ import retrofit2.http.Header;
 
 public interface LiveStreamsOnAirE {
 
-    @GET("v1/api/livestreams/onair/?format=json")
-    Call<List<LiveStreamsOnAirP>> getData(@Header("Access-Token") String access_token);
+    @GET("api/livestreams/onair/?format=json")
+    Call<List<LiveStreamsOnAirP>> getData(@Header("Content-Range") String access_token);
 }
+
+
+
