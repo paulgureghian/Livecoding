@@ -18,6 +18,7 @@ import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
 import okhttp3.OkHttpClient;
 
 import java.lang.reflect.Type;
@@ -53,13 +54,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
 
         pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
-      //  HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        //logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        //OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        //httpClient.addInterceptor(logging);
-
-
-
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
 
         Gson gson = new GsonBuilder()
                 .create();
@@ -67,13 +65,9 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
                 .baseUrl("https://www.livecoding.tv/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
                         listType, new LiveStreamsOnAirD()).create()))
+                .client(httpClient.build())
                 .build();
         LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
-
-
-
-
-
 
         access_token = pref.getString("access_token", access_token);
         Log.e("livestreams_accesstoken", access_token);
