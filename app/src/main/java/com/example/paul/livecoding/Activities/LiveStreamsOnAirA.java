@@ -110,16 +110,16 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         }
         if (code == 200) {
 
-            Toast.makeText(this, context.getResources().getString(R.string.connection_made), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.connection_made), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, context.getResources().getString(R.string.no_connection_made) + String.valueOf(code),
+            Toast.makeText(this, getResources().getString(R.string.no_connection_made) + String.valueOf(code),
                     Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onFailure(Call<List<LiveStreamsOnAirP>> call, Throwable t) {
-        Toast.makeText(this, context.getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
     }
 }
 
