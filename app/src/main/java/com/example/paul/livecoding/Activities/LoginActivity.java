@@ -3,7 +3,7 @@ package com.example.paul.livecoding.Activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.media.MediaBrowserCompat;
+
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private static String RANDOM_STATE = "state=random_state_string";
     private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
-    Intent intent;
     Button auth;
     SharedPreferences pref;
     TextView Access;
@@ -65,9 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 webView.setWebViewClient(new WebViewClient() {
 
-                    boolean authComplete = false;
-                    Intent resultIntent = new Intent();
-
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
@@ -84,8 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent liveStreamsIntent = new Intent(LoginActivity.this,
                                     LiveStreamsOnAirA.class);
 
-                           liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  |  Intent.FLAG_ACTIVITY_NEW_TASK);
-
+                           liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                             startActivity(liveStreamsIntent);
 
