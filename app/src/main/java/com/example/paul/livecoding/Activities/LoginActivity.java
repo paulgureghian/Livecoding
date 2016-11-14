@@ -44,12 +44,13 @@ public class LoginActivity extends AppCompatActivity {
         pref = getSharedPreferences("access_token", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
 
-        if (!access_token.isEmpty()) {
+        String stored_token = pref.getString("access_token", access_token);
+        if (!stored_token.isEmpty()) {
 
             liveStreamsIntent = new Intent(LoginActivity.this,
                     LiveStreamsOnAirA.class);
             startActivity(liveStreamsIntent);
-
+            Log.e("stored_token", stored_token);
         }
 
 
