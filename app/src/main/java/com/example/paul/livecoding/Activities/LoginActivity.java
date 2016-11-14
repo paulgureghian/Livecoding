@@ -21,14 +21,14 @@ import com.example.paul.livecoding.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private WebView webView;
     public static String access_token = "";
     private static String RANDOM_STATE = "state=random_state_string";
-    private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
     Intent liveStreamsIntent;
     Button auth;
     SharedPreferences pref;
     TextView Access;
+    private WebView webView;
+    private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,15 @@ public class LoginActivity extends AppCompatActivity {
 
             liveStreamsIntent = new Intent(LoginActivity.this,
                     LiveStreamsOnAirA.class);
+
+            liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
             startActivity(liveStreamsIntent);
             Log.e("stored_token", stored_token);
-        }
 
+        } else {
+            Toast.makeText(LoginActivity.this, "User needs to login & authorize", Toast.LENGTH_SHORT).show();
+        }
 
         auth = (Button) findViewById(R.id.auth);
         auth.setOnClickListener(new View.OnClickListener() {
@@ -85,17 +90,16 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("access_token", access_token);
                             editor.commit();
 
-                            Log.e("access_token", access_token);
-
-                             liveStreamsIntent = new Intent(LoginActivity.this,
+                            liveStreamsIntent = new Intent(LoginActivity.this,
                                     LiveStreamsOnAirA.class);
 
-                           liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                             startActivity(liveStreamsIntent);
+                            Log.e("access_token", access_token);
 
                         } else {
-                            Toast.makeText(LoginActivity.this, "User needs to login", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "User needs to login & authorize", Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }
