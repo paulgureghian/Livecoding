@@ -38,7 +38,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
     String access_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
+    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {
+    }.getType();
 
     Context context;
 
@@ -57,29 +58,9 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-
-        Gson gson = new GsonBuilder()
-                .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.livecoding.tv/")
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
-                        listType, new LiveStreamsOnAirD()).create()))
-                .client(httpClient.build())
-                .build();
-        LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
-
-        access_token = pref.getString("access_token", access_token);
-        Log.e("livestreams_accesstoken", access_token);
-
-        Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
-        call.enqueue(this);
     }
 
     @Override
@@ -101,34 +82,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onResponse
-            (Call<List<LiveStreamsOnAirP>> call, Response<List<LiveStreamsOnAirP>> response) {
-
-        items = response.body();
-        int code = response.code();
-        List<LiveStreamsOnAirP> items = response.body();
-
-        Log.e("res", response.raw().toString());
-
-        for (LiveStreamsOnAirP item : items) {
-            Log.e("item", item.getUser());
-        }
-        if (code == 200) {
-
-            Toast.makeText(this, getResources().getString(R.string.connection_made), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, getResources().getString(R.string.no_connection_made) + String.valueOf(code),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onFailure(Call<List<LiveStreamsOnAirP>> call, Throwable t) {
-        Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
-    }
 }
-
 
 
 
