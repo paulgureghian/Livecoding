@@ -57,7 +57,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
