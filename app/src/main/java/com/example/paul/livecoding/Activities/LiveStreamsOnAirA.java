@@ -2,6 +2,7 @@ package com.example.paul.livecoding.Activities;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.example.paul.livecoding.Deserializers.LiveStreamsOnAirD;
 import com.example.paul.livecoding.Endpoints.LiveStreamsOnAirE;
 import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
+import com.example.paul.livecoding.Services.LiveStreamsIntentService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +39,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,6 +55,12 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
+        if (savedInstanceState == null){
+        //    if (isConnected)
+        }
+
     }
 
     @Override
