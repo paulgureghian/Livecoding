@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,7 +15,9 @@ import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.example.paul.livecoding.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -28,12 +31,14 @@ import static com.example.paul.livecoding.Activities.LoginActivity.access_token;
 
 public class LiveStreamsIntentService extends IntentService {
 
+    String access_token;
+    SharedPreferences pref;
+    List<LiveStreamsOnAirP> items;
+    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {  }.getType();
+
     public LiveStreamsIntentService() {
         super("LiveStreamsIntentService");
     }
-
-    private NotificationCompat.Builder notificationbuilder;
-    private NotificationManager notificationManager;
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -42,6 +47,8 @@ public class LiveStreamsIntentService extends IntentService {
     }
 
     private void initDownload() {
+
+        pref = getSharedPreferences("access_token", MODE_PRIVATE);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
@@ -62,37 +69,11 @@ public class LiveStreamsIntentService extends IntentService {
         Log.e("livestreams_accesstoken", access_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
-        call.enqueue(this);
+
     }
 }
 
-    @Override
-    public void onResponse
-            (Call<List<LiveStreamsOnAirP>> call, Response<List<LiveStreamsOnAirP>> response) {
 
-        items = response.body();
-        int code = response.code();
-        List<LiveStreamsOnAirP> items = response.body();
-
-        Log.e("res", response.raw().toString());
-
-        for (LiveStreamsOnAirP item : items) {
-            Log.e("item", item.getUser());
-        }
-        if (code == 200) {
-
-            Toast.makeText(this, getResources().getString(R.string.connection_made), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, getResources().getString(R.string.no_connection_made) + String.valueOf(code),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onFailure(Call<List<LiveStreamsOnAirP>> call, Throwable t) {
-        Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
-    }
-}
 
 
 

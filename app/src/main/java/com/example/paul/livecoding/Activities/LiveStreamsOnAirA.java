@@ -1,6 +1,8 @@
 package com.example.paul.livecoding.Activities;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,15 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<List<LiveStreamsOnAirP>> {
-
-    String access_token;
-    SharedPreferences pref;
-    List<LiveStreamsOnAirP> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {
-    }.getType();
-
-    Context context;
+public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +49,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
-        pref = getSharedPreferences("access_token", MODE_PRIVATE);
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-
     }
 
     @Override
@@ -82,6 +72,20 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Lis
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader loader, Object data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+
+    }
 }
 
 
