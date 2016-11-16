@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -38,9 +40,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
-
+    Context context;
     Intent intent;
-
+    Boolean isConnected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,12 +55,21 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
         if (savedInstanceState == null){
-        //    if (isConnected)
+            if (isConnected){
+                startService(intent);
+            }else {
+                Toast.makeText(context,getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
