@@ -55,6 +55,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
+        context = this;
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         isConnected = activeNetwork != null &&
