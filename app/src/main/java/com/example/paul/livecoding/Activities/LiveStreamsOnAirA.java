@@ -43,6 +43,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     Context context;
     Intent intent;
     Boolean isConnected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -65,11 +66,11 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
-        if (savedInstanceState == null){
-            if (isConnected){
+        if (savedInstanceState == null) {
+            if (isConnected) {
                 startService(intent);
-            }else {
-                Toast.makeText(context,getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
             }
         }
 
