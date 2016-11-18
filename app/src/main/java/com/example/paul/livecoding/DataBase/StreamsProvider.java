@@ -36,7 +36,7 @@ public class StreamsProvider{
                 name = "STREAMS_ID",
                 path = Path.STREAMS + "/*",
                 type = "vnd.android.cursor.item/stream",
-                whereColumn = StreamsColumns.SYMBOL
+                whereColumn = StreamsColumns.USER,
 
         )
 
