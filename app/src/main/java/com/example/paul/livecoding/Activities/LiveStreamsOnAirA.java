@@ -2,9 +2,10 @@ package com.example.paul.livecoding.Activities;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -12,36 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
-import com.example.paul.livecoding.Deserializers.LiveStreamsOnAirD;
-import com.example.paul.livecoding.Endpoints.LiveStreamsOnAirE;
+import com.example.paul.livecoding.Adapters.StreamsCursorAdapter;
 import com.example.paul.livecoding.R;
-import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.example.paul.livecoding.Services.LiveStreamsIntentService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import okhttp3.OkHttpClient;
+public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-import java.lang.reflect.Type;
-import java.util.List;
-
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks {
-
-
+    private static final int CURSOR_LOADER_ID = 0;
+    public Cursor cursor;
+    public StreamsCursorAdapter streamsCursorAdapter;
     Context context;
     Intent intent;
     Boolean isConnected;
@@ -66,6 +50,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
+        streamsCursorAdapter = new StreamsCursorAdapter(this,null);
+        recyclerView.setAdapter(streamsCursorAdapter);
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
         if (savedInstanceState == null) {
@@ -98,12 +86,16 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     }
 
     @Override
-    public Loader onCreateLoader(int id, Bundle args) {
-        return null;
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        return new CursorLoader(this, null,null,null,null,null);
     }
 
     @Override
-    public void onLoadFinished(Loader loader, Object data) {
+    public void onLoadFinished(Loader <Cursor> loader, Cursor data) {
+
+    streamsCursorAdapter.swapCursor(data);
+
 
     }
 

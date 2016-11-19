@@ -10,6 +10,9 @@ import net.simonvt.schematic.annotation.Unique;
 
 public class StreamsColumns {
 
+    @DataType(DataType.Type.INTEGER)@PrimaryKey @AutoIncrement
+    public static final String _ID = "_id";
+
     @DataType(DataType.Type.TEXT)
     @NotNull
     public static final String _URL = " _url";
