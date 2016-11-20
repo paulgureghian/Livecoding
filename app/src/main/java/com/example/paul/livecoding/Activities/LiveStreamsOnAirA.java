@@ -104,7 +104,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-
+           streamsCursorAdapter.swapCursor(null);
     }
 }
 
