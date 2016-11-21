@@ -73,7 +73,19 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(StreamsColumns._URL, "_url");
-
+        contentValues.put(StreamsColumns.USER, "user");
+        contentValues.put(StreamsColumns.USER_SLUG, "user_slug");
+        contentValues.put(StreamsColumns.TITLE, "title");
+        contentValues.put(StreamsColumns.DESCRIPTION, "description");
+        contentValues.put(StreamsColumns.CODING_CATEGORY, "coding_category");
+        contentValues.put(StreamsColumns.DIFFICULTY, "difficulty");
+        contentValues.put(StreamsColumns.LANGUAGE, "language");
+        contentValues.put(StreamsColumns.TAGS, "tags");
+        contentValues.put(StreamsColumns.IS_LIVE, "is_live");
+        contentValues.put(StreamsColumns.VIEWERS_LIVE, "viewers_live");
+        contentValues.put(StreamsColumns.VIEWING_URLS, "viewing_urls");
+        contentValues.put(StreamsColumns.THUMBNAIL_URL, "thumbnail_url");
+        contentValues.put(StreamsColumns.EMBED_URL, "embed_url");
 
         getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI,
                 contentValues);
