@@ -1,11 +1,15 @@
 package com.example.paul.livecoding.Services;
 
 import android.app.IntentService;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.paul.livecoding.DataBase.StreamsColumns;
+import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.Deserializers.LiveStreamsOnAirD;
 import com.example.paul.livecoding.Endpoints.LiveStreamsOnAirE;
 import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
@@ -24,8 +28,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.R.attr.id;
+
 public class LiveStreamsIntentService extends IntentService implements Callback<List<LiveStreamsOnAirP>> {
 
+    Context context;
     String access_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
@@ -39,7 +46,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     protected void onHandleIntent(Intent intent) {
 
         initDownload();
-
     }
 
     private void initDownload() {
@@ -64,6 +70,13 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(StreamsColumns._ID, "_id");
+        contentValues.put(StreamsColumns._URL, "_url");
+
+        context.getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI,
+                contentValues);
     }
 
     @Override
@@ -88,8 +101,11 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     @Override
     public void onFailure(Call<List<LiveStreamsOnAirP>> call, Throwable t) {
         Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
     }
 }
+
+
 
 
 

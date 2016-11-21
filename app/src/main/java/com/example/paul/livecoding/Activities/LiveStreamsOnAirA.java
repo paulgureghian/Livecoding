@@ -6,6 +6,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -90,15 +91,13 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         return new CursorLoader(this, StreamsProvider.Streams.CONTENT_URI, null, null, null, null);
-
-
-
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
         streamsCursorAdapter.swapCursor(data);
+        DatabaseUtils.dumpCursor(data);
     }
 
     @Override
