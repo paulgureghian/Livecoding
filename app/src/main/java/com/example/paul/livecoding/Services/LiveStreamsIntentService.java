@@ -72,10 +72,10 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         call.enqueue(this);
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(StreamsColumns._ID, "_id");
         contentValues.put(StreamsColumns._URL, "_url");
 
-        context.getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI,
+
+        getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI,
                 contentValues);
     }
 
