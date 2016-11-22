@@ -47,7 +47,7 @@
         </activity>
 
         <service
-            android:name=".Services.LiveStreamsIntentService"
+            android:name=".Service.LiveStreamsIntentService"
             android:exported="true" />
 
         <provider

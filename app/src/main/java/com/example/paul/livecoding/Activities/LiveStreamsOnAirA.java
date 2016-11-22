@@ -18,10 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.paul.livecoding.Adapters.StreamsCursorAdapter;
+import com.example.paul.livecoding.Adapter.StreamsCursorAdapter;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.R;
-import com.example.paul.livecoding.Services.LiveStreamsIntentService;
+import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -54,8 +54,16 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
-        streamsCursorAdapter = new StreamsCursorAdapter(this, null);
+
+
+        streamsCursorAdapter = new StreamsCursorAdapter( Context context, Cursor c, int flags   );
+
+
+
         recyclerView.setAdapter(streamsCursorAdapter);
+
+
+
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
         if (savedInstanceState == null) {
@@ -103,7 +111,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-           streamsCursorAdapter.swapCursor(null);
+        streamsCursorAdapter.swapCursor(null);
     }
 }
 

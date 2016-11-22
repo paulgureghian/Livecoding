@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Services;
+package com.example.paul.livecoding.Service;
 
 import android.app.IntentService;
 import android.content.ContentValues;
@@ -27,8 +27,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.R.attr.id;
 
 public class LiveStreamsIntentService extends IntentService implements Callback<List<LiveStreamsOnAirP>> {
 
@@ -86,6 +84,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         contentValues.put(StreamsColumns.VIEWING_URLS, "viewing_urls");
         contentValues.put(StreamsColumns.THUMBNAIL_URL, "thumbnail_url");
         contentValues.put(StreamsColumns.EMBED_URL, "embed_url");
+
+        Log.e("content_values", String.valueOf(contentValues));
 
         getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI,
                 contentValues);
