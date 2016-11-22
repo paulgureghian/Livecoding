@@ -18,7 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.paul.livecoding.Adapter.StreamsCursorAdapter;
+import com.example.paul.livecoding.Adapter.StreamsAdapter;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.Service.LiveStreamsIntentService;
@@ -26,8 +26,7 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int CURSOR_LOADER_ID = 0;
-    public Cursor cursor;
-    public StreamsCursorAdapter streamsCursorAdapter;
+    public StreamsAdapter adapter;
     Context context;
     Intent intent;
     Boolean isConnected;
@@ -55,15 +54,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
-
-        streamsCursorAdapter = new StreamsCursorAdapter( Context context, Cursor c, int flags   );
-
-
-
-        recyclerView.setAdapter(streamsCursorAdapter);
-
-
-
+        adapter = new StreamsAdapter();
+        recyclerView.setAdapter(adapter);
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
         if (savedInstanceState == null) {
@@ -73,7 +65,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                 Toast.makeText(context, getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     @Override
@@ -104,14 +95,14 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        streamsCursorAdapter.swapCursor(data);
+        adapter.swapCursor(data);
         DatabaseUtils.dumpCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-        streamsCursorAdapter.swapCursor(null);
+        adapter.swapCursor(null);
     }
 }
 
