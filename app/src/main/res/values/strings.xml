@@ -1,5 +1,5 @@
 <resources>
-
+    <string name="thumbnails">Thumbnails</string>
     <string name="app_name">Livecoding</string>
     <string name="action_settings">Settings</string>
     <string name="appwidget_text">Livecoding</string>

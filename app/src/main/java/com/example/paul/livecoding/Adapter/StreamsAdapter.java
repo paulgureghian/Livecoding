@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 public class StreamsAdapter extends RecyclerView.Adapter {
 
-    private Cursor cursor;
     private Context context;
 
     @Override
@@ -25,9 +24,10 @@ public class StreamsAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public Cursor swapCursor(Cursor newCusor) {
-        cursor = newCusor;
+    public Cursor swapCursor(Cursor newCursor) {
+        Cursor cursor;
+        cursor = newCursor;
         notifyDataSetChanged();
-        return newCusor;
+        return cursor;
     }
 }

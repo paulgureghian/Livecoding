@@ -26,7 +26,7 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int CURSOR_LOADER_ID = 0;
-    public StreamsAdapter adapter;
+    public StreamsAdapter streamsAdapter;
     Context context;
     Intent intent;
     Boolean isConnected;
@@ -54,8 +54,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
-        adapter = new StreamsAdapter();
-        recyclerView.setAdapter(adapter);
+        streamsAdapter = new StreamsAdapter();
+        recyclerView.setAdapter(streamsAdapter);
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
         if (savedInstanceState == null) {
@@ -95,14 +95,14 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        adapter.swapCursor(data);
+        streamsAdapter.swapCursor(data);
         DatabaseUtils.dumpCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-        adapter.swapCursor(null);
+        streamsAdapter.swapCursor(null);
     }
 }
 
