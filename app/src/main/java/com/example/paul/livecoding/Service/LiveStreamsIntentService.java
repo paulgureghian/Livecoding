@@ -2,7 +2,6 @@ package com.example.paul.livecoding.Service;
 
 import android.app.IntentService;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -30,11 +29,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LiveStreamsIntentService extends IntentService implements Callback<List<LiveStreamsOnAirP>> {
 
-    Context context;
     String access_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
     Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
+
+   public static final int COL_URL =0;
+
 
     public LiveStreamsIntentService() {
         super("LiveStreamsIntentService");
