@@ -1,7 +1,6 @@
 package com.example.paul.livecoding.Service;
 
 import android.app.IntentService;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,7 +35,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     List<LiveStreamsOnAirP> items;
     Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
 
-   public static final int COL_URL =0;
+    public static final int COL_URL = 0;
 
     public LiveStreamsIntentService() {
         super("LiveStreamsIntentService");
@@ -102,8 +101,23 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
         for (LiveStreamsOnAirP item : items) {
 
-            getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(StreamsColumns._URL, item.getUrl());
+            contentValues.put(StreamsColumns.USER, item.getUser());
+            contentValues.put(StreamsColumns.USER_SLUG, item.getUserSlug());
+            contentValues.put(StreamsColumns.TITLE, item.getTitle());
+            contentValues.put(StreamsColumns.DESCRIPTION, item.getDescription());
+            contentValues.put(StreamsColumns.CODING_CATEGORY, item.getCodingCategory();
+            contentValues.put(StreamsColumns.DIFFICULTY, item.getDifficulty());
+            contentValues.put(StreamsColumns.LANGUAGE, item.getLanguage());
+            contentValues.put(StreamsColumns.TAGS, item.getTags());
+            contentValues.put(StreamsColumns.IS_LIVE, item.getIsLive());
+            contentValues.put(StreamsColumns.VIEWERS_LIVE, item.getViewersLive());
+            contentValues.put(StreamsColumns.VIEWING_URLS, String.valueOf(item.getViewingUrls()));
+            contentValues.put(StreamsColumns.THUMBNAIL_URL, item.getThumbnailUrl());
+            contentValues.put(StreamsColumns.EMBED_URL, item.getEmbedUrl());
 
+            getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
             Log.e("items", item.getUser());
         }
 
@@ -111,29 +125,12 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
             Toast.makeText(this, getResources().getString(R.string.connection_made), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
-
-
-
-
-
-         }
-
-
         }
-
-
-
-
-
-
-
-
-
+    }
 
     @Override
     public void onFailure(Call<List<LiveStreamsOnAirP>> call, Throwable t) {
         Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
-
     }
 }
 
