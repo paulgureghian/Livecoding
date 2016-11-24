@@ -1,6 +1,7 @@
 package com.example.paul.livecoding.Service;
 
 import android.app.IntentService;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,13 +30,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LiveStreamsIntentService extends IntentService implements Callback<List<LiveStreamsOnAirP>> {
 
+    ContentValues contentValues = new ContentValues();
     String access_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
     Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
 
    public static final int COL_URL =0;
-
 
     public LiveStreamsIntentService() {
         super("LiveStreamsIntentService");
@@ -70,7 +71,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
 
-        ContentValues contentValues = new ContentValues();
         contentValues.put(StreamsColumns._URL, "_url");
         contentValues.put(StreamsColumns.USER, "user");
         contentValues.put(StreamsColumns.USER_SLUG, "user_slug");
@@ -101,6 +101,9 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         Log.e("response", response.raw().toString());
 
         for (LiveStreamsOnAirP item : items) {
+
+            getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
+
             Log.e("items", item.getUser());
         }
 
@@ -108,8 +111,24 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
             Toast.makeText(this, getResources().getString(R.string.connection_made), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+
+
+
+
+
+         }
+
+
         }
-    }
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onFailure(Call<List<LiveStreamsOnAirP>> call, Throwable t) {

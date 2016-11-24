@@ -1,6 +1,5 @@
 package com.example.paul.livecoding.Adapter;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +13,7 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 
 public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsViewHolder> {
     private Cursor mCursor;
-    private Context mContext;
+
 
     static class StreamsViewHolder extends RecyclerView.ViewHolder {
 
