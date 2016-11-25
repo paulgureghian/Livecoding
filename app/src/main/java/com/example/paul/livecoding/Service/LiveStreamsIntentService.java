@@ -93,9 +93,9 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
             contentValues.put(StreamsColumns.IS_LIVE, item.getIsLive());
             contentValues.put(StreamsColumns.VIEWERS_LIVE, item.getViewersLive());
 
-            contentValues.put(StreamsColumns.VIEWING_URLS1, String.valueOf(item.getViewingUrls()));
-            contentValues.put(StreamsColumns.VIEWING_URLS2, String.valueOf(item.getViewingUrls()));
-            contentValues.put(StreamsColumns.VIEWING_URLS3, String.valueOf(item.getViewingUrls()));
+            contentValues.put(StreamsColumns.VIEWING_URLS1, item.getViewingUrls().get(0));
+            contentValues.put(StreamsColumns.VIEWING_URLS2, item.getViewingUrls().get(1));
+            contentValues.put(StreamsColumns.VIEWING_URLS3, item.getViewingUrls().get(2));
 
             contentValues.put(StreamsColumns.THUMBNAIL_URL, item.getThumbnailUrl());
             contentValues.put(StreamsColumns.EMBED_URL, item.getEmbedUrl());
