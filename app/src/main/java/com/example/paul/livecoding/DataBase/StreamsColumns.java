@@ -1,16 +1,15 @@
 package com.example.paul.livecoding.DataBase;
 
-import android.renderscript.Element;
-
 import net.simonvt.schematic.annotation.AutoIncrement;
 import net.simonvt.schematic.annotation.DataType;
 import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
-import net.simonvt.schematic.annotation.Unique;
 
 public class StreamsColumns {
 
-    @DataType(DataType.Type.INTEGER)@PrimaryKey @AutoIncrement
+    @DataType(DataType.Type.INTEGER)
+    @PrimaryKey
+    @AutoIncrement
     public static final String _ID = "_id";
 
     @DataType(DataType.Type.TEXT)
@@ -59,7 +58,15 @@ public class StreamsColumns {
 
     @DataType(DataType.Type.TEXT)
     @NotNull
-    public static final String VIEWING_URLS = "viewing_urls";
+    public static final String VIEWING_URLS1 = "viewing_urls1";
+
+    @DataType(DataType.Type.TEXT)
+    @NotNull
+    public static final String VIEWING_URLS2 = "viewing_urls2";
+
+    @DataType(DataType.Type.TEXT)
+    @NotNull
+    public static final String VIEWING_URLS3 = "viewing_urls3";
 
     @DataType(DataType.Type.TEXT)
     @NotNull

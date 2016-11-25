@@ -14,7 +14,6 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsViewHolder> {
     private Cursor mCursor;
 
-
     static class StreamsViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
@@ -40,11 +39,7 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
 
         mCursor.moveToPosition(position);
         int columnId = mCursor.getInt(LiveStreamsIntentService.COL_URL);
-
-
-
     }
-
 
     @Override
     public int getItemCount() {

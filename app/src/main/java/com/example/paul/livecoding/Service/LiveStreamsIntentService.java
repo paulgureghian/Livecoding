@@ -29,7 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LiveStreamsIntentService extends IntentService implements Callback<List<LiveStreamsOnAirP>> {
 
-    ContentValues contentValues = new ContentValues();
     String access_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
@@ -69,26 +68,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
-
-        contentValues.put(StreamsColumns._URL, "_url");
-        contentValues.put(StreamsColumns.USER, "user");
-        contentValues.put(StreamsColumns.USER_SLUG, "user_slug");
-        contentValues.put(StreamsColumns.TITLE, "title");
-        contentValues.put(StreamsColumns.DESCRIPTION, "description");
-        contentValues.put(StreamsColumns.CODING_CATEGORY, "coding_category");
-        contentValues.put(StreamsColumns.DIFFICULTY, "difficulty");
-        contentValues.put(StreamsColumns.LANGUAGE, "language");
-        contentValues.put(StreamsColumns.TAGS, "tags");
-        contentValues.put(StreamsColumns.IS_LIVE, "is_live");
-        contentValues.put(StreamsColumns.VIEWERS_LIVE, "viewers_live");
-        contentValues.put(StreamsColumns.VIEWING_URLS, "viewing_urls");
-        contentValues.put(StreamsColumns.THUMBNAIL_URL, "thumbnail_url");
-        contentValues.put(StreamsColumns.EMBED_URL, "embed_url");
-
-        Log.e("content_values", String.valueOf(contentValues));
-
-        getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI,
-                contentValues);
     }
 
     @Override
@@ -107,17 +86,22 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
             contentValues.put(StreamsColumns.USER_SLUG, item.getUserSlug());
             contentValues.put(StreamsColumns.TITLE, item.getTitle());
             contentValues.put(StreamsColumns.DESCRIPTION, item.getDescription());
-            contentValues.put(StreamsColumns.CODING_CATEGORY, item.getCodingCategory();
+            contentValues.put(StreamsColumns.CODING_CATEGORY, item.getCodingCategory());
             contentValues.put(StreamsColumns.DIFFICULTY, item.getDifficulty());
             contentValues.put(StreamsColumns.LANGUAGE, item.getLanguage());
             contentValues.put(StreamsColumns.TAGS, item.getTags());
             contentValues.put(StreamsColumns.IS_LIVE, item.getIsLive());
             contentValues.put(StreamsColumns.VIEWERS_LIVE, item.getViewersLive());
-            contentValues.put(StreamsColumns.VIEWING_URLS, String.valueOf(item.getViewingUrls()));
+
+            contentValues.put(StreamsColumns.VIEWING_URLS1, String.valueOf(item.getViewingUrls()));
+            contentValues.put(StreamsColumns.VIEWING_URLS2, String.valueOf(item.getViewingUrls()));
+            contentValues.put(StreamsColumns.VIEWING_URLS3, String.valueOf(item.getViewingUrls()));
+
             contentValues.put(StreamsColumns.THUMBNAIL_URL, item.getThumbnailUrl());
             contentValues.put(StreamsColumns.EMBED_URL, item.getEmbedUrl());
 
             getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
+            Log.e("content_values", String.valueOf(contentValues));
             Log.e("items", item.getUser());
         }
 
