@@ -34,8 +34,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     List<LiveStreamsOnAirP> items;
     Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
 
-    public static final int COL_URL = 0;
-
     public LiveStreamsIntentService() {
         super("LiveStreamsIntentService");
     }
@@ -103,8 +101,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
             getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
 
-            Log.e("content_values", String.valueOf(contentValues));
             Log.e("items", item.getUser());
+            Log.e("content_values", String.valueOf(contentValues));
         }
 
         if (code == 200) {

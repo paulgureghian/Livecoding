@@ -25,11 +25,11 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final int CURSOR_LOADER_ID = 0;
-    public StreamsAdapter streamsAdapter;
-    Context context;
     Intent intent;
     Boolean isConnected;
+    Context context = this;
+    public StreamsAdapter streamsAdapter;
+    private static final int CURSOR_LOADER_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +43,9 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
-        context = this;
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -79,11 +77,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     @Override
