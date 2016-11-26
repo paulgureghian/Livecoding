@@ -64,6 +64,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
 
         access_token = pref.getString("access_token", access_token);
+
         Log.e("livestreams_accesstoken", access_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
@@ -76,11 +77,13 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         items = response.body();
         int code = response.code();
         List<LiveStreamsOnAirP> items = response.body();
+
         Log.e("response", response.raw().toString());
 
         for (LiveStreamsOnAirP item : items) {
 
             ContentValues contentValues = new ContentValues();
+
             contentValues.put(StreamsColumns._URL, item.getUrl());
             contentValues.put(StreamsColumns.USER, item.getUser());
             contentValues.put(StreamsColumns.USER_SLUG, item.getUserSlug());
@@ -92,15 +95,14 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
             contentValues.put(StreamsColumns.TAGS, item.getTags());
             contentValues.put(StreamsColumns.IS_LIVE, item.getIsLive());
             contentValues.put(StreamsColumns.VIEWERS_LIVE, item.getViewersLive());
-
             contentValues.put(StreamsColumns.VIEWING_URLS1, item.getViewingUrls().get(0));
             contentValues.put(StreamsColumns.VIEWING_URLS2, item.getViewingUrls().get(1));
             contentValues.put(StreamsColumns.VIEWING_URLS3, item.getViewingUrls().get(2));
-
             contentValues.put(StreamsColumns.THUMBNAIL_URL, item.getThumbnailUrl());
             contentValues.put(StreamsColumns.EMBED_URL, item.getEmbedUrl());
 
             getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
+
             Log.e("content_values", String.valueOf(contentValues));
             Log.e("items", item.getUser());
         }
