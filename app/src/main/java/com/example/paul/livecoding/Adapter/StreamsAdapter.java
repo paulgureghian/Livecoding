@@ -18,18 +18,17 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 
 public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsViewHolder> {
 
-    LiveStreamsIntentService liveStreamsIntentService = new LiveStreamsIntentService();
-
     private Cursor mCursor;
     private Context mContext;
 
-    public StreamsAdapter(Context context, Cursor cursor, int flags) {
-
-        mContext = Context;
+    public StreamsAdapter() {
 
     }
 
-    static class StreamsViewHolder extends RecyclerView.ViewHolder {
+    public StreamsAdapter(Context context){
+        mContext = context;
+    }
+        static class StreamsViewHolder extends RecyclerView.ViewHolder {
 
          ImageView imageView;
 
@@ -39,11 +38,8 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
             imageView = (ImageView) view.findViewById(R.id.imageView);
         }
     }
-
     @Override
     public StreamsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
 
@@ -54,10 +50,8 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
 
     @Override
     public void onBindViewHolder(StreamsViewHolder holder, int position) {
-
         mCursor.moveToPosition(position);
-
-        Glide.with(mContext).load(mCursor.getString(liveStreamsIntentService.THUMBNAIL_URL)).into(holder.imageView);
+        Glide.with(mContext).load(mCursor.getString(StreamsColumns.THUMBNAIL_URL).into(holder.imageView));
 
 
     }

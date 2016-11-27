@@ -52,7 +52,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
-        streamsAdapter = new StreamsAdapter();
+        streamsAdapter = new StreamsAdapter(context);
         recyclerView.setAdapter(streamsAdapter);
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
