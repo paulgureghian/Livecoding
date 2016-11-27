@@ -21,23 +21,19 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
     private Cursor mCursor;
     private Context mContext;
 
-    public StreamsAdapter() {
-
-    }
-
     public StreamsAdapter(Context context){
         mContext = context;
     }
-        static class StreamsViewHolder extends RecyclerView.ViewHolder {
 
+        static class StreamsViewHolder extends RecyclerView.ViewHolder {
          ImageView imageView;
 
         StreamsViewHolder(View view) {
-
             super(view);
             imageView = (ImageView) view.findViewById(R.id.imageView);
         }
     }
+
     @Override
     public StreamsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -51,9 +47,10 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
     @Override
     public void onBindViewHolder(StreamsViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-        Glide.with(mContext).load(mCursor.getString(StreamsColumns.THUMBNAIL_URL).into(holder.imageView));
 
+        int columnIndex = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
 
+        Glide.with(mContext).load(mCursor.getString(columnIndex)).into(holder.imageView);
     }
 
     @Override

@@ -26,15 +26,15 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     Intent intent;
+    Context context;
     Boolean isConnected;
-    Context context = this;
     public StreamsAdapter streamsAdapter;
     private static final int CURSOR_LOADER_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_livestreams);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -52,7 +52,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
-        streamsAdapter = new StreamsAdapter(context);
+        streamsAdapter = new StreamsAdapter(this);
         recyclerView.setAdapter(streamsAdapter);
 
         intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
