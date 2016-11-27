@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.target.Target;
+
 import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.R;
-import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 
 public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsViewHolder> {
 
