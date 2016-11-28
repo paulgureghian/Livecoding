@@ -2,6 +2,7 @@ package com.example.paul.livecoding.DataBase;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
 import net.simonvt.schematic.annotation.DataType;
+import net.simonvt.schematic.annotation.DefaultValue;
 import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
 
@@ -33,7 +34,7 @@ public class StreamsColumns {
     public static final String DESCRIPTION = "description";
 
     @DataType(DataType.Type.TEXT)
-    @NotNull
+    @DefaultValue("none")
     public static final String CODING_CATEGORY = "coding_category";
 
     @DataType(DataType.Type.TEXT)
