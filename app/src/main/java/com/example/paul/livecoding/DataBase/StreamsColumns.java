@@ -1,10 +1,12 @@
 package com.example.paul.livecoding.DataBase;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
+import net.simonvt.schematic.annotation.ConflictResolutionType;
 import net.simonvt.schematic.annotation.DataType;
 import net.simonvt.schematic.annotation.DefaultValue;
 import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
+import net.simonvt.schematic.annotation.Unique;
 
 public class StreamsColumns {
 
@@ -71,6 +73,7 @@ public class StreamsColumns {
 
     @DataType(DataType.Type.TEXT)
     @NotNull
+    @Unique (onConflict = ConflictResolutionType.REPLACE)
     public static final String THUMBNAIL_URL = "thumbnail_url";
 
     @DataType(DataType.Type.TEXT)

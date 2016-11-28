@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
+import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.Service.LiveStreamsIntentService;
@@ -26,6 +27,7 @@ import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     Intent intent;
+    Cursor mCursor;
     Context context;
     Boolean isConnected;
     public StreamsAdapter streamsAdapter;
@@ -83,13 +85,17 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        return new CursorLoader(this, StreamsProvider.Streams.CONTENT_URI, null, null, null, null);
+        return new CursorLoader(this, StreamsProvider.Streams.CONTENT_URI,
+                new String[]{StreamsColumns._ID, StreamsColumns.TITLE, StreamsColumns.CODING_CATEGORY},
+                null, null, null);
+
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
         streamsAdapter.swapCursor(data);
+        mCursor = data;
         DatabaseUtils.dumpCursor(data);
     }
 
