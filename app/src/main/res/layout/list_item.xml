@@ -1,8 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+  <com.example.paul.livecoding.SquareImageView.SquareImageView
+    android:id="@+id/thumbnail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:scaleType="centerCrop"/>
 
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView
 
     android:id="@+id/imageView"
     android:layout_width="match_parent"
@@ -15,3 +24,5 @@
     android:contentDescription="@string/thumbnails">
 
 </ImageView>
+
+</android.support.v7.widget.CardView>
