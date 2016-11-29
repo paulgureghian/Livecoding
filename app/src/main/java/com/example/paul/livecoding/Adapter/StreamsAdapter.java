@@ -54,10 +54,9 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
         int columnIndex;
 
         columnIndex = mCursor.getColumnIndex(StreamsColumns.TITLE);
-        columnIndex = mCursor.getColumnIndex(StreamsColumns.CODING_CATEGORY);
         holder.title.setText(mCursor.getString(columnIndex));
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.CODING_CATEGORY);
         holder.coding_category.setText(mCursor.getString(columnIndex));
-
 
         columnIndex = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
         Glide.with(mContext).load(mCursor.getString(columnIndex)).into(holder.imageView);
