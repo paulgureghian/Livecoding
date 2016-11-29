@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -19,16 +20,20 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
     private Cursor mCursor;
     private Context mContext;
 
-    public StreamsAdapter(Context context){
+    public StreamsAdapter(Context context) {
         mContext = context;
     }
 
-        static class StreamsViewHolder extends RecyclerView.ViewHolder {
-         ImageView imageView;
+    static class StreamsViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView title;
+        TextView coding_category;
 
         StreamsViewHolder(View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.imageView);
+            title = (TextView) view.findViewById(R.id.title);
+            coding_category = (TextView) view.findViewById(R.id.coding_category);
         }
     }
 
@@ -46,8 +51,15 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
     public void onBindViewHolder(StreamsViewHolder holder, int position) {
         mCursor.moveToPosition(position);
 
-        int columnIndex = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
+        int columnIndex;
 
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.TITLE);
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.CODING_CATEGORY);
+        holder.title.setText(mCursor.getString(columnIndex));
+        holder.coding_category.setText(mCursor.getString(columnIndex));
+
+
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
         Glide.with(mContext).load(mCursor.getString(columnIndex)).into(holder.imageView);
     }
 
