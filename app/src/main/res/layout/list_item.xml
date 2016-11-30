@@ -23,25 +23,6 @@
             android:contentDescription="@string/thumbnails" />
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
-            android:paddingBottom="15dp"
-            android:paddingStart="5dp"
-            android:paddingTop="1dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <TextView
-            android:id="@+id/coding_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:paddingBottom="15dp"
-            android:paddingStart="5dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-        <TextView
             android:id="@+id/is_live"
             android:text="@string/live"
             android:textColor="#FFFFFF"
@@ -54,11 +35,37 @@
 
         <TextView
             android:id="@+id/user_slug"
+            android:textColor="#FFFFFF"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-
-
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingStart="5dp"
+            android:paddingTop="1dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/coding_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingStart="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+</LinearLayout>
 
 </android.support.v7.widget.CardView>

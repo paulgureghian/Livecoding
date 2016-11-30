@@ -58,7 +58,7 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
 
         int columnIndex;
 
-        columnIndex = mCursor.getColumnIndex(StreamsColumns.USER);
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.USER_SLUG);
         holder.user_slug.setText(mCursor.getString(columnIndex));
 
         columnIndex = mCursor.getColumnIndex(StreamsColumns.TITLE);
