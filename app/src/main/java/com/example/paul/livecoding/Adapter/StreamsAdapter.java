@@ -26,6 +26,7 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
 
     static class StreamsViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        TextView user_slug;
         TextView title;
         TextView is_live;
         TextView coding_category;
@@ -34,6 +35,7 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
             super(view);
 
             imageView = (ImageView) view.findViewById(R.id.imageView);
+            user_slug = (TextView) view.findViewById(R.id.user_slug);
             title = (TextView) view.findViewById(R.id.title);
             is_live = (TextView) view.findViewById(R.id.is_live);
             coding_category = (TextView) view.findViewById(R.id.coding_category);
@@ -56,10 +58,12 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
 
         int columnIndex;
 
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.USER);
+        holder.user_slug.setText(mCursor.getString(columnIndex));
+
         columnIndex = mCursor.getColumnIndex(StreamsColumns.TITLE);
         holder.title.setText(mCursor.getString(columnIndex));
-      //  columnIndex = mCursor.getColumnIndex(StreamsColumns.IS_LIVE);
-      //  holder.is_live.setText(mCursor.getString(columnIndex));
+
         columnIndex = mCursor.getColumnIndex(StreamsColumns.CODING_CATEGORY);
         holder.coding_category.setText(mCursor.getString(columnIndex));
 

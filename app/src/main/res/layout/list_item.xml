@@ -44,13 +44,19 @@
         <TextView
             android:id="@+id/is_live"
             android:text="@string/live"
-            android:textColor="#F44336"
-            android:background="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:background="#F44336"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/user_slug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
 
     </RelativeLayout>
