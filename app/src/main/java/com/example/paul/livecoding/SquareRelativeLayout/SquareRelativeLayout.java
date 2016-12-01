@@ -19,10 +19,9 @@ public class SquareRelativeLayout extends RelativeLayout {
     }
 
     @Override
-    protected void onMeasure(int widhtMeasureSpec, int heightMeasureSpec) {
-
-        int measureSpecSize = MeasureSpec.getSize(widhtMeasureSpec);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int measureSpecSize = MeasureSpec.getSize(widthMeasureSpec);
         this.setMeasuredDimension(measureSpecSize, measureSpecSize);
-        super.onMeasure(widhtMeasureSpec, widhtMeasureSpec);
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
 }
