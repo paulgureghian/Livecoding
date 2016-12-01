@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <com.example.paul.livecoding.SquareRelativeLayout.SquareRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -48,7 +48,7 @@
                 android:background="#000000"
                 android:textColor="#FFFFFF" />
 
-        </RelativeLayout>
+        </com.example.paul.livecoding.SquareRelativeLayout.SquareRelativeLayout>
 
         <TextView
             android:id="@+id/title"
