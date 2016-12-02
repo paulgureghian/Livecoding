@@ -86,4 +86,8 @@ public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsV
         mCursor = newCursor;
         notifyDataSetChanged();
     }
+
+    public Cursor getCursor() {
+        return mCursor;
+    }
 }

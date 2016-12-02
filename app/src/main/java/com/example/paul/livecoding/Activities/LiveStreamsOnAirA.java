@@ -16,11 +16,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
+import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.R;
+import com.example.paul.livecoding.RecyclerViewListener.RecyclerViewItemClickListener;
 import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -62,10 +65,26 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                 startService(intent);
             } else {
                 Toast.makeText(context, getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+
+            recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
+                    new RecyclerViewItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            intent = new Intent(context, CurrentStream.class);
+                            mCursor = streamsAdapter.getCursor();
+                            mCursor.moveToPosition(position);
+                            int stream = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
+                            intent.putExtra(StreamsProvider.withId(stream));
+                            context.startActivity(intent);
+
+
+
+                        }
+
+                    }));
             }
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

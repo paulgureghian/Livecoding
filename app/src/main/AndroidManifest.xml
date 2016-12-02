@@ -15,7 +15,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".Activities.LiveStreamsOnAirA"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -35,7 +34,6 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         android:enabled="true"
         android:exported="true"
-
         <activity
             android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -53,8 +51,12 @@
         <provider
             android:name=".DataBase.generated.StreamsProvider"
             android:authorities="com.example.paul.livecoding.DataBase.StreamsProvider"
-            android:exported="true"/>
+            android:exported="true" />
 
+        <activity
+            android:name=".Activities.CurrentStream"
+            android:label="@string/title_activity_current_stream"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import net.simonvt.schematic.annotation.ContentProvider;
 import net.simonvt.schematic.annotation.ContentUri;
+import net.simonvt.schematic.annotation.InexactContentUri;
 import net.simonvt.schematic.annotation.TableEndpoint;
 
 @ContentProvider(authority = StreamsProvider.AUTHORITY, database = StreamsDataBase.class)
@@ -33,6 +34,17 @@ public class StreamsProvider {
                 type = "vnd.android.cursor.dir/stream"
         )
         public static final Uri CONTENT_URI = buildUri(Path.STREAMS);
+    }
+
+    @InexactContentUri(
+            path = StreamsProvider.Path.STREAMS + "/#",
+            name = "STREAMS_ID",
+            type = "vnd.android.cursor.item/streams",
+            whereColumn = StreamsColumns._ID,
+            pathSegment = 1)
+    public static Uri withId(long id) {
+
+        return Uri.withAppendedPath(BASE_CONTENT_URI, String.valueOf(id));
     }
 }
 

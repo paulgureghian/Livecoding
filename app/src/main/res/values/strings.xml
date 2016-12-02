@@ -23,4 +23,5 @@
         completions."
     </string>
     <string name="title_activity_login_activityy">Sign in</string>
+    <string name="title_activity_current_stream">CurrentStream</string>
 </resources>
