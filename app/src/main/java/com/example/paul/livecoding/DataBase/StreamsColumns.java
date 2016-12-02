@@ -73,7 +73,7 @@ public class StreamsColumns {
 
     @DataType(DataType.Type.TEXT)
     @NotNull
-    @Unique (onConflict = ConflictResolutionType.REPLACE)
+    @Unique(onConflict = ConflictResolutionType.REPLACE)
     public static final String THUMBNAIL_URL = "thumbnail_url";
 
     @DataType(DataType.Type.TEXT)
