@@ -56,7 +56,12 @@
         <activity
             android:name=".Activities.CurrentStream"
             android:label="@string/title_activity_current_stream"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                  android:name="android.support.PARENT_ACTIVITY"
+                  android:value=".Activities.LiveStreamsOnAirA"/>
+        </activity>
+
     </application>
 
 </manifest>

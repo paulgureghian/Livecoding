@@ -67,7 +67,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                 Toast.makeText(context, getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
             }
 
-
             recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
                     new RecyclerViewItemClickListener.OnItemClickListener() {
                         @Override
@@ -75,17 +74,13 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                             intent = new Intent(context, CurrentStream.class);
                             mCursor = streamsAdapter.getCursor();
                             mCursor.moveToPosition(position);
-                            long stream = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
-                            intent.putExtra(StreamsColumns._ID, stream);
+                            long id = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
+                            intent.putExtra(StreamsColumns._ID, id);
                             context.startActivity(intent);
-
-
-
                         }
-
                     }));
-            }
         }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
