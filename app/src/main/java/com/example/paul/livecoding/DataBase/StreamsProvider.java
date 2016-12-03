@@ -1,6 +1,7 @@
 package com.example.paul.livecoding.DataBase;
 
 import android.net.Uri;
+import android.renderscript.Sampler;
 
 import net.simonvt.schematic.annotation.ContentProvider;
 import net.simonvt.schematic.annotation.ContentUri;
@@ -21,7 +22,7 @@ public class StreamsProvider {
     private static Uri buildUri(String... paths) {
         Uri.Builder builder = BASE_CONTENT_URI.buildUpon();
         for (String path : paths) {
-            builder.appendPath(path);
+            builder.appendPath(String.valueOf(path));
         }
         return builder.build();
     }
@@ -36,14 +37,14 @@ public class StreamsProvider {
         public static final Uri CONTENT_URI = buildUri(Path.STREAMS);
 
         @InexactContentUri(
-                path = StreamsProvider.Path.STREAMS + "/#",
+                path = Path.STREAMS + "/#",
                 name = "STREAMS_ID",
                 type = "vnd.android.cursor.item/streams",
                 whereColumn = StreamsColumns._ID,
                 pathSegment = 1)
         public static Uri withId(long id) {
 
-            return Uri.withAppendedPath(BASE_CONTENT_URI, String.valueOf(id));
+            return buildUri(Path.STREAMS, String.valueOf(id));
         }
     }
 }
