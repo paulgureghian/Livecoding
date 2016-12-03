@@ -43,7 +43,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        return new CursorLoader(this, StreamsProvider.withId(id),
+        return new CursorLoader(this, StreamsProvider.Streams.withId(id),
                 null, null, null, null);
     }
 

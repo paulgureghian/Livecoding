@@ -34,17 +34,16 @@ public class StreamsProvider {
                 type = "vnd.android.cursor.dir/stream"
         )
         public static final Uri CONTENT_URI = buildUri(Path.STREAMS);
-    }
 
-    @InexactContentUri(
-            path = StreamsProvider.Path.STREAMS + "/#",
-            name = "STREAMS_ID",
-            type = "vnd.android.cursor.item/streams",
-            whereColumn = StreamsColumns._ID,
-            pathSegment = 1)
-    public static Uri withId(long id) {
+        @InexactContentUri(
+                path = StreamsProvider.Path.STREAMS + "/#",
+                name = "STREAMS_ID",
+                type = "vnd.android.cursor.item/streams",
+                whereColumn = StreamsColumns._ID,
+                pathSegment = 1)
+        public static Uri withId(long id) {
 
-        return Uri.withAppendedPath(BASE_CONTENT_URI, String.valueOf(id));
+            return Uri.withAppendedPath(BASE_CONTENT_URI, String.valueOf(id));
+        }
     }
 }
-
