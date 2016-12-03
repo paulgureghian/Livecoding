@@ -3,6 +3,7 @@ package com.example.paul.livecoding.Activities;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -11,15 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
+import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.R;
 
 public class CurrentStream extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-
+    int id;
+    Intent intent;
     Cursor mCursor;
     Context context;
     public StreamsAdapter streamsAdapter;
+    private static final int CURSOR_LOADER_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,10 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        intent = getIntent();
+        id = intent.getExtras().getInt(StreamsColumns._ID);
+
+        getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         streamsAdapter = new StreamsAdapter(this);
     }
 
