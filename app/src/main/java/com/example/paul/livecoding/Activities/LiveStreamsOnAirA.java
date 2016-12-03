@@ -74,7 +74,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                             intent = new Intent(context, CurrentStream.class);
                             mCursor = streamsAdapter.getCursor();
                             mCursor.moveToPosition(position);
-                            long id = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
+                            int id = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
                             intent.putExtra(StreamsColumns._ID, id);
                             context.startActivity(intent);
                         }

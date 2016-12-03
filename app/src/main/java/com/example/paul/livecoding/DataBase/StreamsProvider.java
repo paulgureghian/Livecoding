@@ -42,7 +42,7 @@ public class StreamsProvider {
                 type = "vnd.android.cursor.item/streams",
                 whereColumn = StreamsColumns._ID,
                 pathSegment = 1)
-        public static Uri withId(long id) {
+        public static Uri withId(int id) {
 
             return buildUri(Path.STREAMS, String.valueOf(id));
         }

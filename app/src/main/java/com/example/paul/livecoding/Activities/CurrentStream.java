@@ -10,6 +10,7 @@ import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
 import com.example.paul.livecoding.DataBase.StreamsColumns;
@@ -35,6 +36,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
 
         intent = getIntent();
         id = intent.getExtras().getInt(StreamsColumns._ID);
+        Log.e("ID", String.valueOf(id));
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         streamsAdapter = new StreamsAdapter(this);
