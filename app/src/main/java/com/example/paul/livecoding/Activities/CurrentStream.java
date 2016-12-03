@@ -19,7 +19,7 @@ import com.example.paul.livecoding.R;
 
 public class CurrentStream extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    int id;
+    int columnsId;
     Intent intent;
     Cursor mCursor;
     Context context;
@@ -35,8 +35,8 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         intent = getIntent();
-        id = intent.getExtras().getInt(StreamsColumns._ID);
-        Log.e("ID", String.valueOf(id));
+        columnsId = intent.getExtras().getInt(StreamsColumns._ID);
+        Log.e("ID", String.valueOf(columnsId));
 
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         streamsAdapter = new StreamsAdapter(this);
@@ -45,7 +45,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        return new CursorLoader(this, StreamsProvider.Streams.withId(id),
+        return new CursorLoader(this, StreamsProvider.Streams.withId(columnsId),
                 null, null, null, null);
     }
 

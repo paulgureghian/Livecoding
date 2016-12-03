@@ -39,7 +39,7 @@ public class StreamsProvider {
         @InexactContentUri(
                 path = Path.STREAMS + "/#",
                 name = "STREAMS_ID",
-                type = "vnd.android.cursor.item/streams",
+                type = "vnd.android.cursor.item/stream",
                 whereColumn = StreamsColumns._ID,
                 pathSegment = 1)
         public static Uri withId(int id) {
