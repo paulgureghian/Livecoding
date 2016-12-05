@@ -65,6 +65,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
         mCursor = data;
+        mCursor.moveToFirst();
         streamsAdapter.swapCursor(data);
 
         int columnIndex;
