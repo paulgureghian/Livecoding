@@ -13,13 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
 import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.R;
 
-public class CurrentStream extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CurrentStream extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OnPreparedListener {
 
     Context context;
     EMVideoView emVideoView;
@@ -48,6 +49,12 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
     }
 
     @Override
+    public void onPrepared() {
+
+        emVideoView.start();
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         return new CursorLoader(this, StreamsProvider.Streams.withId(columnsId),
@@ -59,6 +66,14 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
 
         mCursor = data;
         streamsAdapter.swapCursor(data);
+
+        int columnIndex;
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.VIEWING_URLS1);
+        String stream_url = mCursor.getString(columnIndex);
+
+        emVideoView.setOnPreparedListener(this);
+        emVideoView.setVideoURI(Uri.parse(stream_url));
+
         DatabaseUtils.dumpCursor(data);
         Log.e("cursor", mCursor.getCount() + "");
     }
@@ -68,16 +83,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
 
         streamsAdapter.swapCursor(null);
     }
-
-    private void setupVideoView() {
-
-        emVideoView.setOnPreparedListener(this);
-        emVideoView.setVideoURI(Uri.parse());
-    }
-        @Override
-        public void onPrepared() {
-
-            emVideoView.start();
-        }
 }
+
+
 
