@@ -70,7 +70,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
         streamsAdapter.swapCursor(data);
 
         int columnIndex;
-        columnIndex = mCursor.getColumnIndex(StreamsColumns.VIEWING_URLS3);
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.VIEWING_URLS2);
         String stream_url = mCursor.getString(columnIndex);
 
         emVideoView.setOnPreparedListener(this);
