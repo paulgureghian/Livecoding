@@ -1,27 +1,63 @@
 package com.example.paul.livecoding.Widget;
 
-
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.example.paul.livecoding.DataBase.StreamsColumns;
+import com.example.paul.livecoding.DataBase.StreamsProvider;
+import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
+import com.example.paul.livecoding.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
-        Context context;
-        Intent  intent;
+
+    StreamsProvider.Streams streams = new StreamsProvider.Streams();
+    List<LiveStreamsOnAirP> collection = new ArrayList<>();
+    Context context;
+    Intent intent;
+    private Cursor mCursor;
+
+    private void initData() {
+        collection.clear();
+
+        mCursor = context.getContentResolver().query(StreamsProvider.Streams.CONTENT_URI, null, null, null, null);
+
+        DatabaseUtils.dumpCursor(mCursor);
+
+        int index = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
+
+        if (mCursor != null) {
+            while (mCursor.moveToNext()) {
+
+                LiveStreamsOnAirP liveStreamsOnAirP = new LiveStreamsOnAirP();
+                liveStreamsOnAirP.setThumbnailUrl(mCursor.getString(mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL)));
+                collection.add(liveStreamsOnAirP);
+            }
+        } else {
+        }
+        mCursor.close();
+    }
+
     public WidgetDataProvider(Context context, Intent intent) {
-            this.context = context;
-            this.intent = intent;
+        this.context = context;
+        this.intent = intent;
     }
 
     @Override
     public void onCreate() {
-
+        initData();
     }
 
     @Override
     public void onDataSetChanged() {
-
+        initData();
     }
 
     @Override
@@ -31,12 +67,17 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public int getCount() {
-        return 0;
+        return collection.size();
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        return null;
+         RemoteViews remoteView = new RemoteViews(context.getPackageName(),
+                R.layout.widget_layout);
+        remoteView.setTextViewText(R.id.thumbnail, collection.get(position).getThumbnailUrl());
+        remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
+
+        return remoteView;
     }
 
     @Override
@@ -46,16 +87,16 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public int getViewTypeCount() {
-        return 0;
+        return 1;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 }

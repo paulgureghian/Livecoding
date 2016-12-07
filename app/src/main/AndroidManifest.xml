@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.paul.livecoding">
 
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -59,10 +59,13 @@
             android:label="@string/title_activity_current_stream"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-                  android:name="android.support.PARENT_ACTIVITY"
-                  android:value=".Activities.LiveStreamsOnAirA"/>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.LiveStreamsOnAirA" />
         </activity>
 
+        <service
+            android:name=".Widget.StreamsIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

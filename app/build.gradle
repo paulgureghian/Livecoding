@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'Udacity Capstone'
             keyPassword 'spikers1'
-            storeFile file('C:/Keystore/android.jks')
+            storeFile file('../android.jks')
             storePassword 'spikers1'
         }
     }
