@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.AppWidgetTarget;
 import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
+    private AppWidgetTarget appWidgetTarget;
     StreamsProvider.Streams streams = new StreamsProvider.Streams();
     List<LiveStreamsOnAirP> collection = new ArrayList<>();
     Context context;
@@ -72,10 +75,16 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public RemoteViews getViewAt(int position) {
-         RemoteViews remoteView = new RemoteViews(context.getPackageName(),
+        RemoteViews remoteView = new RemoteViews(context.getPackageName(),
                 R.layout.widget_layout);
-        remoteView.setTextViewText(R.id.thumbnail, collection.get(position).getThumbnailUrl());
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
+
+        appWidgetTarget = new AppWidgetTarget(context, remoteView, R.id.thumbnail);
+
+        Glide
+
+
+                .with(context).load(mCursor.getString(Integer.parseInt(StreamsColumns.THUMBNAIL_URL))).asBitmap().into(appWidgetTarget);
 
         return remoteView;
     }

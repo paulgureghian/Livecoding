@@ -65,7 +65,10 @@
 
         <service
             android:name=".Widget.StreamsIntentService"
-            android:exported="false"></service>
+            android:exported="true">
+
+        </service>
+
     </application>
 
 </manifest>
