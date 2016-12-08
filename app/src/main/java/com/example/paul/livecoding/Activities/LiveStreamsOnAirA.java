@@ -1,6 +1,8 @@
 package com.example.paul.livecoding.Activities;
 
 import android.app.LoaderManager;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -25,6 +27,7 @@ import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.RecyclerViewListener.RecyclerViewItemClickListener;
 import com.example.paul.livecoding.Service.LiveStreamsIntentService;
+import com.example.paul.livecoding.Widget.Widget;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -109,6 +112,15 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         mCursor = data;
         streamsAdapter.swapCursor(data);
+
+        ComponentName name = new ComponentName(this, Widget.class);
+        int[] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(name);
+
+        Intent intent = new Intent(this, Widget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
+
         DatabaseUtils.dumpCursor(data);
     }
 

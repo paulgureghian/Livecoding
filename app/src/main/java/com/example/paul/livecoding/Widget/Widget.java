@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Widget;
+    package com.example.paul.livecoding.Widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -33,9 +33,16 @@ public class Widget extends AppWidgetProvider {
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
 
-            PendingIntent pendingIntent = new PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent =  PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             remoteViews.setOnClickPendingIntent(R.id.widget_layout_main, pendingIntent);
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
+            appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+
+            for (int appWidgetId : appWidgetIds) {
+
+                updateAppWidget(context, appWidgetManager, appWidgetId);
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
+            }
+
         }
             super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
