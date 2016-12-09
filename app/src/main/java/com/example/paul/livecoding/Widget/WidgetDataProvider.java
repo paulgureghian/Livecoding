@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -80,10 +81,15 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
                 R.layout.widget_layout);
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
 
+        int columnIndex;
+        columnIndex = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
+
         Bitmap bitmap = null;
         try {
             try {
-                bitmap = Glide.with(context).load(StreamsColumns.THUMBNAIL_URL).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+                bitmap = Glide.with(context).load(mCursor.getString(columnIndex)).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+                Log.e("widget_data_provider", String.valueOf(bitmap));
+
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
