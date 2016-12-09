@@ -23,13 +23,13 @@ import java.util.concurrent.ExecutionException;
 class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
     private Cursor mCursor;
-    private Context context;
+    private Context mContext;
     private List<LiveStreamsOnAirP> collection = new ArrayList<>();
 
     private void initData() {
         collection.clear();
 
-        mCursor = context.getContentResolver().query(StreamsProvider.Streams.CONTENT_URI, null, null, null, null);
+        mCursor = mContext.getContentResolver().query(StreamsProvider.Streams.CONTENT_URI, null, null, null, null);
 
         DatabaseUtils.dumpCursor(mCursor);
 
@@ -38,13 +38,15 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
                 LiveStreamsOnAirP liveStreamsOnAirP = new LiveStreamsOnAirP();
                 liveStreamsOnAirP.setThumbnailUrl(mCursor.getString(mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL)));
+                liveStreamsOnAirP.setTitle(mCursor.getString(mCursor.getColumnIndex(StreamsColumns.TITLE)));
+                liveStreamsOnAirP.setCodingCategory(mCursor.getString(mCursor.getColumnIndex(StreamsColumns.CODING_CATEGORY)));
                 collection.add(liveStreamsOnAirP);
             }
         }
     }
 
     WidgetDataProvider(Context context) {
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
@@ -69,9 +71,12 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews remoteView = new RemoteViews(context.getPackageName(),
+        RemoteViews remoteView = new RemoteViews(mContext.getPackageName(),
                 R.layout.widget_layout);
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
+
+        remoteView.setTextViewText(R.id.title, collection.get(position).getTitle());
+        remoteView.setTextViewText(R.id.coding_category, collection.get(position).getCodingCategory());
 
         mCursor.moveToPosition(position);
 
@@ -81,7 +86,7 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
         Bitmap bitmap = null;
         try {
             try {
-                bitmap = Glide.with(context).load(mCursor.getString(columnIndex)).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+                bitmap = Glide.with(mContext).load(mCursor.getString(columnIndex)).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
 
             } catch (ExecutionException e) {
                 e.printStackTrace();
