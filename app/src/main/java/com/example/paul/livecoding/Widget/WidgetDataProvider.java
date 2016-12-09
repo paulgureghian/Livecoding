@@ -1,7 +1,6 @@
 package com.example.paul.livecoding.Widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
@@ -23,11 +22,9 @@ import java.util.concurrent.ExecutionException;
 
 class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
-    StreamsProvider.Streams streams = new StreamsProvider.Streams();
-    private List<LiveStreamsOnAirP> collection = new ArrayList<>();
-    private Context context;
-    private Intent intent;
     private Cursor mCursor;
+    private Context context;
+    private List<LiveStreamsOnAirP> collection = new ArrayList<>();
 
     private void initData() {
         collection.clear();
@@ -36,8 +33,6 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
         DatabaseUtils.dumpCursor(mCursor);
 
-        int index = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
-
         if (mCursor != null) {
             while (mCursor.moveToNext()) {
 
@@ -45,14 +40,11 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
                 liveStreamsOnAirP.setThumbnailUrl(mCursor.getString(mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL)));
                 collection.add(liveStreamsOnAirP);
             }
-        } else {
         }
-        mCursor.close();
     }
 
-    WidgetDataProvider(Context context, Intent intent) {
+    WidgetDataProvider(Context context) {
         this.context = context;
-        this.intent = intent;
     }
 
     @Override
@@ -67,7 +59,7 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDestroy() {
-
+        mCursor.close();
     }
 
     @Override
@@ -81,6 +73,8 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
                 R.layout.widget_layout);
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
 
+        mCursor.moveToPosition(position);
+
         int columnIndex;
         columnIndex = mCursor.getColumnIndex(StreamsColumns.THUMBNAIL_URL);
 
@@ -88,7 +82,6 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
         try {
             try {
                 bitmap = Glide.with(context).load(mCursor.getString(columnIndex)).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
-                Log.e("widget_data_provider", String.valueOf(bitmap));
 
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -98,6 +91,7 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
         }
 
         remoteView.setImageViewBitmap(R.id.thumbnail, bitmap);
+        Log.e("widget_data_provider", String.valueOf(bitmap));
 
         return remoteView;
     }
