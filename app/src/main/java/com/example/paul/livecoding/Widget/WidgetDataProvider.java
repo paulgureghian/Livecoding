@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.AppWidgetTarget;
+import com.bumptech.glide.request.target.Target;
 import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
@@ -17,14 +18,14 @@ import com.example.paul.livecoding.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
+class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
-    private AppWidgetTarget appWidgetTarget;
     StreamsProvider.Streams streams = new StreamsProvider.Streams();
-    List<LiveStreamsOnAirP> collection = new ArrayList<>();
-    Context context;
-    Intent intent;
+    private List<LiveStreamsOnAirP> collection = new ArrayList<>();
+    private Context context;
+    private Intent intent;
     private Cursor mCursor;
 
     private void initData() {
@@ -48,7 +49,7 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
         mCursor.close();
     }
 
-    public WidgetDataProvider(Context context, Intent intent) {
+    WidgetDataProvider(Context context, Intent intent) {
         this.context = context;
         this.intent = intent;
     }
@@ -79,12 +80,18 @@ public class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory
                 R.layout.widget_layout);
         remoteView.setTextColor(R.layout.widget_layout, Color.BLACK);
 
-        appWidgetTarget = new AppWidgetTarget(context, remoteView, R.id.thumbnail);
+        Bitmap bitmap = null;
+        try {
+            try {
+                bitmap = Glide.with(context).load(StreamsColumns.THUMBNAIL_URL).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        Glide
-
-
-                .with(context).load(mCursor.getString(Integer.parseInt(StreamsColumns.THUMBNAIL_URL))).asBitmap().into(appWidgetTarget);
+        remoteView.setImageViewBitmap(R.id.thumbnail, bitmap);
 
         return remoteView;
     }
