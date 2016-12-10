@@ -6,18 +6,20 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
-import com.example.paul.livecoding.Activities.CurrentStream;
-import com.example.paul.livecoding.Activities.LiveStreamsOnAirA;
+import com.example.paul.livecoding.Adapter.StreamsAdapter;
+import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.R;
 
 public class Widget extends AppWidgetProvider {
 
-    private static final String ACTION_CLICK = "ACTION_CLICK";
+    Cursor cursor;
+    Context context;
+    public StreamsAdapter streamsAdapter = new StreamsAdapter(context);
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -34,7 +36,7 @@ public class Widget extends AppWidgetProvider {
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, int position) {
 
         for (int i = 0; i < appWidgetIds.length; ++i) {
 
@@ -54,29 +56,12 @@ public class Widget extends AppWidgetProvider {
                 updateAppWidget(context, appWidgetManager, appWidgetId);
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
 
-
-            //added today
-
-
-            boolean useCurrentStream = context.getResources()
-                    .getBoolean(R.bool.use_current_stream);
-
-            Intent clickIntentTemplate = useCurrentStream
-                    ? new Intent(context, CurrentStream.class)
-                    : new Intent(context, LiveStreamsOnAirA.class);
-
-            PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
-                    .addNextIntentWithParentStack(clickIntentTemplate)
-                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-                remoteViews.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
-
-            //added today
-
-
-
-
-
-
+            Intent intent1 = new Intent(context, WidgetDataProvider.class);
+            cursor = streamsAdapter.getCursor();
+            cursor.moveToPosition(position);
+            int id = cursor.getInt(cursor.getColumnIndex(StreamsColumns._ID));
+            intent1.putExtra(StreamsColumns._ID, id);
+            context.startActivity(intent1);
             }
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
