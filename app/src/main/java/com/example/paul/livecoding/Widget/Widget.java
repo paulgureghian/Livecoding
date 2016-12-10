@@ -8,8 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
+import com.example.paul.livecoding.Activities.CurrentStream;
+import com.example.paul.livecoding.Activities.LiveStreamsOnAirA;
 import com.example.paul.livecoding.R;
 
 public class Widget extends AppWidgetProvider {
@@ -50,6 +53,30 @@ public class Widget extends AppWidgetProvider {
 
                 updateAppWidget(context, appWidgetManager, appWidgetId);
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
+
+
+            //added today
+
+
+            boolean useCurrentStream = context.getResources()
+                    .getBoolean(R.bool.use_current_stream);
+
+            Intent clickIntentTemplate = useCurrentStream
+                    ? new Intent(context, CurrentStream.class)
+                    : new Intent(context, LiveStreamsOnAirA.class);
+
+            PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
+                    .addNextIntentWithParentStack(clickIntentTemplate)
+                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                remoteViews.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
+
+            //added today
+
+
+
+
+
+
             }
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
