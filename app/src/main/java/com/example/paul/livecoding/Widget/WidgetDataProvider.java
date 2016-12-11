@@ -1,6 +1,7 @@
 package com.example.paul.livecoding.Widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
@@ -98,6 +99,10 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
         remoteView.setImageViewBitmap(R.id.thumbnail, bitmap);
         Log.e("widget_data_provider", String.valueOf(bitmap));
 
+        Intent fillInIntent = new Intent();
+        int id = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
+        fillInIntent.putExtra(StreamsColumns._ID, id);
+        remoteView.setOnClickFillInIntent(R.id.widget_list, fillInIntent);
 
         return remoteView;
     }

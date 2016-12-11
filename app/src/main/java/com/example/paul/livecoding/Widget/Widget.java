@@ -36,7 +36,7 @@ public class Widget extends AppWidgetProvider {
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, int position) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         for (int i = 0; i < appWidgetIds.length; ++i) {
 
@@ -56,12 +56,11 @@ public class Widget extends AppWidgetProvider {
                 updateAppWidget(context, appWidgetManager, appWidgetId);
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
 
-            Intent intent1 = new Intent(context, WidgetDataProvider.class);
-            cursor = streamsAdapter.getCursor();
-            cursor.moveToPosition(position);
-            int id = cursor.getInt(cursor.getColumnIndex(StreamsColumns._ID));
-            intent1.putExtra(StreamsColumns._ID, id);
-            context.startActivity(intent1);
+                Intent intent1 = new Intent(context, WidgetDataProvider.class);
+                cursor = streamsAdapter.getCursor();
+                int id = cursor.getInt(cursor.getColumnIndex(StreamsColumns._ID));
+                intent1.putExtra(StreamsColumns._ID, id);
+                context.startActivity(intent1);
             }
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
