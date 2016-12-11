@@ -3,10 +3,10 @@ package com.example.paul.livecoding.Widget;
 import android.app.IntentService;
 import android.content.Intent;
 
-public class StreamsIntentService extends IntentService {
+public class WidgetIntentService extends IntentService {
 
-    public StreamsIntentService() {
-        super("StreamsIntentService");
+    public WidgetIntentService() {
+        super("WidgetIntentService");
     }
 
     @Override

@@ -102,7 +102,7 @@ class WidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
         Intent fillInIntent = new Intent();
         int id = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
         fillInIntent.putExtra(StreamsColumns._ID, id);
-        remoteView.setOnClickFillInIntent(R.id.widget_list, fillInIntent);
+        remoteView.setOnClickFillInIntent(R.id.widget_layout, fillInIntent);
 
         return remoteView;
     }

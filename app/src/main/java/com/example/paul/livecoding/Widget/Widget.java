@@ -6,20 +6,14 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
-import com.example.paul.livecoding.Adapter.StreamsAdapter;
-import com.example.paul.livecoding.DataBase.StreamsColumns;
+import com.example.paul.livecoding.Activities.CurrentStream;
 import com.example.paul.livecoding.R;
 
 public class Widget extends AppWidgetProvider {
-
-    Cursor cursor;
-    Context context;
-    public StreamsAdapter streamsAdapter = new StreamsAdapter(context);
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -56,11 +50,10 @@ public class Widget extends AppWidgetProvider {
                 updateAppWidget(context, appWidgetManager, appWidgetId);
                 appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
 
-                Intent intent1 = new Intent(context, WidgetDataProvider.class);
-                cursor = streamsAdapter.getCursor();
-                int id = cursor.getInt(cursor.getColumnIndex(StreamsColumns._ID));
-                intent1.putExtra(StreamsColumns._ID, id);
-                context.startActivity(intent1);
+                Intent clickIntentTemplate = new Intent(context, CurrentStream.class);
+                PendingIntent clickPendingIntentTemplate = PendingIntent.getActivity(context, 0, clickIntentTemplate,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                remoteViews.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
             }
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);

@@ -64,7 +64,7 @@
         </activity>
 
         <service
-            android:name=".Widget.StreamsIntentService"
+            android:name=".Widget.WidgetIntentService"
             android:exported="true">
 
         </service>
