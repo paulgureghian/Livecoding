@@ -15,46 +15,28 @@ import com.example.paul.livecoding.R;
 
 public class Widget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            setRemoteAdapter(context, views);
-        } else {
-            setRemoteAdapterV11(context, views);
-        }
-
-        appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        for (int i = 0; i < appWidgetIds.length; ++i) {
+        int i = 0;
+        while (i < appWidgetIds.length) {
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget);
 
-            Intent intent = new Intent(context, WidgetService.class);
-            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.widget_layout_main, pendingIntent);
-            appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
-
-            for (int appWidgetId : appWidgetIds) {
-
-                updateAppWidget(context, appWidgetManager, appWidgetId);
-                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
-
-                Intent clickIntentTemplate = new Intent(context, CurrentStream.class);
-                PendingIntent clickPendingIntentTemplate = PendingIntent.getActivity(context, 0, clickIntentTemplate,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                remoteViews.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                setRemoteAdapter(context, remoteViews);
+            } else {
+                setRemoteAdapterV11(context, remoteViews);
             }
+
+            Intent clickIntentTemplate = new Intent(context, CurrentStream.class);
+            PendingIntent clickPendingIntentTemplate = PendingIntent.getActivity(context, 0, clickIntentTemplate,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
+            appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
+            ++i;
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
@@ -70,14 +52,14 @@ public class Widget extends AppWidgetProvider {
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(R.id.widget_list,
+    private static void setRemoteAdapter(Context context, @NonNull final RemoteViews remoteViews) {
+        remoteViews.setRemoteAdapter(R.id.widget_list,
                 new Intent(context, WidgetService.class));
     }
 
     @SuppressWarnings("deprecation")
-    private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(0, R.id.widget_list,
+    private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews remoteViews) {
+        remoteViews.setRemoteAdapter(0, R.id.widget_list,
                 new Intent(context, WidgetService.class));
     }
 }
