@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "435286414464",
+    "firebase_url": "https://livecoding-24101.firebaseio.com",
+    "project_id": "livecoding-24101",
+    "storage_bucket": "livecoding-24101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435286414464:android:fb15c000d4f5a49d",
+        "android_client_info": {
+          "package_name": "com.example.paul.livecoding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435286414464-f5iu3lsjjvf0ort0r6v4d4v51fj2veld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzt0AmKiFMdzuxFlSN27TkhjGTJpryV2w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
