@@ -18,8 +18,7 @@ public class Widget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        int i = 0;
-        while (i < appWidgetIds.length) {
+        for (int appWidgetId : appWidgetIds) {
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget);
@@ -34,9 +33,8 @@ public class Widget extends AppWidgetProvider {
             PendingIntent clickPendingIntentTemplate = PendingIntent.getActivity(context, 0, clickIntentTemplate,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             remoteViews.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
-            appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
-            ++i;
+            appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }

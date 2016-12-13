@@ -28,6 +28,7 @@ import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.RecyclerViewListener.RecyclerViewItemClickListener;
 import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 import com.example.paul.livecoding.Widget.Widget;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -36,6 +37,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     Context context;
     Boolean isConnected;
     public StreamsAdapter streamsAdapter;
+    private FirebaseAnalytics mFirebaseAnalytics;
     private static final int CURSOR_LOADER_ID = 0;
 
     @Override
@@ -49,6 +51,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
