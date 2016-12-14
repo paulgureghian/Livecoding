@@ -82,16 +82,19 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                             intent = new Intent(context, CurrentStream.class);
                             mCursor = streamsAdapter.getCursor();
                             mCursor.moveToPosition(position);
+
                             int id = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
+                            String name = mCursor.getString(mCursor.getColumnIndex(StreamsColumns.TITLE));
+
                             intent.putExtra(StreamsColumns._ID, id);
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(id));
+                            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+                            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+                            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                             context.startActivity(intent);
-
-                        //    mFirebaseAnalytics.logEvent();
-
-
-
-
-
                         }
                     }));
         }

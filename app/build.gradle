@@ -60,5 +60,6 @@ dependencies {
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile 'net.simonvt.schematic:schematic:0.6.3'
     testCompile 'junit:junit:4.12'
+    }
     apply plugin: 'com.google.gms.google-services'
-}
+
