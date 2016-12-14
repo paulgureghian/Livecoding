@@ -53,6 +53,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         this.setTitle(getResources().getString(R.string.live_streams_on_air));
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
@@ -84,6 +85,13 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                             int id = mCursor.getInt(mCursor.getColumnIndex(StreamsColumns._ID));
                             intent.putExtra(StreamsColumns._ID, id);
                             context.startActivity(intent);
+
+                        //    mFirebaseAnalytics.logEvent();
+
+
+
+
+
                         }
                     }));
         }
