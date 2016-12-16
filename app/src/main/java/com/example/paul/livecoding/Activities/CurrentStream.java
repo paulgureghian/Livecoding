@@ -70,26 +70,30 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        mCursor = data;
-        mCursor.moveToFirst();
-        streamsAdapter.swapCursor(data);
+        if (mCursor != null && mCursor.moveToFirst()) {
+            mCursor = data;
+            mCursor.moveToFirst();
+            streamsAdapter.swapCursor(data);
 
-        int columnIndex;
-        columnIndex = mCursor.getColumnIndex(StreamsColumns.VIEWING_URLS2);
-        String stream_url = mCursor.getString(columnIndex);
+            int columnIndex;
+            columnIndex = mCursor.getColumnIndex(StreamsColumns.VIEWING_URLS2);
+            String stream_url = mCursor.getString(columnIndex);
 
-        emVideoView.setOnPreparedListener(this);
-        emVideoView.setVideoURI(Uri.parse(stream_url));
+            emVideoView.setOnPreparedListener(this);
+            emVideoView.setVideoURI(Uri.parse(stream_url));
 
-        DatabaseUtils.dumpCursor(data);
-        Log.e("cursor", mCursor.getCount() + "");
+            DatabaseUtils.dumpCursor(data);
+            Log.e("cursor", mCursor.getCount() + "");
 
-        String name = mCursor.getString(mCursor.getColumnIndex(StreamsColumns.TITLE));
-        String category = mCursor.getString(mCursor.getColumnIndex(StreamsColumns.CODING_CATEGORY));
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, category);
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+            String name = mCursor.getString(mCursor.getColumnIndex(StreamsColumns.TITLE));
+            String category = mCursor.getString(mCursor.getColumnIndex(StreamsColumns.CODING_CATEGORY));
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+            bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, category);
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+
+            mCursor.close();
+        }
     }
 
     @Override

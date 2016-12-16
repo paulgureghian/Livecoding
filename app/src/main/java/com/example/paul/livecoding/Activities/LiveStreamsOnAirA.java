@@ -28,7 +28,10 @@ import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.RecyclerViewListener.RecyclerViewItemClickListener;
 import com.example.paul.livecoding.Service.LiveStreamsIntentService;
 import com.example.paul.livecoding.Widget.Widget;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -45,6 +48,13 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_livestreams);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7912552361212336/5646206405");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

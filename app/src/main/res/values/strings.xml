@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="banner_ad_unit_id">ca-app-pub-7912552361212336/5646206405</string>
+    <string name="banner_ad_unit_id1">ca-app-pub-7912552361212336/8320471206</string>
     <string name="live">LIVE</string>
     <string name="thumbnails">Thumbnails</string>
     <string name="app_name">Livecoding</string>
