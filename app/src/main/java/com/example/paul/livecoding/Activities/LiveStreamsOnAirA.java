@@ -51,10 +51,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-7912552361212336/5646206405");
         AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         mAdView.loadAd(adRequest);
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
