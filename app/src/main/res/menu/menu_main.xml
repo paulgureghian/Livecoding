@@ -2,6 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.paul.livecoding.Activities.LiveStreamsOnAirA">
+
+    <item
+        android:id="@+id/reload"
+        android:icon="@drawable/reload_icon"
+        android:title="@string/reload"
+        android:orderInCategory="98"
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

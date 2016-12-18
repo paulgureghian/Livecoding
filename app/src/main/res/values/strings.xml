@@ -1,11 +1,19 @@
 <resources>
 
+    <string name="reload">Reload</string>
+    <string name="coding_category">Coding Category</string>
+    <string name="title">Title</string>
+    <string name="user_name">User Name</string>
+    <string name="video_player_controls">Video Player Controls</string>
+    <string name="sign_in">Sign In</string>
+    <string name="oauth2_web_view">OAuth2 Web View</string>
+    <string name="ad_mob">Ad Mob</string>
     <string name="banner_ad_unit_id">ca-app-pub-7912552361212336/5646206405</string>
     <string name="banner_ad_unit_id1">ca-app-pub-7912552361212336/8320471206</string>
     <string name="live">LIVE</string>
     <string name="thumbnails">Thumbnails</string>
     <string name="app_name">Livecoding</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Settings</string>d
     <string name="appwidget_text">Livecoding</string>
     <string name="add_widget">Add widget</string>
     <string name="no_connection_made">No connection made</string>
@@ -22,9 +30,8 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="title_activity_login_activityy">Sign in</string>
     <string name="title_activity_current_stream">Current Stream</string>
+
 </resources>

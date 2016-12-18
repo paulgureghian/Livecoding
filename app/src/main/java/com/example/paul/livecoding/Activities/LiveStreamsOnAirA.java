@@ -122,7 +122,13 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         int id = item.getItemId();
 
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        if (id == R.id.reload) {
+
+            intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
+            startService(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

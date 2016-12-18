@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingTop="10dp"
+        android:contentDescription="@string/title"
         android:textColor="@color/white" />
 
     <TextView
@@ -32,6 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:contentDescription="@string/coding_category"
         android:textColor="@color/white" />
 
     </LinearLayout>
