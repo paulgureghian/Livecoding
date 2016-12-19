@@ -1,6 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:compat="http://schemas.android.com/apk/res-auto/android"
     tools:context="com.example.paul.livecoding.Activities.LiveStreamsOnAirA">
 
     <item
@@ -8,6 +9,7 @@
         android:icon="@drawable/reload_icon"
         android:title="@string/reload"
         android:orderInCategory="98"
+        compat:actionViewClass="android.widget.ImageView"
         app:showAsAction="always"/>
 
     <item

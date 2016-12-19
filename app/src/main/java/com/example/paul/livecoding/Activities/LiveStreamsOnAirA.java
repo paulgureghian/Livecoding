@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
@@ -114,6 +115,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
+        ImageView reLoadbutton = (ImageView) menu.findItem(R.id.reload).getActionView();
+
         return true;
     }
 
@@ -125,6 +130,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
         if (id == R.id.reload) {
 
             intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
+
+            intent.putExtra()
             startService(intent);
         }
 
