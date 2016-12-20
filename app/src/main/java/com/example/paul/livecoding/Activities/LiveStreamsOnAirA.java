@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -137,7 +136,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
             intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
 
             LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            ProgressBar progressBar = (ProgressBar) layoutInflater.inflate(R.layout.reload_icon_image_view, null );
+            ProgressBar progressBar = (ProgressBar) layoutInflater.inflate(R.layout.progress_bar, null );
             progressBar.findViewById(R.id.reload_icon);
 
             item = menus.findItem(R.id.reload);

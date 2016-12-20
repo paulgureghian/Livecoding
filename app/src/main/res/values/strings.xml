@@ -19,6 +19,7 @@
     <string name="no_connection_made">No connection made</string>
     <string name="failed">Failed</string>
     <string name="connection_made">Connection made</string>
+    <string name="reload_complete">Reload Complete</string>
     <string name="title_activity_login">Login</string>
     <string name="live_streams_on_air">Live Streams On Air</string>
     <string name="login">Login</string>

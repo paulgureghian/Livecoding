@@ -106,7 +106,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         }
 
         if (code == 200) {
-            Toast.makeText(this, getResources().getString(R.string.connection_made), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.reload_complete), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
         }

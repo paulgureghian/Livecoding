@@ -7,7 +7,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:contentDescription="@string/reload"
-    android:src="@drawable/reload_icon" />
+    android:indeterminateDrawable="@drawable/reload_icon"/>
 
 
 
