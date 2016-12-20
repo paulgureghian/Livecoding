@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
@@ -136,15 +137,15 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
             intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
 
             LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            ImageView imageView = (ImageView) layoutInflater.inflate(R.layout.reload_icon_image_view, null );
-            imageView.findViewById(R.id.reload_icon);
+            ProgressBar progressBar = (ProgressBar) layoutInflater.inflate(R.layout.reload_icon_image_view, null );
+            progressBar.findViewById(R.id.reload_icon);
 
             item = menus.findItem(R.id.reload);
-            item.setActionView(imageView);
+            item.setActionView(progressBar);
 
 
             Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
-            imageView.startAnimation(rotation);
+            progressBar.startAnimation(rotation);
 
             startService(intent);
         }
