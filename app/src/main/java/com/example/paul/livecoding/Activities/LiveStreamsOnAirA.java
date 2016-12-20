@@ -45,7 +45,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     Context context;
     Boolean isConnected;
     private Menu menus;
-    private MenuItem menuItem;
     public StreamsAdapter streamsAdapter;
     private FirebaseAnalytics mFirebaseAnalytics;
     private static final int CURSOR_LOADER_ID = 0;
@@ -140,8 +139,8 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
             ImageView imageView = (ImageView) layoutInflater.inflate(R.layout.reload_icon_image_view, null );
             imageView.findViewById(R.id.reload_icon);
 
-            menuItem = menus.findItem(R.id.reload);
-            menuItem.setActionView(imageView);
+            item = menus.findItem(R.id.reload);
+            item.setActionView(imageView);
 
 
             Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
