@@ -34,5 +34,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="title_activity_login_activityy">Sign in</string>
     <string name="title_activity_current_stream">Current Stream</string>
+    <string name="ready">Ready</string>
 
 </resources>
