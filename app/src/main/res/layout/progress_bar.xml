@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="50dp"
-android:layout_height="50dp">
+
+    android:gravity="center"
+    android:layout_width="40dp"
+    android:layout_height="40dp">
 
 
+    <ProgressBar
 
-<ProgressBar
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/reload_icon"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:contentDescription="@string/reload"
-    android:indeterminateDrawable="@drawable/reload_icon"/>
-
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/reload_icon"
+        android:layout_gravity="start"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/reload"
+        android:indeterminateDrawable="@drawable/reload_icon" />
 
 
 </FrameLayout>
