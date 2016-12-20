@@ -37,12 +37,15 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     Intent intent;
     Cursor mCursor;
     Context context;
     Boolean isConnected;
+    private Menu menus;
+    private MenuItem menuItem;
     public StreamsAdapter streamsAdapter;
     private FirebaseAnalytics mFirebaseAnalytics;
     private static final int CURSOR_LOADER_ID = 0;
@@ -118,14 +121,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        ImageView imageView = (ImageView) layoutInflater.inflate(R.layout.reload_icon_layout);
-        menu.findItem(R.id.reload_icon).setActionView(imageView);
 
-        Animation rotation = AnimationUtils.loadAnimation(this, R.xml.rotation);
+        menus = menu;
 
-
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -133,11 +132,21 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         int id = item.getItemId();
 
-        if (id == R.id.reload) {
+        if (id == R.id.reload_icon) {
 
             intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
 
-            intent.putExtra()
+            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            ImageView imageView = (ImageView) layoutInflater.inflate(R.layout.reload_icon_image_view, null );
+            imageView.findViewById(R.id.reload_icon);
+
+            menuItem = menus.findItem(R.id.reload);
+            menuItem.setActionView(imageView);
+
+
+            Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
+            imageView.startAnimation(rotation);
+
             startService(intent);
         }
 
