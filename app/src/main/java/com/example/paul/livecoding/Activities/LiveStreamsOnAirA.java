@@ -131,7 +131,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         int id = item.getItemId();
 
-        if (id == R.id.reload_icon) {
+        if (id == R.id.reload) {
 
             intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
 

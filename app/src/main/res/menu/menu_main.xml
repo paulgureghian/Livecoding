@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.paul.livecoding.Activities.LiveStreamsOnAirA">
 
-
-
     <item
         android:id="@+id/reload"
         android:icon="@drawable/reload_icon"
