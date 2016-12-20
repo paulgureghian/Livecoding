@@ -11,10 +11,13 @@ import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.Deserializers.LiveStreamsOnAirD;
 import com.example.paul.livecoding.Endpoints.LiveStreamsOnAirE;
+import com.example.paul.livecoding.EventBus.Reload;
 import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.example.paul.livecoding.R;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -67,6 +70,9 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
+
+        EventBus.getDefault().post(new Reload());
+
     }
 
     @Override

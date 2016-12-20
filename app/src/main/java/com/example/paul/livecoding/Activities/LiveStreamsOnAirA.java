@@ -20,15 +20,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
 import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
+import com.example.paul.livecoding.EventBus.Reload;
 import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.RecyclerViewListener.RecyclerViewItemClickListener;
 import com.example.paul.livecoding.Service.LiveStreamsIntentService;
@@ -38,6 +36,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -46,6 +46,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     Context context;
     Boolean isConnected;
     private Menu menus;
+    private MenuItem menuItem;
     public StreamsAdapter streamsAdapter;
     private FirebaseAnalytics mFirebaseAnalytics;
     private static final int CURSOR_LOADER_ID = 0;
@@ -137,16 +138,14 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
             intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
 
             LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            FrameLayout frameLayout = (FrameLayout) layoutInflater.inflate(R.layout.progress_bar, null );
+            FrameLayout frameLayout = (FrameLayout) layoutInflater.inflate(R.layout.progress_bar, null);
             frameLayout.findViewById(R.id.reload_icon);
 
             item = menus.findItem(R.id.reload);
             item.setActionView(frameLayout);
 
-
-            Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
-            frameLayout.startAnimation(rotation);
-
+            menuItem = menus.findItem(R.id.reload);
+            startReload();
             startService(intent);
         }
 
@@ -182,8 +181,21 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         streamsAdapter.swapCursor(null);
     }
-}
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReloadComplete(Reload event) {
+        stopReload();
+        Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.reload_complete), Toast.LENGTH_SHORT).show();
+    }
+
+    protected void startReload() {
+        menuItem.setActionView(R.layout.progress_bar);
+    }
+
+    protected void stopReload() {
+        menuItem.setActionView(null);
+    }
+}
 
 
 
