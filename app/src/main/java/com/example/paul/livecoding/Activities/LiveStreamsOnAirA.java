@@ -16,11 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.Adapter.StreamsAdapter;
@@ -46,7 +44,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     Cursor mCursor;
     Context context;
     Boolean isConnected;
-    private Menu menus;
     private MenuItem menuItem;
     public StreamsAdapter streamsAdapter;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -124,7 +121,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        menus = menu;
+        menuItem = menu.findItem(R.id.reload);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -138,14 +135,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
             intent = new Intent(LiveStreamsOnAirA.this, LiveStreamsIntentService.class);
 
-            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            FrameLayout frameLayout = (FrameLayout) layoutInflater.inflate(R.layout.progress_bar, null);
-            frameLayout.findViewById(R.id.reload_icon);
-
-            item = menus.findItem(R.id.reload);
-            item.setActionView(frameLayout);
-
-            menuItem = menus.findItem(R.id.reload);
             startReload();
             startService(intent);
         }
