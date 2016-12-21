@@ -6,7 +6,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-
     <ProgressBar
 
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,8 +14,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:contentDescription="@string/reload"
-        android:indeterminateDrawable="@drawable/reload_icon" />
-
+        android:indeterminateDrawable="@drawable/rotation" />
 
 </FrameLayout>
 

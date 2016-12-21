@@ -12,6 +12,7 @@ import android.database.DatabaseUtils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -195,7 +196,13 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     }
 
     protected void stopReload() {
-        menuItem.setActionView(null);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                menuItem.setActionView(null);
+            }
+        }, 2000);
     }
 }
 
