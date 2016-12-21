@@ -36,6 +36,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -186,6 +187,18 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
     public void onReloadComplete(Reload event) {
         stopReload();
         Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.reload_complete), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     protected void startReload() {
