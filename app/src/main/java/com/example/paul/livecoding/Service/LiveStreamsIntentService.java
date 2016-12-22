@@ -35,7 +35,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     String access_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
+    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {
+    }.getType();
 
     public LiveStreamsIntentService() {
         super("LiveStreamsIntentService");
@@ -70,9 +71,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
-
-
-
     }
 
     @Override
@@ -83,6 +81,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         List<LiveStreamsOnAirP> items = response.body();
 
         Log.e("response", response.raw().toString());
+
+        getContentResolver().delete(StreamsProvider.Streams.CONTENT_URI, null, null);
 
         for (LiveStreamsOnAirP item : items) {
 
