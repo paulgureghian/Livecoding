@@ -71,7 +71,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
 
-        EventBus.getDefault().post(new Reload());
+
 
     }
 
@@ -107,6 +107,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
             getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
 
+            Log.e("title", item.getTitle());
             Log.e("items", item.getUser());
             Log.e("content_values", String.valueOf(contentValues));
         }
@@ -116,6 +117,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
         }
+
+        EventBus.getDefault().post(new Reload());
     }
 
     @Override
