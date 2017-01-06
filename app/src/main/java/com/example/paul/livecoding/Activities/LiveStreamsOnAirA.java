@@ -1,5 +1,6 @@
 package com.example.paul.livecoding.Activities;
 
+import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -111,7 +112,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
                             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-                            context.startActivity(intent);
+                            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LiveStreamsOnAirA.this).toBundle());
                         }
                     }));
         }
