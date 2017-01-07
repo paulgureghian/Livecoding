@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
@@ -53,6 +54,22 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         streamsAdapter = new StreamsAdapter(this);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+
 
     @Override
     public void onPrepared() {
