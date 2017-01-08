@@ -24,6 +24,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class CurrentStream extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OnPreparedListener {
 
+
     int columnsId;
     Intent intent;
     Cursor mCursor;
@@ -54,6 +55,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         streamsAdapter = new StreamsAdapter(this);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -62,23 +64,22 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
             case android.R.id.home:
                 supportFinishAfterTransition();
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
-
     }
-
-
-
 
     @Override
     public void onPrepared() {
 
+        Log.e("emVideoView", String.valueOf(emVideoView));
         emVideoView.start();
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        String TAG = "oncreateloader";
+        Log.e(TAG, "oncreateloader");
 
         return new CursorLoader(this, StreamsProvider.Streams.withId(columnsId),
                 null, null, null, null);
@@ -87,8 +88,13 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
+        String TAG1 = "onloadfinished";
+        Log.e(TAG1, "onloadfinished");
+
+        mCursor = data;
+        DatabaseUtils.dumpCursor(mCursor);
         if (mCursor != null && mCursor.moveToFirst()) {
-            mCursor = data;
+
             mCursor.moveToFirst();
             streamsAdapter.swapCursor(data);
 
@@ -99,6 +105,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
             emVideoView.setOnPreparedListener(this);
             emVideoView.setVideoURI(Uri.parse(stream_url));
 
+            DatabaseUtils.dumpCursor(mCursor);
             DatabaseUtils.dumpCursor(data);
             Log.e("cursor", mCursor.getCount() + "");
 
