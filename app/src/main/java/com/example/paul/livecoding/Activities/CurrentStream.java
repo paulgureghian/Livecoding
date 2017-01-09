@@ -24,7 +24,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class CurrentStream extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OnPreparedListener {
 
-
     int columnsId;
     Intent intent;
     Cursor mCursor;
@@ -104,6 +103,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
 
             emVideoView.setOnPreparedListener(this);
             emVideoView.setVideoURI(Uri.parse(stream_url));
+            Log.e("streamurl", stream_url);
 
             DatabaseUtils.dumpCursor(mCursor);
             DatabaseUtils.dumpCursor(data);
