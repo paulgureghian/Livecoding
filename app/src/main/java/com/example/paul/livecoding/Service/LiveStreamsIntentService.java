@@ -35,8 +35,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     String access_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
-    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {
-    }.getType();
+    Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
 
     public LiveStreamsIntentService() {
         super("LiveStreamsIntentService");
