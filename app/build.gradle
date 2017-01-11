@@ -5,9 +5,9 @@ apply plugin: 'com.neenbedankt.android-apt'
 android {
     signingConfigs {
         config {
-            keyAlias 'Udacity Capstone'
+            keyAlias 'livecoding'
             keyPassword 'spikers1'
-            storeFile file('../android.jks')
+            storeFile file('C:/Users/Paul/AndroidStudioProjects/Livecoding/android.jks')
             storePassword 'spikers1'
         }
     }
@@ -61,6 +61,6 @@ dependencies {
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
     compile 'net.simonvt.schematic:schematic:0.6.3'
     testCompile 'junit:junit:4.12'
-    }
-    apply plugin: 'com.google.gms.google-services'
+}
+apply plugin: 'com.google.gms.google-services'
 
