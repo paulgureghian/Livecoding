@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("stored_token", stored_token);
 
         } else {
-            Toast.makeText(LoginActivity.this, "User needs to login & authorize", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
         }
 
         auth = (Button) findViewById(R.id.auth);
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("access_token", access_token);
 
                         } else {
-                            Toast.makeText(LoginActivity.this, "User needs to login & authorize", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
                         }
                         return false;
                     }
