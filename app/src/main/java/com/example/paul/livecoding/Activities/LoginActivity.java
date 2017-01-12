@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         Access = (TextView) findViewById(R.id.Access);
 
         String stored_token = pref.getString("access_token", access_token);
-        if (!stored_token.isEmpty()) {
+        if (!TextUtils.isEmpty(stored_token)) {
 
             liveStreamsIntent = new Intent(LoginActivity.this,
                     LiveStreamsOnAirA.class);
