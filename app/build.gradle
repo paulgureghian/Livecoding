@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'livecoding'
             keyPassword 'spikers1'
-            storeFile file('C:/Users/Paul/AndroidStudioProjects/Livecoding/android.jks')
+            storeFile file('../android.jks')
             storePassword 'spikers1'
         }
     }
