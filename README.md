@@ -6,3 +6,15 @@
 <img src="authorize.png" width="200" height="200">
 <img src="main screen.png" width="200" height="200">
 <img src="stream.png" width="200" height="200">
+
+Libraries used:
+# EventBus
+# FireBase Ads
+# Firebase Analytics
+# CardView
+# DevBrackets ExoMedia
+# BumpTech Glide
+# Google Gson
+# Retrofit 2 
+# OkHttp
+# Simonvt Schematic
