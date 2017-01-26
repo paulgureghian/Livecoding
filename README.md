@@ -5,3 +5,4 @@
 <img src="login1.png" width="200" height="200">
 <img src="authorize.png" width="200" height="200">
 <img src="main screen.png" width="200" height="200">
+<img src="stream.png" width="200" height="200">
