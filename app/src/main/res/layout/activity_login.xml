@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/material_blue_500"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.example.paul.livecoding.Activities.LiveStreamsOnAirA">
@@ -27,7 +27,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/oauth2_web_view"
         android:contentDescription="@string/oauth2_web_view"
         android:textSize="25sp" />
 

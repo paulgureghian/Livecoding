@@ -1,7 +1,6 @@
 package com.example.paul.livecoding.DataBase;
 
 import android.net.Uri;
-import android.renderscript.Sampler;
 
 import net.simonvt.schematic.annotation.ContentProvider;
 import net.simonvt.schematic.annotation.ContentUri;
