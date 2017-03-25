@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:435286414464:android:fb15c000d4f5a49d",
         "android_client_info": {
-          "package_name": "com.example.paul.livecoding"
+          "package_name": "com.paulgureghian.livecoding.app"
         }
       },
       "oauth_client": [
