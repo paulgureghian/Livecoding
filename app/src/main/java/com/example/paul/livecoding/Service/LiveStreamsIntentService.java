@@ -106,6 +106,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
             getContentResolver().insert(StreamsProvider.Streams.CONTENT_URI, contentValues);
 
+            Log.i("getViewingUrls()", item.getViewingUrls().size()+"");
+            Log.e("viewing urls1", String.valueOf(item.getViewingUrls()));
             Log.e("title", item.getTitle());
             Log.e("items", item.getUser());
             Log.e("content_values", String.valueOf(contentValues));
