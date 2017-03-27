@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 public interface TokenRefresh {
 
     @FormUrlEncoded
-    @POST("/o/token")
+    @POST("o/token")
     Call<RefreshAccessToken> getNewAccessToken(
             @Field("code") String code,
             @Field("client_id") String clientId,
@@ -18,7 +18,7 @@ public interface TokenRefresh {
             @Field("grant_type") String grantType);
 
     @FormUrlEncoded
-    @POST("/o/token")
+    @POST("o/token")
     Call<RefreshAccessToken> getRefreshAccessToken(
             @Field("refresh_token") String refreshToken,
             @Field("client_id") String clientId,

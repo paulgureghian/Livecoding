@@ -74,12 +74,11 @@ public class ServiceGenerator {
                 @Override
                 public Request authenticate(Route route, Response response) throws IOException {
                     if (responseCount(response) >= 2) {
-                        // If both the original call and the call with refreshed token failed,
-                        // it will probably keep failing, so don't try again.
+
                         return null;
                     }
 
-                    // We need a new client, since we don't want to make another call using our client with access token
+
                     TokenRefresh tokenClient = createService(TokenRefresh.class);
                     Call<RefreshAccessToken> call = tokenClient.getRefreshAccessToken(mToken.getRefreshToken(),
                             mToken.getClientID(), mToken.getClientSecret(), API_OAUTH_REDIRECT,

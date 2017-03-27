@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences pref;
     TextView Access;
     private WebView webView;
-    private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=token&" + RANDOM_STATE;
+    private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=code&" + RANDOM_STATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
