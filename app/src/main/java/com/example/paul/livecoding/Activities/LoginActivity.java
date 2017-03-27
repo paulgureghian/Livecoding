@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         pref = getSharedPreferences("access_code", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
 
-        String stored_code = pref.getString("access_token", access_code);
+        String stored_code = pref.getString("access_code", access_code);
         if (!TextUtils.isEmpty(stored_code)) {
 
             liveStreamsIntent = new Intent(LoginActivity.this,
@@ -83,9 +83,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //
+                        if (url.contains("http://localhost")) {
+                            getAuthCode(OAUTH_URL);
+                        }
                         Log.e("Url", url);
 
-//                        access_token = getAccessToken(url);
+//                        access_code = getAuthCode(url);
 //
 //                       if (access_token != null) {
 //
@@ -104,23 +107,23 @@ public class LoginActivity extends AppCompatActivity {
 //                        } else {
 //                            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
 //                        }
+
+                        webView.loadUrl(OAUTH_URL);
                         return false;
                     }
+
+                    private String getAuthCode(String OAUTH_URL) {
+
+                        String code = null;
+                        int codeIndex = OAUTH_URL.indexOf("access_code");
+
+                        if (codeIndex != -1) {
+                            codeIndex = OAUTH_URL.indexOf("=", codeIndex) + 1;
+                            code = OAUTH_URL.substring(codeIndex, OAUTH_URL.indexOf("&", codeIndex));
+                        }
+                        return code;
+                    }
                 });
-//
-                webView.loadUrl(OAUTH_URL);
-            }
-
-            private String getAuthCode(String OAUTH_URL) {
-
-                String code = null;
-                int codeIndex = OAUTH_URL.indexOf("access_code");
-
-                if (codeIndex != -1) {
-                    codeIndex = OAUTH_URL.indexOf("=", codeIndex) + 1;
-                    code = OAUTH_URL.substring(codeIndex, OAUTH_URL.indexOf("&", codeIndex));
-                }
-                return code;
             }
         });
     }
