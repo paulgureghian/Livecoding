@@ -22,7 +22,7 @@ import com.example.paul.livecoding.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static String access_token = "";
+    public static String access_code = "";
     private static String RANDOM_STATE = "state=random_state_string";
     Intent liveStreamsIntent;
     Button auth;
@@ -42,11 +42,11 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
-        pref = getSharedPreferences("access_token", MODE_PRIVATE);
+        pref = getSharedPreferences("access_code", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
 
-        String stored_token = pref.getString("access_token", access_token);
-        if (!TextUtils.isEmpty(stored_token)) {
+        String stored_code = pref.getString("access_token", access_code);
+        if (!TextUtils.isEmpty(stored_code)) {
 
             liveStreamsIntent = new Intent(LoginActivity.this,
                     LiveStreamsOnAirA.class);
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             startActivity(liveStreamsIntent);
-            Log.e("stored_token", stored_token);
+            Log.e("stored_code", stored_code);
 
         } else {
             Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
@@ -75,54 +75,63 @@ public class LoginActivity extends AppCompatActivity {
 
                 webView = (WebView) auth_dialog.findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
-                webView.loadUrl(OAUTH_URL);
+//                webView.loadUrl(OAUTH_URL);
                 Log.e("oauthurl", OAUTH_URL);
 
                 webView.setWebViewClient(new WebViewClient() {
 
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//
+                        Log.e("Url", url);
 
-                        access_token = getAccessToken(url);
-
-                        if (access_token != null) {
-
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putString("access_token", access_token);
-                            editor.commit();
-
-                            liveStreamsIntent = new Intent(LoginActivity.this,
-                                    LiveStreamsOnAirA.class);
-
-                            liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                            startActivity(liveStreamsIntent);
-                            Log.e("access_token", access_token);
-
-                        } else {
-                            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
-                        }
+//                        access_token = getAccessToken(url);
+//
+//                       if (access_token != null) {
+//
+//                            SharedPreferences.Editor editor = pref.edit();
+//                            editor.putString("access_token", access_token);
+//                            editor.commit();
+//
+//                            liveStreamsIntent = new Intent(LoginActivity.this,
+//                                    LiveStreamsOnAirA.class);
+//
+//                            liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                            startActivity(liveStreamsIntent);
+//                            Log.e("access_token", access_token);
+//
+//                        } else {
+//                            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
+//                        }
                         return false;
                     }
                 });
-
+//
                 webView.loadUrl(OAUTH_URL);
             }
 
-            private String getAccessToken(String OAUTH_URL) {
+            private String getAuthCode(String OAUTH_URL) {
 
-                String token = null;
-                int tokenIndex = OAUTH_URL.indexOf("access_token");
+                String code = null;
+                int codeIndex = OAUTH_URL.indexOf("access_code");
 
-                if (tokenIndex != -1) {
-                    tokenIndex = OAUTH_URL.indexOf("=", tokenIndex) + 1;
-                    token = OAUTH_URL.substring(tokenIndex, OAUTH_URL.indexOf("&", tokenIndex));
+                if (codeIndex != -1) {
+                    codeIndex = OAUTH_URL.indexOf("=", codeIndex) + 1;
+                    code = OAUTH_URL.substring(codeIndex, OAUTH_URL.indexOf("&", codeIndex));
                 }
-                return token;
+                return code;
             }
         });
     }
 }
+
+
+
+
+
+
+
 
 
 
