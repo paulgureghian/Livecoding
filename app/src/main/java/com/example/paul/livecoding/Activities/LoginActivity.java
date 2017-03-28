@@ -85,6 +85,11 @@ public class LoginActivity extends AppCompatActivity {
 //
                         if (url.contains("http://localhost")) {
                             getAuthCode(OAUTH_URL);
+
+                         String authcode = getAuthCode(OAUTH_URL);
+
+                        Log.e("authcode", authcode);
+
                         }
                         Log.e("Url", url);
 
