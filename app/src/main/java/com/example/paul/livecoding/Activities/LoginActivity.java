@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 webView.setWebViewClient(new WebViewClient() {
 
-
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //
@@ -109,28 +108,26 @@ public class LoginActivity extends AppCompatActivity {
 //                            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
 //                        }
 
-
                         return false;
                     }
                 });
                 webView.loadUrl(OAUTH_URL);
 
             }
-
-            private String getAuthCode(String OAUTH_URL) {
-
-                String code = null;
-                int codeIndex = OAUTH_URL.indexOf("access_code");
-
-                if (codeIndex != -1) {
-                    codeIndex = OAUTH_URL.indexOf("=", codeIndex) + 1;
-                    code = OAUTH_URL.substring(codeIndex, OAUTH_URL.indexOf("&", codeIndex));
-                }
-                return code;
-            }
         });
     }
 
+    private String getAuthCode(String OAUTH_URL) {
+
+        String code = null;
+        int codeIndex = OAUTH_URL.indexOf("access_code");
+
+        if (codeIndex != -1) {
+            codeIndex = OAUTH_URL.indexOf("=", codeIndex) + 1;
+            code = OAUTH_URL.substring(codeIndex, OAUTH_URL.indexOf("&", codeIndex));
+        }
+        return code;
+    }
 }
 
 
