@@ -22,7 +22,7 @@ import com.example.paul.livecoding.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static String access_code = "";
+    public static String code = "";
     private static String RANDOM_STATE = "state=random_state_string";
     Intent liveStreamsIntent;
     Button auth;
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         pref = getSharedPreferences("access_code", MODE_PRIVATE);
         Access = (TextView) findViewById(R.id.Access);
 
-        String stored_code = pref.getString("access_code", access_code);
+        String stored_code = pref.getString("code", code);
         if (!TextUtils.isEmpty(stored_code)) {
 
             liveStreamsIntent = new Intent(LoginActivity.this,
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             startActivity(liveStreamsIntent);
-            Log.e("stored_code", stored_code);
+            Log.e("code", code);
 
         } else {
             Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
                          String authcode = getAuthCode(OAUTH_URL);
 
-                        Log.e("authcode", authcode);
+                        Log.e("code", code);
 
                         }
                         Log.e("Url", url);
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
     private String getAuthCode(String OAUTH_URL) {
 
         String code = null;
-        int codeIndex = OAUTH_URL.indexOf("access_code");
+        int codeIndex = OAUTH_URL.indexOf("code");
 
         if (codeIndex != -1) {
             codeIndex = OAUTH_URL.indexOf("=", codeIndex) + 1;
