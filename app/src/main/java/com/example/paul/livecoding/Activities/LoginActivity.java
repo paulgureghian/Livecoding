@@ -86,9 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (url.contains("http://localhost")) {
                             getAuthCode(url);
 
-                            String authcode = getAuthCode(OAUTH_URL);
+                            String authcode = getAuthCode(url);
 
-                            Log.e("code", code);
+                            Log.e("url", url);
 
                         }
                         Log.e("Url", url);
@@ -130,6 +130,8 @@ public class LoginActivity extends AppCompatActivity {
         if (codeIndex != -1) {
             codeIndex = url.indexOf("=", codeIndex) + 1;
             code = url.substring(codeIndex, url.indexOf("&", codeIndex));
+
+            Log.e("code", url);
         }
         return code;
     }
