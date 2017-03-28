@@ -84,11 +84,11 @@ public class LoginActivity extends AppCompatActivity {
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //
                         if (url.contains("http://localhost")) {
-                            getAuthCode(OAUTH_URL);
+                            getAuthCode(url);
 
-                         String authcode = getAuthCode(OAUTH_URL);
+                            String authcode = getAuthCode(OAUTH_URL);
 
-                        Log.e("code", code);
+                            Log.e("code", code);
 
                         }
                         Log.e("Url", url);
@@ -122,14 +122,14 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private String getAuthCode(String OAUTH_URL) {
+    private String getAuthCode(String url) {
 
         String code = null;
-        int codeIndex = OAUTH_URL.indexOf("code");
+        int codeIndex = url.indexOf("code");
 
         if (codeIndex != -1) {
-            codeIndex = OAUTH_URL.indexOf("=", codeIndex) + 1;
-            code = OAUTH_URL.substring(codeIndex, OAUTH_URL.indexOf("&", codeIndex));
+            codeIndex = url.indexOf("=", codeIndex) + 1;
+            code = url.substring(codeIndex, url.indexOf("&", codeIndex));
         }
         return code;
     }
