@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 webView = (WebView) auth_dialog.findViewById(R.id.webv);
                 webView.getSettings().setJavaScriptEnabled(true);
-//                webView.loadUrl(OAUTH_URL);
+
                 Log.e("oauthurl", OAUTH_URL);
 
                 webView.setWebViewClient(new WebViewClient() {
@@ -84,60 +85,21 @@ public class LoginActivity extends AppCompatActivity {
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //
                         if (url.contains("http://localhost")) {
-                            getAuthCode(url);
 
-                            String authcode = getAuthCode(url);
+                            Uri uri = Uri.parse(url);
+                            String parsedCode = uri.getQueryParameter("code");
 
+                            Log.e("parsedcode", parsedCode);
                             Log.e("url", url);
-
                         }
-                        Log.e("Url", url);
-
-//                        access_code = getAuthCode(url);
-//
-//                       if (access_token != null) {
-//
-//                            SharedPreferences.Editor editor = pref.edit();
-//                            editor.putString("access_token", access_token);
-//                            editor.commit();
-//
-//                            liveStreamsIntent = new Intent(LoginActivity.this,
-//                                    LiveStreamsOnAirA.class);
-//
-//                            liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                            startActivity(liveStreamsIntent);
-//                            Log.e("access_token", access_token);
-//
-//                        } else {
-//                            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
-//                        }
-
                         return false;
                     }
                 });
                 webView.loadUrl(OAUTH_URL);
-
             }
         });
     }
-
-    private String getAuthCode(String url) {
-
-        String code = null;
-        int codeIndex = url.indexOf("code");
-
-        if (codeIndex != -1) {
-            codeIndex = url.indexOf("=", codeIndex) + 1;
-            code = url.substring(codeIndex, url.indexOf("&", codeIndex));
-
-            Log.e("code", url);
-        }
-        return code;
-    }
 }
-
-
 
 
 
