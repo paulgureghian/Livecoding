@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.SquareRelativeLayout;
+package com.example.paul.livecoding.squarerelativelayout;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.ThreeTwoRelativeLayout;
+package com.example.paul.livecoding.threetworelativelayout;
 
 import android.content.Context;
 import android.util.AttributeSet;

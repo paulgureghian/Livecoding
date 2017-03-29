@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Widget;
+package com.example.paul.livecoding.widget;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
@@ -10,7 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
-import com.example.paul.livecoding.Activities.CurrentStream;
+import com.example.paul.livecoding.activities.CurrentStream;
 import com.example.paul.livecoding.R;
 
 public class Widget extends AppWidgetProvider {

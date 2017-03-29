@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Service;
+package com.example.paul.livecoding.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,7 +8,7 @@ import com.example.paul.livecoding.endpoints.TokenRefresh;
 import java.io.IOException;
 
 import com.example.paul.livecoding.BuildConfig;
-import com.example.paul.livecoding.POJOs.RefreshAccessToken;
+import com.example.paul.livecoding.pojo.RefreshAccessToken;
 
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;

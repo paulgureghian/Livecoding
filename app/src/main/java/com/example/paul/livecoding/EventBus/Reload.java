@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.EventBus;
+package com.example.paul.livecoding.eventbus;
 
 
 

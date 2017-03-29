@@ -8,5 +8,5 @@ import retrofit2.http.GET;
 public interface CodingCategories {
 
     @GET("/api/codingcategories/")
-    Call<List<com.example.paul.livecoding.POJOs.CodingCategories>> getData();
+    Call<List<com.example.paul.livecoding.pojo.CodingCategories>> getData();
 }

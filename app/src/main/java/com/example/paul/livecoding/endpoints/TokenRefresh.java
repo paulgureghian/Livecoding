@@ -1,6 +1,6 @@
 package com.example.paul.livecoding.endpoints;
 
-import com.example.paul.livecoding.POJOs.RefreshAccessToken;
+import com.example.paul.livecoding.pojo.RefreshAccessToken;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

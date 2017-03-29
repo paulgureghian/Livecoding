@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Widget;
+package com.example.paul.livecoding.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
-import com.example.paul.livecoding.DataBase.StreamsColumns;
-import com.example.paul.livecoding.DataBase.StreamsProvider;
-import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
+import com.example.paul.livecoding.database.StreamsColumns;
+import com.example.paul.livecoding.database.StreamsProvider;
+import com.example.paul.livecoding.pojo.LiveStreamsOnAirP;
 import com.example.paul.livecoding.R;
 
 import java.util.ArrayList;

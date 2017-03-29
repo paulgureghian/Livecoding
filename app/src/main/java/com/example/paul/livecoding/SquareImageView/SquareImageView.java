@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.SquareImageView;
+package com.example.paul.livecoding.squareimageview;
 
 import android.content.Context;
 import android.util.AttributeSet;

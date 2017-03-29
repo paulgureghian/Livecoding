@@ -13,10 +13,10 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Activities.LiveStreamsOnAirA"
+            android:name=".activities.LiveStreamsOnAirA"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".Widget.Widget">
+        <receiver android:name=".widget.Widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -27,12 +27,12 @@
         </receiver>
 
         <service
-            android:name=".Widget.WidgetService"
+            android:name=".widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         android:enabled="true"
         android:exported="true"
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,25 +42,25 @@
         </activity>
 
         <service
-            android:name=".Service.LiveStreamsIntentService"
+            android:name=".service.LiveStreamsIntentService"
             android:exported="true" />
 
         <provider
-            android:name=".DataBase.generated.StreamsProvider"
-            android:authorities="com.example.paul.livecoding.DataBase.StreamsProvider"
+            android:name=".database.generated.StreamsProvider"
+            android:authorities="com.example.paul.livecoding.database.StreamsProvider"
             android:exported="true" />
 
         <activity
-            android:name=".Activities.CurrentStream"
+            android:name=".activities.CurrentStream"
             android:label="@string/title_activity_current_stream"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.LiveStreamsOnAirA" />
+                android:value=".activities.LiveStreamsOnAirA" />
         </activity>
 
         <service
-            android:name=".Widget.WidgetIntentService"
+            android:name=".widget.WidgetIntentService"
             android:exported="true">
 
         </service>

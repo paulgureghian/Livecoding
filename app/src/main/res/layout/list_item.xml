@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.example.paul.livecoding.SquareRelativeLayout.SquareRelativeLayout
+        <com.example.paul.livecoding.squarerelativelayout.SquareRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.example.paul.livecoding.SquareImageView.SquareImageView
+            <com.example.paul.livecoding.squareimageview.SquareImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,7 +52,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="#FFFFFF" />
 
-        </com.example.paul.livecoding.SquareRelativeLayout.SquareRelativeLayout>
+        </com.example.paul.livecoding.squarerelativelayout.SquareRelativeLayout>
 
         <TextView
             android:id="@+id/title"

@@ -1,6 +1,6 @@
-package com.example.paul.livecoding.Deserializers;
+package com.example.paul.livecoding.deserializers;
 
-import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
+import com.example.paul.livecoding.pojo.LiveStreamsOnAirP;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

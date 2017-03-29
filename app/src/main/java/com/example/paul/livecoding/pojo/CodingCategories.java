@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.POJOs;
+package com.example.paul.livecoding.pojo;
 
 public class CodingCategories {
 

@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Adapter;
+package com.example.paul.livecoding.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import com.example.paul.livecoding.DataBase.StreamsColumns;
+import com.example.paul.livecoding.database.StreamsColumns;
 import com.example.paul.livecoding.R;
 
 public class StreamsAdapter extends RecyclerView.Adapter<StreamsAdapter.StreamsViewHolder> {

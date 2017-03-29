@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Activities;
+package com.example.paul.livecoding.activities;
 
 import android.app.LoaderManager;
 import android.content.Context;
@@ -16,9 +16,9 @@ import android.view.MenuItem;
 
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
-import com.example.paul.livecoding.Adapter.StreamsAdapter;
-import com.example.paul.livecoding.DataBase.StreamsColumns;
-import com.example.paul.livecoding.DataBase.StreamsProvider;
+import com.example.paul.livecoding.adapter.StreamsAdapter;
+import com.example.paul.livecoding.database.StreamsColumns;
+import com.example.paul.livecoding.database.StreamsProvider;
 import com.example.paul.livecoding.R;
 import com.google.firebase.analytics.FirebaseAnalytics;
 

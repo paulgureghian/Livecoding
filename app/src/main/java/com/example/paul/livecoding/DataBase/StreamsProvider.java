@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.DataBase;
+package com.example.paul.livecoding.database;
 
 import android.net.Uri;
 

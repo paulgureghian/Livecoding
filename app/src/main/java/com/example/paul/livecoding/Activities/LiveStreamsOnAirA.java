@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Activities;
+package com.example.paul.livecoding.activities;
 
 import android.app.ActivityOptions;
 import android.app.LoaderManager;
@@ -23,14 +23,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.paul.livecoding.Adapter.StreamsAdapter;
-import com.example.paul.livecoding.DataBase.StreamsColumns;
-import com.example.paul.livecoding.DataBase.StreamsProvider;
-import com.example.paul.livecoding.EventBus.Reload;
+import com.example.paul.livecoding.adapter.StreamsAdapter;
+import com.example.paul.livecoding.database.StreamsColumns;
+import com.example.paul.livecoding.database.StreamsProvider;
+import com.example.paul.livecoding.eventbus.Reload;
 import com.example.paul.livecoding.R;
-import com.example.paul.livecoding.RecyclerViewListener.RecyclerViewItemClickListener;
-import com.example.paul.livecoding.Service.LiveStreamsIntentService;
-import com.example.paul.livecoding.Widget.Widget;
+import com.example.paul.livecoding.recyclerviewlistener.RecyclerViewItemClickListener;
+import com.example.paul.livecoding.service.LiveStreamsIntentService;
+import com.example.paul.livecoding.widget.Widget;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.gms.ads.AdRequest;

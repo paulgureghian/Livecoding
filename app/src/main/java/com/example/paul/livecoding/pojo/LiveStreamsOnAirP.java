@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.POJOs;
+package com.example.paul.livecoding.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

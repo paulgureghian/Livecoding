@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Activities;
+package com.example.paul.livecoding.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.paul.livecoding.BuildConfig;
 import com.example.paul.livecoding.endpoints.TokenRefresh;
-import com.example.paul.livecoding.POJOs.RefreshAccessToken;
+import com.example.paul.livecoding.pojo.RefreshAccessToken;
 import com.example.paul.livecoding.R;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -34,8 +34,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class LoginActivity extends AppCompatActivity implements Callback<List<RefreshAccessToken>> {
 
+    String grant_type = "refresh_token";
+    String redirect_uri = "http://localhost";
+    String parsedCode;
     List<RefreshAccessToken> items;
     Type listType = new TypeToken<List<RefreshAccessToken>>() {}.getType();
     public static String code = "";
@@ -102,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<List<Re
                         if (url.contains("http://localhost")) {
 
                             Uri uri = Uri.parse(url);
-                            String parsedCode = uri.getQueryParameter("code");
+                            parsedCode = uri.getQueryParameter("code");
 
                             Log.e("url", url);
                             Log.e("parsedcode", parsedCode);
@@ -123,8 +127,9 @@ public class LoginActivity extends AppCompatActivity implements Callback<List<Re
                         .build();
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
-        Call <RefreshAccessToken> call = tokenRefresh.getData();
-        call.enqueue(this);
+        Call <RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, redirect_uri, grant_type);
+
+
 
 
 

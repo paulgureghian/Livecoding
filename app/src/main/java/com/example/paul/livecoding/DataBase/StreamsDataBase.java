@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.DataBase;
+package com.example.paul.livecoding.database;
 
 import net.simonvt.schematic.annotation.Database;
 import net.simonvt.schematic.annotation.Table;

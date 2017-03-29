@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.DataBase;
+package com.example.paul.livecoding.database;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
 import net.simonvt.schematic.annotation.ConflictResolutionType;

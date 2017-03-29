@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Service;
+package com.example.paul.livecoding.service;
 
 import android.app.IntentService;
 import android.content.ContentValues;
@@ -7,12 +7,12 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.paul.livecoding.DataBase.StreamsColumns;
-import com.example.paul.livecoding.DataBase.StreamsProvider;
-import com.example.paul.livecoding.Deserializers.LiveStreamsOnAirD;
+import com.example.paul.livecoding.database.StreamsColumns;
+import com.example.paul.livecoding.database.StreamsProvider;
+import com.example.paul.livecoding.deserializers.LiveStreamsOnAirD;
 import com.example.paul.livecoding.endpoints.LiveStreamsOnAirE;
-import com.example.paul.livecoding.EventBus.Reload;
-import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
+import com.example.paul.livecoding.eventbus.Reload;
+import com.example.paul.livecoding.pojo.LiveStreamsOnAirP;
 import com.example.paul.livecoding.R;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

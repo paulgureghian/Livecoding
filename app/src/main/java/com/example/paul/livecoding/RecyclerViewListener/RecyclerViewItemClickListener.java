@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.RecyclerViewListener;
+package com.example.paul.livecoding.recyclerviewlistener;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

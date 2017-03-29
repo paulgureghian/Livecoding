@@ -1,6 +1,6 @@
 package com.example.paul.livecoding.endpoints;
 
-import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
+import com.example.paul.livecoding.pojo.LiveStreamsOnAirP;
 
 import java.util.List;
 

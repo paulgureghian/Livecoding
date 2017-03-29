@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.ThreeTwoImageView;
+package com.example.paul.livecoding.threetwoimageview;
 
 import android.content.Context;
 import android.util.AttributeSet;

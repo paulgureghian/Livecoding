@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Widget;
+package com.example.paul.livecoding.widget;
 
 import android.app.IntentService;
 import android.content.Intent;
