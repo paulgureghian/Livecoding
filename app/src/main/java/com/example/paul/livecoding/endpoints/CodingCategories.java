@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Endpoints;
+package com.example.paul.livecoding.endpoints;
 
 import java.util.List;
 

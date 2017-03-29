@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.example.paul.livecoding.DataBase.StreamsColumns;
 import com.example.paul.livecoding.DataBase.StreamsProvider;
 import com.example.paul.livecoding.Deserializers.LiveStreamsOnAirD;
-import com.example.paul.livecoding.Endpoints.LiveStreamsOnAirE;
+import com.example.paul.livecoding.endpoints.LiveStreamsOnAirE;
 import com.example.paul.livecoding.EventBus.Reload;
 import com.example.paul.livecoding.POJOs.LiveStreamsOnAirP;
 import com.example.paul.livecoding.R;

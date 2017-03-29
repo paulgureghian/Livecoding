@@ -1,4 +1,4 @@
-package com.example.paul.livecoding.Endpoints;
+package com.example.paul.livecoding.endpoints;
 
 import com.example.paul.livecoding.POJOs.RefreshAccessToken;
 import retrofit2.Call;

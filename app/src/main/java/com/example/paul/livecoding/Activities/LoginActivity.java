@@ -19,10 +19,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.BuildConfig;
+import com.example.paul.livecoding.endpoints.TokenRefresh;
+import com.example.paul.livecoding.POJOs.RefreshAccessToken;
 import com.example.paul.livecoding.R;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-public class LoginActivity extends AppCompatActivity {
+import java.lang.reflect.Type;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class LoginActivity extends AppCompatActivity implements Callback<List<RefreshAccessToken>> {
+
+    List<RefreshAccessToken> items;
+    Type listType = new TypeToken<List<RefreshAccessToken>>() {}.getType();
     public static String code = "";
     private static String RANDOM_STATE = "state=random_state_string";
     Intent liveStreamsIntent;
@@ -83,14 +98,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//
+
                         if (url.contains("http://localhost")) {
 
                             Uri uri = Uri.parse(url);
                             String parsedCode = uri.getQueryParameter("code");
 
-                            Log.e("parsedcode", parsedCode);
                             Log.e("url", url);
+                            Log.e("parsedcode", parsedCode);
                         }
                         return false;
                     }
@@ -98,6 +113,41 @@ public class LoginActivity extends AppCompatActivity {
                 webView.loadUrl(OAUTH_URL);
             }
         });
+    }
+
+    public void getNewAccessToken() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://www.livecoding.tv/")
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                        .build();
+        TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
+
+        Call <RefreshAccessToken> call = tokenRefresh.getData();
+        call.enqueue(this);
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    @Override
+    public void onResponse(Call<List<RefreshAccessToken>> call, Response<List<RefreshAccessToken>> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<List<RefreshAccessToken>> call, Throwable t) {
+
     }
 }
 

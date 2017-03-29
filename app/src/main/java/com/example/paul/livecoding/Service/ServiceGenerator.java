@@ -3,7 +3,7 @@ package com.example.paul.livecoding.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.paul.livecoding.Endpoints.TokenRefresh;
+import com.example.paul.livecoding.endpoints.TokenRefresh;
 
 import java.io.IOException;
 
