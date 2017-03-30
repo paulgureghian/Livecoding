@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -32,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity implements Callback<RefreshAccessToken> {
 
+    String encoded = BuildConfig.CLIENT_ID + ":" + BuildConfig.CLIENT_SECRET;
     String parsedCode;
     String grant_type = "refresh_token";
     String redirect_uri = "http://localhost";
@@ -123,7 +125,8 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
                 .build();
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
-        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, redirect_uri, grant_type);
+        String encoded_id_secret = Base64.encodeToString(encoded.getBytes(), 0);
+        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, encoded_id_secret, redirect_uri, grant_type);
         call.enqueue(this);
     }
 
