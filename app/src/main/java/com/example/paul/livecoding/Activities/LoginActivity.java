@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
 
                             Uri uri = Uri.parse(url);
                             parsedCode = uri.getQueryParameter("code");
+                            getNewAccessToken();
 
                             Log.e("url", url);
                             Log.e("parsedcode", parsedCode);
@@ -108,6 +109,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
                         return false;
                     }
                 });
+
                 webView.loadUrl(OAUTH_URL);
             }
         });
