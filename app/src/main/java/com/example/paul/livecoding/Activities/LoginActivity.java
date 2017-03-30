@@ -23,10 +23,6 @@ import com.example.paul.livecoding.endpoints.TokenRefresh;
 import com.example.paul.livecoding.pojo.RefreshAccessToken;
 import com.example.paul.livecoding.R;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,14 +30,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+public class LoginActivity extends AppCompatActivity implements Callback<RefreshAccessToken> {
 
-public class LoginActivity extends AppCompatActivity implements Callback<List<RefreshAccessToken>> {
-
+    String parsedCode;
     String grant_type = "refresh_token";
     String redirect_uri = "http://localhost";
-    String parsedCode;
-    List<RefreshAccessToken> items;
-    Type listType = new TypeToken<List<RefreshAccessToken>>() {}.getType();
+    String onresponse;
     public static String code = "";
     private static String RANDOM_STATE = "state=random_state_string";
     Intent liveStreamsIntent;
@@ -124,35 +118,44 @@ public class LoginActivity extends AppCompatActivity implements Callback<List<Re
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.livecoding.tv/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                        .build();
+                .build();
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
-        Call <RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, redirect_uri, grant_type);
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-    @Override
-    public void onResponse(Call<List<RefreshAccessToken>> call, Response<List<RefreshAccessToken>> response) {
-
+        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, redirect_uri, grant_type);
+        call.enqueue(this);
     }
 
     @Override
-    public void onFailure(Call<List<RefreshAccessToken>> call, Throwable t) {
+    public void onResponse(Call<RefreshAccessToken> call, Response<RefreshAccessToken> response) {
 
+        RefreshAccessToken refreshAccessToken;
+
+        refreshAccessToken = response.body();
+
+        int code = response.code();
+
+        Log.e("reponse", response.raw().toString());
+
+        Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
+        Log.e("getTokenType()", refreshAccessToken.getTokenType());
+        Log.e("getExpiry()", String.valueOf(refreshAccessToken.getExpiry()));
+        Log.e("getRefreshToken()", refreshAccessToken.getRefreshToken());
+        Log.e("getScope)()", refreshAccessToken.getScope());
+        Log.e("getClientID", refreshAccessToken.getClientID());
+        Log.e("getClientSecret()", refreshAccessToken.getClientSecret());
+
+        if (code == 200) {
+            Toast.makeText(this, getResources().getString(R.string.ready), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<RefreshAccessToken> call, Throwable t) {
+        t.printStackTrace();
+
+        Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
     }
 }
 
