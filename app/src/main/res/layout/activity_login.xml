@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_blue_500"
+    android:background="@color/black"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.example.paul.livecoding.activities.LiveStreamsOnAirA">
@@ -30,6 +30,13 @@
         android:contentDescription="@string/oauth2_web_view"
         android:textSize="25sp" />
 
+    <ImageView
+
+        android:id="@+id/feature_graphic"
+        android:src="@drawable/feature_graphic"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
     <Button
         android:id="@+id/auth"
         android:layout_width="wrap_content"
@@ -37,6 +44,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
         android:contentDescription="@string/sign_in"
+        android:src="@color/blue_grey"
         android:text="@string/sign_in" />
 
     <TextView
