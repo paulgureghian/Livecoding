@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
     SharedPreferences pref;
     TextView Access;
     private WebView webView;
-    private String OAUTH_URL = "https://www.livecoding.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=code&" + RANDOM_STATE;
+    private String OAUTH_URL = "https://www.liveedu.tv/o/authorize/?client_id=" + BuildConfig.CLIENT_ID + "&response_type=code&" + RANDOM_STATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,13 +120,13 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
     public void getNewAccessToken() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.livecoding.tv/")
+                .baseUrl("https://www.liveedu.tv/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
         String encoded_id_secret = Base64.encodeToString(encoded.getBytes(), 0);
-        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, encoded_id_secret, redirect_uri, grant_type);
+        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
         call.enqueue(this);
     }
 

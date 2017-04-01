@@ -57,7 +57,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         httpClient.addInterceptor(logging);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.livecoding.tv/")
+                .baseUrl("https://www.liveedu.tv/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
                         listType, new LiveStreamsOnAirD()).create()))
                 .client(httpClient.build())

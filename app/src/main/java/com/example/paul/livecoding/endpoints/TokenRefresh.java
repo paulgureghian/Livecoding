@@ -13,6 +13,8 @@ public interface TokenRefresh {
     @POST("o/token")
     Call<RefreshAccessToken> getNewAccessToken(
             @Field("code") String code,
+            @Field("client_id") String clientId,
+            @Field("client_secret") String clientSecret,
             @Header("Authorization") String authorization,
             @Field("redirect_uri") String redirectUri,
             @Field("grant_type") String grantType);
