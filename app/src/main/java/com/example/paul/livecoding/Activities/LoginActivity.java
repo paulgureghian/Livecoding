@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
 
     String encoded = BuildConfig.CLIENT_ID + ":" + BuildConfig.CLIENT_SECRET;
     String parsedCode;
-    String grant_type = "refresh_token";
+    String grant_type = "authorization_code";
     String redirect_uri = "http://localhost";
     String onresponse;
     public static String code = "";
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
                 .build();
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
-        String encoded_id_secret = Base64.encodeToString(encoded.getBytes(), 0);
+        String encoded_id_secret = "Basic " + Base64.encodeToString(encoded.getBytes(), Base64.NO_WRAP);
         Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
         call.enqueue(this);
     }
@@ -160,6 +160,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
     public void onFailure(Call<RefreshAccessToken> call, Throwable t) {
         t.printStackTrace();
 
+        Log.e("onfailure", t.getMessage());
         Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
     }
 }
