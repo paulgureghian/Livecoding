@@ -140,14 +140,11 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         int code = response.code();
 
         Log.e("reponse", response.raw().toString());
-
         Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
         Log.e("getTokenType()", refreshAccessToken.getTokenType());
         Log.e("getExpiry()", String.valueOf(refreshAccessToken.getExpiry()));
         Log.e("getRefreshToken()", refreshAccessToken.getRefreshToken());
         Log.e("getScope)()", refreshAccessToken.getScope());
-        Log.e("getClientID", refreshAccessToken.getClientID());
-        Log.e("getClientSecret()", refreshAccessToken.getClientSecret());
 
         if (code == 200) {
             Toast.makeText(this, getResources().getString(R.string.ready), Toast.LENGTH_SHORT).show();
