@@ -33,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LiveStreamsIntentService extends IntentService implements Callback<List<LiveStreamsOnAirP>> {
 
     String access_token;
+    String refresh_token;
     SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
     Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
@@ -49,8 +50,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
 
     private void initDownload() {
 
-        pref = getSharedPreferences("access_token", MODE_PRIVATE);
-
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -64,9 +63,11 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
                 .build();
         LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
 
-        access_token = pref.getString("access_token", access_token);
+        access_token = pref.getString("access_token",access_token);
+        refresh_token = pref.getString("refresh_token", refresh_token);
 
-        Log.e("livestreams_accesstoken", access_token);
+        Log.e("livestream_accesstoken", access_token);
+        Log.e("livestream_refreshtoken",refresh_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);

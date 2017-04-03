@@ -33,6 +33,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity implements Callback<RefreshAccessToken> {
 
+    String access_token;
+    String refresh_token;
     String encoded = BuildConfig.CLIENT_ID + ":" + BuildConfig.CLIENT_SECRET;
     String parsedCode;
     String grant_type = "authorization_code";
@@ -58,11 +60,12 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
-        pref = getSharedPreferences("access_code", MODE_PRIVATE);
+        pref = getSharedPreferences("access_token", MODE_PRIVATE);
+        pref = getSharedPreferences("refresh_token", MODE_PRIVATE);
+
         Access = (TextView) findViewById(R.id.Access);
 
-        String stored_code = pref.getString("code", code);
-        if (!TextUtils.isEmpty(stored_code)) {
+        if (!TextUtils.isEmpty(access_token)) {
 
             liveStreamsIntent = new Intent(LoginActivity.this,
                     LiveStreamsOnAirA.class);
@@ -70,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
             liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             startActivity(liveStreamsIntent);
-            Log.e("code", code);
+            Log.e("access_token", access_token);
 
         } else {
             Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
@@ -124,6 +127,12 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
+
+        access_token = pref.getString("access_token", " ");
+        refresh_token = pref.getString("refresh_token", " ");
+
+        Log.e("login_access_token", access_token);
+        Log.e("login_refresh_token", refresh_token);
 
         String encoded_id_secret = "Basic " + Base64.encodeToString(encoded.getBytes(), Base64.NO_WRAP);
         Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
