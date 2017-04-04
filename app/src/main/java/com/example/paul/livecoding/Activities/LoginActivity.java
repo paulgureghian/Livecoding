@@ -1,6 +1,7 @@
 package com.example.paul.livecoding.activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -60,8 +61,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getResources().getString(R.string.title_activity_login));
 
-        pref = getSharedPreferences("access_token", MODE_PRIVATE);
-        pref = getSharedPreferences("refresh_token", MODE_PRIVATE);
+        pref = getPreferences(Context.MODE_PRIVATE);
 
         Access = (TextView) findViewById(R.id.Access);
 
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
             liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             startActivity(liveStreamsIntent);
-            Log.e("access_token", access_token);
+            Log.e("access_token1", access_token);
 
         } else {
             Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
@@ -128,12 +128,6 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
                 .build();
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
-        access_token = pref.getString("access_token", " ");
-        refresh_token = pref.getString("refresh_token", " ");
-
-        Log.e("login_access_token", access_token);
-        Log.e("login_refresh_token", refresh_token);
-
         String encoded_id_secret = "Basic " + Base64.encodeToString(encoded.getBytes(), Base64.NO_WRAP);
         Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
         call.enqueue(this);
@@ -148,6 +142,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
 
         int code = response.code();
 
+
         Log.e("reponse", response.raw().toString());
         Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
         Log.e("getTokenType()", refreshAccessToken.getTokenType());
@@ -160,6 +155,16 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
         }
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putString("access_token", refreshAccessToken.getAccessToken());
+        editor.putString("refresh_token", refreshAccessToken.getRefreshToken());
+        editor.commit();
+
+        Log.e("access_token", refreshAccessToken.getAccessToken());
+        Log.e("refresh_token1", refreshAccessToken.getRefreshToken());
+
+        access_token = pref.getString("access_token", refreshAccessToken.getAccessToken());
     }
 
     @Override
