@@ -4,11 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -21,9 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paul.livecoding.BuildConfig;
+import com.example.paul.livecoding.MyApplication;
+import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.endpoints.TokenRefresh;
 import com.example.paul.livecoding.pojo.RefreshAccessToken;
-import com.example.paul.livecoding.R;
 import com.google.gson.GsonBuilder;
 
 import retrofit2.Call;
@@ -157,14 +156,16 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         }
         SharedPreferences.Editor editor = pref.edit();
 
-        editor.putString("access_token", refreshAccessToken.getAccessToken());
-        editor.putString("refresh_token", refreshAccessToken.getRefreshToken());
-        editor.commit();
+        MyApplication.preferences.edit().putString("access_token", refreshAccessToken.getAccessToken()).commit();
+        MyApplication.preferences.edit().putString("refresh_token", refreshAccessToken.getRefreshToken()).commit();
+
 
         Log.e("access_token", refreshAccessToken.getAccessToken());
         Log.e("refresh_token1", refreshAccessToken.getRefreshToken());
 
         access_token = pref.getString("access_token", refreshAccessToken.getAccessToken());
+
+        startActivity(new Intent(LoginActivity.this, com.example.paul.livecoding.activities.LiveStreamsOnAirA.class));
     }
 
     @Override

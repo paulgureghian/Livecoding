@@ -7,22 +7,30 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.paul.livecoding.BuildConfig;
+import com.example.paul.livecoding.MyApplication;
+import com.example.paul.livecoding.R;
 import com.example.paul.livecoding.database.StreamsColumns;
 import com.example.paul.livecoding.database.StreamsProvider;
 import com.example.paul.livecoding.deserializers.LiveStreamsOnAirD;
 import com.example.paul.livecoding.endpoints.LiveStreamsOnAirE;
+import com.example.paul.livecoding.endpoints.TokenRefresh;
 import com.example.paul.livecoding.eventbus.Reload;
 import com.example.paul.livecoding.pojo.LiveStreamsOnAirP;
-import com.example.paul.livecoding.R;
+import com.example.paul.livecoding.pojo.RefreshAccessToken;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import okhttp3.Authenticator;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +54,40 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     protected void onHandleIntent(Intent intent) {
 
         initDownload();
+
+        access_token = MyApplication.preferences.getString("access_token",access_token);
+        refresh_token = MyApplication.preferences.getString("refresh_token", refresh_token);
+
+    }
+
+    public class TokenAuthenticator implements Authenticator {
+
+        @Override
+        public Request authenticate(Route route, okhttp3.Response response) throws IOException {
+
+            // If the request fails with 401, call getRefreshAccessToken() to renew the access_token
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://www.liveedu.tv/")
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                    .build();
+
+            TokenRefresh service = retrofit.create(TokenRefresh.class);
+
+            Call<RefreshAccessToken> call = service.getRefreshAccessToken(refresh_token, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET,"http://localhost","refresh_token");
+            RefreshAccessToken refreshAccessToken = call.execute().body();
+
+            // Add new header to rejected request and retry it
+            if (refreshAccessToken != null) {
+                access_token = refreshAccessToken.getAccessToken();
+            }
+
+            // Add a custom Authorization header with the new access token to the request. This should fix the issue
+            return response.request().newBuilder()
+                    .header("Authorization", "Bearer " + access_token)
+                    .build();
+        }
+
     }
 
     private void initDownload() {
@@ -55,6 +97,9 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
+        // Add a custom OkHttp3 Authenticator to the request
+        httpClient.authenticator(new TokenAuthenticator());
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.liveedu.tv/")
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(
@@ -63,8 +108,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
                 .build();
         LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
 
-        access_token = pref.getString("access_token",access_token);
-        refresh_token = pref.getString("refresh_token", refresh_token);
+        access_token = MyApplication.preferences.getString("access_token",access_token);
+        refresh_token = MyApplication.preferences.getString("refresh_token", refresh_token);
 
         Log.e("livestream_accesstoken", access_token);
         Log.e("livestream_refreshtoken",refresh_token);
