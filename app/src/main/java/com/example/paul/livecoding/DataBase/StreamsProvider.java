@@ -10,9 +10,9 @@ import net.simonvt.schematic.annotation.TableEndpoint;
 @ContentProvider(authority = StreamsProvider.AUTHORITY, database = StreamsDataBase.class)
 public class StreamsProvider {
 
-    public static final String AUTHORITY = "com.example.paul.livecoding.DataBase.StreamsProvider";
+    public static final String AUTHORITY = "com.example.paul.livecoding.database.StreamsProvider";
 
-    static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
     interface Path {
         String STREAMS = "streams";

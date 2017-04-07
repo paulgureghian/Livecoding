@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.paul.livecoding.sharedprefs.Prefs;
 import com.example.paul.livecoding.BuildConfig;
 import com.example.paul.livecoding.endpoints.TokenRefresh;
 import com.example.paul.livecoding.pojo.RefreshAccessToken;
@@ -142,7 +143,6 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
 
         int code = response.code();
 
-
         Log.e("reponse", response.raw().toString());
         Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
         Log.e("getTokenType()", refreshAccessToken.getTokenType());
@@ -157,14 +157,15 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         }
         SharedPreferences.Editor editor = pref.edit();
 
-        editor.putString("access_token", refreshAccessToken.getAccessToken());
-        editor.putString("refresh_token", refreshAccessToken.getRefreshToken());
-        editor.commit();
+        Prefs.preferences.edit().putString("access_token", refreshAccessToken.getAccessToken()).commit();
+        Prefs.preferences.edit().putString("refresh_token",refreshAccessToken.getRefreshToken()).commit();
 
         Log.e("access_token", refreshAccessToken.getAccessToken());
         Log.e("refresh_token1", refreshAccessToken.getRefreshToken());
 
         access_token = pref.getString("access_token", refreshAccessToken.getAccessToken());
+
+        startActivity(new Intent(LoginActivity.this, com.example.paul.livecoding.activities.LiveStreamsOnAirA.class));
     }
 
     @Override

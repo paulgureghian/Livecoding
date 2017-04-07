@@ -60,15 +60,15 @@ public class StreamsColumns {
     public static final String VIEWERS_LIVE = "viewers_live";
 
     @DataType(DataType.Type.TEXT)
-    @NotNull
+
     public static final String VIEWING_URLS1 = "viewing_urls1";
 
     @DataType(DataType.Type.TEXT)
-    @NotNull
+
     public static final String VIEWING_URLS2 = "viewing_urls2";
 
     @DataType(DataType.Type.TEXT)
-    @NotNull
+
     public static final String VIEWING_URLS3 = "viewing_urls3";
 
     @DataType(DataType.Type.TEXT)
