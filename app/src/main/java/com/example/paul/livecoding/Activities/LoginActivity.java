@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
         }
-        SharedPreferences.Editor editor = pref.edit();
+       // SharedPreferences.Editor editor = pref.edit();
 
         Prefs.preferences.edit().putString("access_token", refreshAccessToken.getAccessToken()).commit();
         Prefs.preferences.edit().putString("refresh_token",refreshAccessToken.getRefreshToken()).commit();
