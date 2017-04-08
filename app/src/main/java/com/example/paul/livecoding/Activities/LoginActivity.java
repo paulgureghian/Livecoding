@@ -66,20 +66,6 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
 
         Access = (TextView) findViewById(R.id.Access);
 
-        if (!TextUtils.isEmpty(access_token)) {
-
-            liveStreamsIntent = new Intent(LoginActivity.this,
-                    LiveStreamsOnAirA.class);
-
-            liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            startActivity(liveStreamsIntent);
-            Log.e("access_token1", access_token);
-
-        } else {
-            Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
-        }
-
         auth = (Button) findViewById(R.id.auth);
         auth.setOnClickListener(new View.OnClickListener() {
 
@@ -108,6 +94,21 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
                             Uri uri = Uri.parse(url);
                             parsedCode = uri.getQueryParameter("code");
                             getNewAccessToken();
+
+                            Prefs.preferences.edit().putString("parsed_code", parsedCode).commit();
+
+                            if (!TextUtils.isEmpty(parsedCode)) {
+
+                                liveStreamsIntent = new Intent(LoginActivity.this,
+                                        LiveStreamsOnAirA.class);
+
+                                liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                startActivity(liveStreamsIntent);
+
+                            } else {
+                                Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
+                            }
 
                             Log.e("url", url);
                             Log.e("parsedcode", parsedCode);
@@ -155,17 +156,18 @@ public class LoginActivity extends AppCompatActivity implements Callback<Refresh
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
         }
-       // SharedPreferences.Editor editor = pref.edit();
+
+        access_token = pref.getString("access_token", refreshAccessToken.getAccessToken());
+        refresh_token = pref.getString("refresh_token", refreshAccessToken.getRefreshToken());
+
 
         Prefs.preferences.edit().putString("access_token", refreshAccessToken.getAccessToken()).commit();
-        Prefs.preferences.edit().putString("refresh_token",refreshAccessToken.getRefreshToken()).commit();
+        Prefs.preferences.edit().putString("refresh_token", refreshAccessToken.getRefreshToken()).commit();
 
         Log.e("access_token", refreshAccessToken.getAccessToken());
         Log.e("refresh_token1", refreshAccessToken.getRefreshToken());
 
-        access_token = pref.getString("access_token", refreshAccessToken.getAccessToken());
 
-        startActivity(new Intent(LoginActivity.this, com.example.paul.livecoding.activities.LiveStreamsOnAirA.class));
     }
 
     @Override
