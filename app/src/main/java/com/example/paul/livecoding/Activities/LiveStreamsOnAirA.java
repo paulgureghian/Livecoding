@@ -208,6 +208,15 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
 
         int code = response.code();
 
+        access_token = refreshAccessToken.getAccessToken();
+        refresh_token = refreshAccessToken.getRefreshToken();
+
+        Prefs.preferences.edit().putString("access_token", access_token).commit();
+        Prefs.preferences.edit().putString("refresh_token", refresh_token).commit();
+
+        Log.e("access_token", access_token);
+        Log.e("refresh_token", refresh_token);
+
         Log.e("reponse", response.raw().toString());
         Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
         Log.e("getTokenType()", refreshAccessToken.getTokenType());
@@ -220,15 +229,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
         }
-
-        Prefs.preferences.edit().putString("access_token", refreshAccessToken.getAccessToken()).commit();
-        Prefs.preferences.edit().putString("refresh_token", refreshAccessToken.getRefreshToken()).commit();
-
-
-
-
-        Log.e("access_token", refreshAccessToken.getAccessToken());
-        Log.e("refresh_token", refreshAccessToken.getRefreshToken());
     }
 
     @Override
