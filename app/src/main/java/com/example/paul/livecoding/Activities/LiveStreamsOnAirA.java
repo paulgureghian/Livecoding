@@ -18,30 +18,59 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.paul.livecoding.BuildConfig;
 import com.example.paul.livecoding.adapter.StreamsAdapter;
 import com.example.paul.livecoding.database.StreamsColumns;
 import com.example.paul.livecoding.database.StreamsProvider;
+import com.example.paul.livecoding.endpoints.TokenRefresh;
 import com.example.paul.livecoding.eventbus.Reload;
 import com.example.paul.livecoding.R;
+import com.example.paul.livecoding.pojo.RefreshAccessToken;
 import com.example.paul.livecoding.recyclerviewlistener.RecyclerViewItemClickListener;
 import com.example.paul.livecoding.service.LiveStreamsIntentService;
+import com.example.paul.livecoding.sharedprefs.Prefs;
 import com.example.paul.livecoding.widget.Widget;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.gson.GsonBuilder;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+import java.io.IOException;
 
+import okhttp3.Authenticator;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Route;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+
+
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<RefreshAccessToken>, LoaderManager.LoaderCallbacks<Cursor> {
+
+    String access_token;
+    String refresh_token;
+    String parsedCode;
+    String encoded = BuildConfig.CLIENT_ID + ":" + BuildConfig.CLIENT_SECRET;
+    String grant_type = "authorization_code";
+    String redirect_uri = "http://localhost";
     Intent intent;
     Cursor mCursor;
     Context context;
@@ -72,6 +101,9 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+
+        parsedCode = Prefs.preferences.getString("parsed_code", parsedCode);
+        Log.e("parsed_code1", parsedCode);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
@@ -116,6 +148,95 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements LoaderManage
                         }
                     }));
         }
+    }
+
+/*    private class TokenAuthenticator implements Authenticator {
+
+        @Override
+        public Request authenticate(Route route, okhttp3.Response response) throws IOException {
+
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addInterceptor(logging);
+            httpClient.authenticator(new TokenAuthenticator());
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://www.liveedu.tv/")
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                    .build();
+
+            TokenRefresh service = retrofit.create(TokenRefresh.class);
+
+            Call<RefreshAccessToken> call = service.getRefreshAccessToken(refresh_token, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, "http://localhost",
+                    "refresh_token");
+            RefreshAccessToken refreshAccessToken = call.execute().body();
+
+            Log.e("access_token1", access_token);
+            Log.e("refresh_token1", refresh_token);
+
+
+            if (refreshAccessToken != null) {
+                access_token = refreshAccessToken.getAccessToken();
+            }
+            return response.request().newBuilder()
+                    .header("Authorization", "Bearer " + access_token)
+                    .build();
+        }
+    }
+*/
+
+    public void getNewAccessToken() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://www.liveedu.tv/")
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .build();
+        TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
+
+        String encoded_id_secret = "Basic " + Base64.encodeToString(encoded.getBytes(), Base64.NO_WRAP);
+        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
+        call.enqueue(this);
+    }
+
+    @Override
+    public void onResponse(Call<RefreshAccessToken> call, Response<RefreshAccessToken> response) {
+
+        RefreshAccessToken refreshAccessToken;
+
+        refreshAccessToken = response.body();
+
+        int code = response.code();
+
+        Log.e("reponse", response.raw().toString());
+        Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
+        Log.e("getTokenType()", refreshAccessToken.getTokenType());
+        Log.e("getExpiry()", String.valueOf(refreshAccessToken.getExpiry()));
+        Log.e("getRefreshToken()", refreshAccessToken.getRefreshToken());
+        Log.e("getScope)()", refreshAccessToken.getScope());
+
+        if (code == 200) {
+            Toast.makeText(this, getResources().getString(R.string.ready), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+        }
+
+        Prefs.preferences.edit().putString("access_token", refreshAccessToken.getAccessToken()).commit();
+        Prefs.preferences.edit().putString("refresh_token", refreshAccessToken.getRefreshToken()).commit();
+
+
+
+
+        Log.e("access_token", refreshAccessToken.getAccessToken());
+        Log.e("refresh_token", refreshAccessToken.getRefreshToken());
+    }
+
+    @Override
+    public void onFailure(Call<RefreshAccessToken> call, Throwable t) {
+        t.printStackTrace();
+
+        Log.e("onfailure", t.getMessage());
+        Toast.makeText(this, getResources().getString(R.string.failed), Toast.LENGTH_SHORT).show();
     }
 
     @Override

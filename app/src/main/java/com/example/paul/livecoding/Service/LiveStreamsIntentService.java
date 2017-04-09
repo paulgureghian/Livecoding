@@ -3,34 +3,25 @@ package com.example.paul.livecoding.service;
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.paul.livecoding.BuildConfig;
 import com.example.paul.livecoding.database.StreamsColumns;
 import com.example.paul.livecoding.database.StreamsProvider;
 import com.example.paul.livecoding.deserializers.LiveStreamsOnAirD;
 import com.example.paul.livecoding.endpoints.LiveStreamsOnAirE;
-import com.example.paul.livecoding.endpoints.TokenRefresh;
 import com.example.paul.livecoding.eventbus.Reload;
 import com.example.paul.livecoding.pojo.LiveStreamsOnAirP;
 import com.example.paul.livecoding.R;
-import com.example.paul.livecoding.pojo.RefreshAccessToken;
-import com.example.paul.livecoding.sharedprefs.Prefs;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import okhttp3.Authenticator;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,8 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LiveStreamsIntentService extends IntentService implements Callback<List<LiveStreamsOnAirP>> {
 
     String access_token;
-    String refresh_token;
-    SharedPreferences pref;
     List<LiveStreamsOnAirP> items;
     public Type listType = new TypeToken<List<LiveStreamsOnAirP>>() {}.getType();
 
@@ -54,34 +43,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     protected void onHandleIntent(Intent intent) {
 
         initDownload();
-
-        access_token = Prefs.preferences.getString("access_token", access_token);
-        refresh_token = Prefs.preferences.getString("refresh_token", refresh_token);
-    }
-
-    private class TokenAuthenticator implements Authenticator {
-
-        @Override
-        public Request authenticate(Route route, okhttp3.Response response) throws IOException {
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://www.liveedu.tv/")
-                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                    .build();
-
-            TokenRefresh service = retrofit.create(TokenRefresh.class);
-
-            Call<RefreshAccessToken> call = service.getRefreshAccessToken(refresh_token, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, "http://localhost",
-                    "refresh_token");
-            RefreshAccessToken refreshAccessToken = call.execute().body();
-
-            if (refreshAccessToken != null) {
-                access_token = refreshAccessToken.getAccessToken();
-            }
-            return response.request().newBuilder()
-                    .header("Authorization", "Bearer " + access_token)
-                    .build();
-        }
     }
 
     private void initDownload() {
@@ -90,7 +51,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
-        httpClient.authenticator(new TokenAuthenticator());
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.liveedu.tv/")
@@ -99,12 +59,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
                 .client(httpClient.build())
                 .build();
         LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
-
-        access_token = Prefs.preferences.getString("access_token", access_token);
-        refresh_token = Prefs.preferences.getString("refresh_token", refresh_token);
-
-        Log.e("livestream_accesstoken", access_token);
-        Log.e("livestream_refreshtoken", refresh_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
