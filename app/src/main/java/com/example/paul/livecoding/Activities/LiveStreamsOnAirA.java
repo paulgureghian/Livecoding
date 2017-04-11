@@ -48,16 +48,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
-
-import okhttp3.Authenticator;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Route;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-
-
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -150,41 +141,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
         }
     }
 
-/*    private class TokenAuthenticator implements Authenticator {
-
-        @Override
-        public Request authenticate(Route route, okhttp3.Response response) throws IOException {
-
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addInterceptor(logging);
-            httpClient.authenticator(new TokenAuthenticator());
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://www.liveedu.tv/")
-                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                    .build();
-
-            TokenRefresh service = retrofit.create(TokenRefresh.class);
-
-            Call<RefreshAccessToken> call = service.getRefreshAccessToken(refresh_token, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, "http://localhost",
-                    "refresh_token");
-            RefreshAccessToken refreshAccessToken = call.execute().body();
-
-            Log.e("access_token1", access_token);
-            Log.e("refresh_token1", refresh_token);
-
-
-            if (refreshAccessToken != null) {
-                access_token = refreshAccessToken.getAccessToken();
-            }
-            return response.request().newBuilder()
-                    .header("Authorization", "Bearer " + access_token)
-                    .build();
-        }
-    }
-*/
 
     public void getNewAccessToken() {
 
