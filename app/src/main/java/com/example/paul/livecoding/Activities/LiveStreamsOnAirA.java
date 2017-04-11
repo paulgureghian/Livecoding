@@ -95,6 +95,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
 
         parsedCode = Prefs.preferences.getString("parsed_code", parsedCode);
         Log.e("parsed_code1", parsedCode);
+        getNewAccessToken();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
@@ -135,12 +136,12 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
                             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
                             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
+
                             context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LiveStreamsOnAirA.this).toBundle());
                         }
                     }));
         }
     }
-
 
     public void getNewAccessToken() {
 
@@ -164,6 +165,13 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
 
         int code = response.code();
 
+        Log.e("reponse", response.raw().toString());
+        Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
+        Log.e("getTokenType()", refreshAccessToken.getTokenType());
+        Log.e("getExpiry()", String.valueOf(refreshAccessToken.getExpiry()));
+        Log.e("getRefreshToken()", refreshAccessToken.getRefreshToken());
+        Log.e("getScope)()", refreshAccessToken.getScope());
+
         access_token = refreshAccessToken.getAccessToken();
         refresh_token = refreshAccessToken.getRefreshToken();
 
@@ -173,12 +181,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
         Log.e("access_token", access_token);
         Log.e("refresh_token", refresh_token);
 
-        Log.e("reponse", response.raw().toString());
-        Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
-        Log.e("getTokenType()", refreshAccessToken.getTokenType());
-        Log.e("getExpiry()", String.valueOf(refreshAccessToken.getExpiry()));
-        Log.e("getRefreshToken()", refreshAccessToken.getRefreshToken());
-        Log.e("getScope)()", refreshAccessToken.getScope());
 
         if (code == 200) {
             Toast.makeText(this, getResources().getString(R.string.ready), Toast.LENGTH_SHORT).show();

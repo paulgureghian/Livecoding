@@ -52,22 +52,12 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
     protected void onHandleIntent(Intent intent) {
 
         initDownload();
-
-        access_token = Prefs.preferences.getString("access_token", access_token);
-        refresh_token = Prefs.preferences.getString("refresh_token", refresh_token);
-
     }
 
        private class TokenAuthenticator implements Authenticator {
 
         @Override
         public Request authenticate(Route route, okhttp3.Response response) throws IOException {
-
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            httpClient.addInterceptor(logging);
-
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://www.liveedu.tv/")
@@ -79,10 +69,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
             Call<RefreshAccessToken> call = service.getRefreshAccessToken(refresh_token, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, "http://localhost",
                     "refresh_token");
             RefreshAccessToken refreshAccessToken = call.execute().body();
-
-            Log.e("access_token1", access_token);
-            Log.e("refresh_token1", refresh_token);
-
 
             if (refreshAccessToken != null) {
                 access_token = refreshAccessToken.getAccessToken();
@@ -112,6 +98,8 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         access_token = Prefs.preferences.getString("access_token", access_token);
         refresh_token = Prefs.preferences.getString("refresh_token", refresh_token);
 
+        Log.e("access_token1", access_token);
+        Log.e("refresh_token1", refresh_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
