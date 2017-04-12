@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.EMVideoView;
@@ -102,8 +103,13 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
             String stream_url = mCursor.getString(columnIndex);
 
             emVideoView.setOnPreparedListener(this);
-            emVideoView.setVideoURI(Uri.parse(stream_url));
-            Log.e("streamurl", stream_url);
+
+            if (stream_url != null) {
+                emVideoView.setVideoURI(Uri.parse(stream_url));
+                Log.e("streamurl", stream_url);
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+            }
 
             DatabaseUtils.dumpCursor(mCursor);
             DatabaseUtils.dumpCursor(data);
