@@ -21,6 +21,7 @@ import com.example.paul.livecoding.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+    Dialog auth_dialog;
     String access_token;
     String refresh_token;
     String parsedCode;
@@ -48,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = (Button) findViewById(R.id.auth);
         auth.setOnClickListener(new View.OnClickListener() {
-
-            Dialog auth_dialog;
 
             @Override
             public void onClick(View arg0) {
@@ -95,10 +94,19 @@ public class LoginActivity extends AppCompatActivity {
                         return false;
                     }
                 });
-
                 webView.loadUrl(OAUTH_URL);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (auth_dialog != null) {
+            auth_dialog.dismiss();
+            auth_dialog = null;
+        }
     }
 }
 

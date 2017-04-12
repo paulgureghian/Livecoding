@@ -54,7 +54,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         initDownload();
     }
 
-       private class TokenAuthenticator implements Authenticator {
+    private class TokenAuthenticator implements Authenticator {
 
         @Override
         public Request authenticate(Route route, okhttp3.Response response) throws IOException {
@@ -69,6 +69,12 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
             Call<RefreshAccessToken> call = service.getRefreshAccessToken(refresh_token, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, "http://localhost",
                     "refresh_token");
             RefreshAccessToken refreshAccessToken = call.execute().body();
+
+            access_token = Prefs.preferences.getString("access_token", access_token);
+            refresh_token = Prefs.preferences.getString("refresh_token", refresh_token);
+
+            Log.e("access_token1", access_token);
+            Log.e("refresh_token1", refresh_token);
 
             if (refreshAccessToken != null) {
                 access_token = refreshAccessToken.getAccessToken();
@@ -94,12 +100,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
                 .client(httpClient.build())
                 .build();
         LiveStreamsOnAirE liveStreams_onAir = retrofit.create(LiveStreamsOnAirE.class);
-
-        access_token = Prefs.preferences.getString("access_token", access_token);
-        refresh_token = Prefs.preferences.getString("refresh_token", refresh_token);
-
-        Log.e("access_token1", access_token);
-        Log.e("refresh_token1", refresh_token);
 
         Call<List<LiveStreamsOnAirP>> call = liveStreams_onAir.getData(access_token);
         call.enqueue(this);
@@ -155,7 +155,6 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
         }
-
         EventBus.getDefault().post(new Reload());
     }
 
