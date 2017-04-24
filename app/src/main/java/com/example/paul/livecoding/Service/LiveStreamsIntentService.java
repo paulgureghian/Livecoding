@@ -136,7 +136,7 @@ public class LiveStreamsIntentService extends IntentService implements Callback<
                 contentValues.put(StreamsColumns.VIEWING_URLS1, item.getViewingUrls().get(0));
                 contentValues.put(StreamsColumns.VIEWING_URLS2, item.getViewingUrls().get(1));
                 contentValues.put(StreamsColumns.VIEWING_URLS3, item.getViewingUrls().get(2));
-            }else {
+            } else {
                 Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
             }
 

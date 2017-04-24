@@ -15,9 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.paul.livecoding.sharedprefs.Prefs;
 import com.example.paul.livecoding.BuildConfig;
 import com.example.paul.livecoding.R;
+
+import static com.example.paul.livecoding.sharedprefs.Prefs.preferences;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -47,6 +48,12 @@ public class LoginActivity extends AppCompatActivity {
 
         Access = (TextView) findViewById(R.id.Access);
 
+        if (preferences.getString("parsed_code", parsedCode) != null) {
+
+            startActivity(liveStreamsIntent);
+            Log.e("parsedcode2", parsedCode);
+        }
+
         auth = (Button) findViewById(R.id.auth);
         auth.setOnClickListener(new View.OnClickListener() {
 
@@ -73,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                             Uri uri = Uri.parse(url);
                             parsedCode = uri.getQueryParameter("code");
 
-                            Prefs.preferences.edit().putString("parsed_code", parsedCode).commit();
+                            preferences.edit().putString("parsed_code", parsedCode).commit();
 
                             if (!TextUtils.isEmpty(parsedCode)) {
 
