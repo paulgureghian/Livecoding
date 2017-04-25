@@ -48,8 +48,11 @@ public class LoginActivity extends AppCompatActivity {
 
         Access = (TextView) findViewById(R.id.Access);
 
-        if (preferences.getString("parsed_code", parsedCode) != null) {
+        liveStreamsIntent = new Intent(LoginActivity.this,
+                LiveStreamsOnAirA.class);
+        liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        if (preferences.getString("parsed_code", parsedCode) != null) {
             startActivity(liveStreamsIntent);
             Log.e("parsedcode2", parsedCode);
         }
@@ -83,11 +86,6 @@ public class LoginActivity extends AppCompatActivity {
                             preferences.edit().putString("parsed_code", parsedCode).commit();
 
                             if (!TextUtils.isEmpty(parsedCode)) {
-
-                                liveStreamsIntent = new Intent(LoginActivity.this,
-                                        LiveStreamsOnAirA.class);
-
-                                liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                                 startActivity(liveStreamsIntent);
 
