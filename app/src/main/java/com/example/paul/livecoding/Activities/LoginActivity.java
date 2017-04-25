@@ -22,6 +22,7 @@ import static com.example.paul.livecoding.sharedprefs.Prefs.preferences;
 
 public class LoginActivity extends AppCompatActivity {
 
+    String parsedCode2;
     Dialog auth_dialog;
     String access_token;
     String refresh_token;
@@ -52,9 +53,10 @@ public class LoginActivity extends AppCompatActivity {
                 LiveStreamsOnAirA.class);
         liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        if (preferences.getString("parsed_code", parsedCode) != null) {
+        parsedCode2 = preferences.getString("parsed_code", parsedCode);
+        if (parsedCode2 != null) {
+            Log.e("parsedcode2", parsedCode2);
             startActivity(liveStreamsIntent);
-            Log.e("parsedcode2", parsedCode);
         }
 
         auth = (Button) findViewById(R.id.auth);
