@@ -54,9 +54,11 @@ public class LoginActivity extends AppCompatActivity {
         liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
         parsedCode2 = preferences.getString("parsed_code", parsedCode);
+        preferences.edit().putString("parsed_code", parsedCode2).commit();
+
         if (parsedCode2 != null) {
-            Log.e("parsedcode2", parsedCode2);
             startActivity(liveStreamsIntent);
+            Log.e("parsedcode2", parsedCode2);
         }
 
         auth = (Button) findViewById(R.id.auth);

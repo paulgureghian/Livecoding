@@ -59,6 +59,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
     String access_token;
     String refresh_token;
     String parsedCode;
+    String parsedCode2;
     String encoded = BuildConfig.CLIENT_ID + ":" + BuildConfig.CLIENT_SECRET;
     String grant_type = "authorization_code";
     String redirect_uri = "http://localhost";
@@ -92,6 +93,9 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+
+        parsedCode2 = Prefs.preferences.getString("parsed_code", parsedCode2);
+        Log.e("parsed_code_lsoa", parsedCode2);
 
         parsedCode = Prefs.preferences.getString("parsed_code", parsedCode);
         Log.e("parsed_code1", parsedCode);
@@ -152,7 +156,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
         String encoded_id_secret = "Basic " + Base64.encodeToString(encoded.getBytes(), Base64.NO_WRAP);
-        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
+        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode2, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
         call.enqueue(this);
     }
 
@@ -160,7 +164,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
     public void onResponse(Call<RefreshAccessToken> call, Response<RefreshAccessToken> response) {
 
         RefreshAccessToken refreshAccessToken;
-
         refreshAccessToken = response.body();
 
         int code = response.code();
