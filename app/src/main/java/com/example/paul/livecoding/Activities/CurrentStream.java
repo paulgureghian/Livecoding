@@ -108,7 +108,7 @@ public class CurrentStream extends AppCompatActivity implements LoaderManager.Lo
                 emVideoView.setVideoURI(Uri.parse(stream_url));
                 Log.e("streamurl", stream_url);
             } else {
-                Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.stream_unavailable), Toast.LENGTH_SHORT).show();
             }
 
             DatabaseUtils.dumpCursor(mCursor);

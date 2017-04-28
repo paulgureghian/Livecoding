@@ -59,7 +59,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
     String access_token;
     String refresh_token;
     String parsedCode;
-    String parsedCode2;
     String encoded = BuildConfig.CLIENT_ID + ":" + BuildConfig.CLIENT_SECRET;
     String grant_type = "authorization_code";
     String redirect_uri = "http://localhost";
@@ -93,9 +92,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
-
-        parsedCode2 = Prefs.preferences.getString("parsed_code", parsedCode2);
-        Log.e("parsed_code_lsoa", parsedCode2);
 
         parsedCode = Prefs.preferences.getString("parsed_code", parsedCode);
         Log.e("parsed_code1", parsedCode);
@@ -140,7 +136,6 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
                             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
                             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
-
                             context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LiveStreamsOnAirA.this).toBundle());
                         }
                     }));
@@ -156,7 +151,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
         TokenRefresh tokenRefresh = retrofit.create(TokenRefresh.class);
 
         String encoded_id_secret = "Basic " + Base64.encodeToString(encoded.getBytes(), Base64.NO_WRAP);
-        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode2, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
+        Call<RefreshAccessToken> call = tokenRefresh.getNewAccessToken(parsedCode, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, encoded_id_secret, redirect_uri, grant_type);
         call.enqueue(this);
     }
 
@@ -169,7 +164,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
         int code = response.code();
 
         Log.e("reponse", response.raw().toString());
-        Log.e("getAcessToken()", refreshAccessToken.getAccessToken());
+        Log.e("getAccessToken()", refreshAccessToken.getAccessToken());
         Log.e("getTokenType()", refreshAccessToken.getTokenType());
         Log.e("getExpiry()", String.valueOf(refreshAccessToken.getExpiry()));
         Log.e("getRefreshToken()", refreshAccessToken.getRefreshToken());
@@ -184,11 +179,10 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
         Log.e("access_token", access_token);
         Log.e("refresh_token", refresh_token);
 
-
         if (code == 200) {
-            Toast.makeText(this, getResources().getString(R.string.ready), Toast.LENGTH_SHORT).show();
+
         } else {
-            Toast.makeText(this, getResources().getString(R.string.no_connection_made), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.live_streams_on_air_1), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -259,7 +253,7 @@ public class LiveStreamsOnAirA extends AppCompatActivity implements Callback<Ref
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReloadComplete(Reload event) {
         stopReload();
-        Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.reload_complete), Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

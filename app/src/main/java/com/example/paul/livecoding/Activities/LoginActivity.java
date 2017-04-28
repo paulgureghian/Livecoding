@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -17,12 +16,12 @@ import android.widget.Toast;
 
 import com.example.paul.livecoding.BuildConfig;
 import com.example.paul.livecoding.R;
+import com.example.paul.livecoding.sharedprefs.Prefs;
 
 import static com.example.paul.livecoding.sharedprefs.Prefs.preferences;
 
 public class LoginActivity extends AppCompatActivity {
 
-    String parsedCode2;
     Dialog auth_dialog;
     String access_token;
     String refresh_token;
@@ -53,13 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 LiveStreamsOnAirA.class);
         liveStreamsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        parsedCode2 = preferences.getString("parsed_code", parsedCode);
-        preferences.edit().putString("parsed_code", parsedCode2).commit();
-
-        if (parsedCode2 != null) {
-            startActivity(liveStreamsIntent);
-            Log.e("parsedcode2", parsedCode2);
-        }
+        refresh_token = Prefs.preferences.getString("refresh_token", refresh_token);
 
         auth = (Button) findViewById(R.id.auth);
         auth.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +82,14 @@ public class LoginActivity extends AppCompatActivity {
 
                             preferences.edit().putString("parsed_code", parsedCode).commit();
 
-                            if (!TextUtils.isEmpty(parsedCode)) {
+                            if (refresh_token != null && !refresh_token.isEmpty()) {
 
                                 startActivity(liveStreamsIntent);
+                         //   }
+
+                          //  if (parsedCode != null) {
+
+                            //    startActivity(liveStreamsIntent);
 
                             } else {
                                 Toast.makeText(LoginActivity.this, getString(R.string.authorize), Toast.LENGTH_SHORT).show();
@@ -99,10 +97,12 @@ public class LoginActivity extends AppCompatActivity {
 
                             Log.e("url", url);
                             Log.e("parsedcode", parsedCode);
+                            Log.e("refresh_token_2", refresh_token);
                         }
                         return false;
                     }
                 });
+
                 webView.loadUrl(OAUTH_URL);
             }
         });
@@ -118,13 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-
-
-
-
-
-
-
 
 
 
